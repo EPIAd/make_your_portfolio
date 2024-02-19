@@ -2,28 +2,28 @@ const qnaList = [
   {
     q: '1. 둘 중 하나만 투자한다면?',
     a: [
-      { answer: 'a. 금 (93.85%)', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
-      { answer: 'b. 비트코인 (49.95%)', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
+      { answer: 'a. 금', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
+      { answer: 'b. 비트코인', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
     ]
   },
   {
     q: '2. 둘 중 하나만 투자한다면?',
     a: [
-      { answer: 'a. 미국 국채 (39.07%)', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
+      { answer: 'a. 미국 국채', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
       { answer: 'b. 테슬라', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
     ]
   },
   {
     q: '3. 둘 중 하나만 투자한다면?',
     a: [
-      { answer: 'a. 금 (93.85%)', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
-      { answer: 'b. 유가 (85.75%)', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
+      { answer: 'a. 금', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
+      { answer: 'b. 유가', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
     ]
   },
   {
     q: '4. 둘 중 하나만 투자한다면?',
     a: [
-      { answer: 'a. S&P 500 (58.47%)', score: 0, score5: 0, score2: 0, score3: 0, score4: 0 },
+      { answer: 'a. S&P 500', score: 0, score5: 0, score2: 0, score3: 0, score4: 0 },
       { answer: 'b. 나스닥', score: 10, score5: 1, score2: 0, score3: 0, score4: 0 }
     ]
   },
@@ -65,8 +65,8 @@ const qnaList = [
   {
     q: '10. 둘 중 하나만 투자한다면?',
     a: [
-      { answer: 'a. 한국 3년 만기 국고채(금리 3.2%)', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
-      { answer: 'b. 브라질 3년 만기 국채(금리 11.5%)', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
+      { answer: 'a. 한국 3년 만기 국고채', score: 0, score2: 0, score3: 0, score4: 0, score5: 0 },
+      { answer: 'b. 브라질 3년 만기 국채', score: 10, score2: 0, score3: 0, score4: 0, score5: 0 }
     ]
   },
   {
@@ -100,20 +100,20 @@ const qnaList = [
   {
     q: '15. 주식 자산 중 투자하고 싶은 지역은?',
     a: [
-      { answer: 'a. 글로벌 (33.38%)', score3: 0, score: 0, score2: 0, score4: 0, score5: 0 },
-      { answer: 'b. 한국 (10.78%)', score3: 1, score: 0, score2: 0, score4: 0, score5: 0 },
-      { answer: 'c. 미국 (58.47%)', score3: 2, score: 0, score2: 0, score4: 0, score5: 0 },
-      { answer: 'd. 중국 (11.83%)', score3: 3, score: 0, score2: 0, score4: 0, score5: 0 },
-      { answer: 'e. 유럽 (52.44%)', score3: 4, score: 0, score2: 0, score4: 0, score5: 0 }
+      { answer: 'a. 글로벌', score3: 0, score: 0, score2: 0, score4: 0, score5: 0 },
+      { answer: 'b. 한국', score3: 1, score: 0, score2: 0, score4: 0, score5: 0 },
+      { answer: 'c. 미국', score3: 2, score: 0, score2: 0, score4: 0, score5: 0 },
+      { answer: 'd. 중국', score3: 3, score: 0, score2: 0, score4: 0, score5: 0 },
+      { answer: 'e. 유럽', score3: 4, score: 0, score2: 0, score4: 0, score5: 0 }
     ]
   },
   {
     q: '16. 추가적으로 투자하고 싶은 대체자산은?',
     a: [
-      { answer: 'a. 금 (93.85%)', score4: 0, score: 0, score2: 0, score3: 0, score5: 0 },
-      { answer: 'b. 부동산 (5.11%)', score4: 1, score: 0, score2: 0, score3: 0, score5: 0 },
-      { answer: 'c. 원유 (85.75%)', score4: 2, score: 0, score2: 0, score3: 0, score5: 0 },
-      { answer: 'd. 비트코인 (49.95%)', score4: 3, score: 0, score2: 0, score3: 0, score5: 0 }
+      { answer: 'a. 금', score4: 0, score: 0, score2: 0, score3: 0, score5: 0 },
+      { answer: 'b. 부동산', score4: 1, score: 0, score2: 0, score3: 0, score5: 0 },
+      { answer: 'c. 원유', score4: 2, score: 0, score2: 0, score3: 0, score5: 0 },
+      { answer: 'd. 비트코인', score4: 3, score: 0, score2: 0, score3: 0, score5: 0 }
     ]
   }
 ]
