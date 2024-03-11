@@ -1,3 +1,9 @@
+#desc-box {
+    display: none;
+}
+
+
+
 /* result로 넘어갈 때 display: block; */
 #result {
   display: none;
