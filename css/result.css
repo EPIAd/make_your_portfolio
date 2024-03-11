@@ -58,6 +58,7 @@
   animation: fade-in 0.3s ease-out 3.2s both, 
           going-down 0.3s ease-out 3.2s both;
   opacity: 0;
+  display: none;
 }
 .art > img {
   display: block;
