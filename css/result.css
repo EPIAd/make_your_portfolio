@@ -50,6 +50,7 @@
   opacity: 0;
 }
 .art {
+  display: none;
   margin-bottom: 40px;
   width: 100%;
   max-height: 600px;
@@ -58,7 +59,6 @@
   animation: fade-in 0.3s ease-out 3.2s both, 
           going-down 0.3s ease-out 3.2s both;
   opacity: 0;
-  display: none;
 }
 .art > img {
   display: block;
@@ -75,6 +75,7 @@
   animation: fade-in 0.3s ease-out 3.2s both, 
           going-down 0.3s ease-out 3.2s both;
   opacity: 0;
+  display: none;
 }
 .art2 > img {
   display: block;
