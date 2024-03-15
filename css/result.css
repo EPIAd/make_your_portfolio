@@ -120,12 +120,12 @@
 }
 #share-box {
   box-sizing: border-box;
-  margin: 25px 10% 30px 10%;
+  margin: 25px 10% 25px 10%;
   padding: 10px;
   width: 90%;
-  height: 100px;
+  height: 80px;
   border-radius: 40px;
-  background: #3376D9;
+  background: blue;
 }
 #share-box span {
   display: inline-block;
