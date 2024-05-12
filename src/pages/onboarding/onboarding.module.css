@@ -13,6 +13,7 @@
     font-weight: 400;
   }
 }
+
 .title-box {
   text-align: center;
   animation: fade-in 0.5s ease-out 0.3s both, going-down 0.5s ease-out 0.3s both;
@@ -37,7 +38,9 @@ h1 {
   font-weight: bolder;
   letter-spacing: -3.2px;
   letter-spacing: -0.2rem;
+  margin-block: 0.83em;
 }
+
 .sec-tit {
   line-height: 35.2px;
   line-height: 2.2rem;
@@ -46,6 +49,7 @@ h1 {
   font-weight: lighter;
   letter-spacing: 6.4px;
   letter-spacing: 0.4rem;
+  margin-block: 1em;
 }
 .time-logo {
   display: inline-block;
@@ -56,12 +60,12 @@ h1 {
   font-weight: lighter;
   letter-spacing: -0.5px;
 }
-hr {
+
+.w-line {
   margin: 20px 0;
   border: 1.5px dashed #222;
-}
-.w-line {
   animation: fade-in 0.4s ease-out 0.9s both, going-down 0.4s ease-out 0.9s both;
+  width: 100%;
 }
 
 .link {
