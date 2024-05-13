@@ -1,6 +1,6 @@
 import Clock from '@/assets/onboarding/clock.png';
 import styles from './onboarding.module.css';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { AGE, GENDER } from '@/shared/constants/inputs';
 import { AgeValues, GenderValues } from '@/shared/types/input';
 
@@ -14,6 +14,15 @@ type OnboardingProps = {
   handleStep: () => void;
 };
 export const Onboarding = ({ name, gender, age, handleName, handleGender, handleAge, handleStep }: OnboardingProps) => {
+  const [error, setError] = useState(false);
+
+  const onClickStart = () => {
+    if (!name) {
+      setError(true);
+      return;
+    }
+    handleStep();
+  };
   return (
     <section className={styles['welcome']}>
       <div className={styles['title-box']}>
@@ -71,9 +80,9 @@ export const Onboarding = ({ name, gender, age, handleName, handleGender, handle
           ))}
         </select>
       </div>
-      <p className={`${styles['check-name']} ${styles['warning']}`}></p>
+      {error && <p className={`${styles['check-name']} ${styles['warning']}`}>이름을 입력하고 시작해 주세요.</p>}
       <div className={styles['start-wrap']}>
-        <button className={styles['start']} onClick={handleStep}>
+        <button className={styles['start']} onClick={onClickStart}>
           시 작
         </button>
       </div>
