@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './App.module.css';
-import { Onboarding, Step } from './pages';
+import { Onboarding, Result, Step } from './pages';
 import { AGE, GENDER } from './shared/constants/inputs';
 import { AgeValues, GenderValues } from './shared/types/input';
 import { SurveyContext, useSurveyContext } from './hooks/useContext';
@@ -10,7 +10,7 @@ import { SURVEY_LENGTH } from './shared/constants/survey';
 const TEST_STEP: { [key: number]: string } = { 0: 'ONBOARDING', 1: 'STEP' };
 
 function App() {
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(0);
 
   const [name, setName] = useState('');
   const [gender, setGender] = useState<GenderValues>(GENDER[0].value);
@@ -36,7 +36,7 @@ function App() {
   return (
     <div className={styles['wrap']}>
       <SurveyContext.Provider value={scores}>
-        {TEST_STEP[step] === 'ONBOARDING' && (
+        {/* {TEST_STEP[step] === 'ONBOARDING' && (
           <Onboarding
             name={name}
             gender={gender}
@@ -49,8 +49,10 @@ function App() {
         )}
         {TEST_STEP[step] !== 'ONBOARDING' && step <= SURVEY_LENGTH && (
           <Step currStep={step} handleStep={handleStep} handleScores={handleScores} />
-        )}
-        {step > SURVEY_LENGTH && <div></div>}
+        )} */}
+        {/* {step > SURVEY_LENGTH &&  */}
+        <Result />
+        {/* } */}
       </SurveyContext.Provider>
     </div>
   );
