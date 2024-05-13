@@ -40,7 +40,7 @@ export const Result = () => {
           <p className={styles['sub']}>▼ 아래 클릭 ▼</p>
         </div>
         {/* TODO: 임시 결과 삭제 */}
-        <p>임시 결과 확인: {result}</p>
+        <p style={{ color: 'white' }}>임시 결과 확인: {result}</p>
         <button className={styles['result-button']}>결과 보러 가기</button>
 
         <p className={styles['caution']}>
