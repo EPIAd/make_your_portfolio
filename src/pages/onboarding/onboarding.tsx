@@ -1,7 +1,18 @@
 import Clock from '@/assets/onboarding/clock.png';
 import styles from './onboarding.module.css';
+import { AGE, AgeValues, GENDER, GenderValues } from '@/App';
+import { Fragment } from 'react';
 
-export const Onboarding = () => {
+type OnboardingProps = {
+  name: string;
+  gender: GenderValues;
+  age: AgeValues;
+  handleName: (name: string) => void;
+  handleGender: (gender: GenderValues) => void;
+  handleAge: (age: AgeValues) => void;
+  handleStep: () => void;
+};
+export const Onboarding = ({ name, gender, age, handleName, handleGender, handleAge, handleStep }: OnboardingProps) => {
   return (
     <section className={styles['welcome']}>
       <div className={styles['title-box']}>
@@ -31,27 +42,39 @@ export const Onboarding = () => {
       </p>
       <hr className={styles['w-line']} />
       <div className={styles['name-input']}>
-        <input type='text' placeholder='이름' autoFocus />
+        <input type='text' placeholder='이름' autoFocus value={name} onChange={(e) => handleName(e.target.value)} />
       </div>
       <div className={styles['gender-input']}>
         <div className={styles['input-label']}>성별</div>
-        <input type='radio' id='male' name='gender' value='male' checked />
-        <label htmlFor='male'>남성</label>
-        <input type='radio' id='female' name='gender' value='female' />
-        <label htmlFor='female'>여성</label>
+        {GENDER.map((item) => (
+          <Fragment key={item.value}>
+            <input
+              type='radio'
+              id={item.value}
+              name='gender'
+              value={item.value}
+              checked={gender === item.value}
+              onChange={(e) => handleGender(e.target.value as GenderValues)}
+            />
+            <label htmlFor={item.value}>{item.label}</label>
+          </Fragment>
+        ))}
       </div>
       <div className={styles['age-input']}>
         <div className={styles['input-label']}>나이</div>
-        <select>
-          <option value='under20'>20세 미만</option>
-          <option value='20s'>20~30대</option>
-          <option value='40s'>40~50대</option>
-          <option value='over60'>60세 이상</option>
+        <select value={age} onChange={(e) => handleAge(e.target.value as AgeValues)}>
+          {AGE.map((age) => (
+            <option key={age.value} value={age.value}>
+              {age.label}
+            </option>
+          ))}
         </select>
       </div>
       <p className={`${styles['check-name']} ${styles['warning']}`}></p>
       <div className={styles['start-wrap']}>
-        <button className={styles['start']}>시 작</button>
+        <button className={styles['start']} onClick={handleStep}>
+          시 작
+        </button>
       </div>
     </section>
   );

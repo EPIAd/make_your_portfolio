@@ -14,13 +14,9 @@ body {
 .wrap {
   position: relative;
   overflow: hidden;
-  margin-top: 50px;
   width: 100vw;
   max-width: 100%;
   min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   & > section {
     box-sizing: border-box;
@@ -31,9 +27,7 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* qna에서 margin-top을 없애야 함 */
   .wrap {
-    margin-top: 115px;
     & > section {
       padding: 60px 5% 37.5px 5%;
       border-radius: 20px;
@@ -43,9 +37,7 @@ body {
 }
 
 @media screen and (min-width: 1024px) {
-  /* qna에서 margin-top을 없애야 함 */
   .wrap {
-    margin-top: 150px;
     & > section {
       padding: 100px 5% 40px 5%;
       border-radius: 30px;
