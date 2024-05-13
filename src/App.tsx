@@ -16,10 +16,10 @@ export const AGE = [
 export type GenderValues = Pick<(typeof GENDER)[number], 'value'>['value'];
 export type AgeValues = Pick<(typeof AGE)[number], 'value'>['value'];
 
-const TEST_STEP: { [key: number]: string } = { 0: 'ONBOARDING' };
+const TEST_STEP: { [key: number]: string } = { 0: 'ONBOARDING', 1: 'STEP' };
 
 function App() {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState<number>(1);
 
   const [name, setName] = useState('');
   const [gender, setGender] = useState<GenderValues>(GENDER[0].value);
@@ -43,7 +43,9 @@ function App() {
           handleStep={handleStep}
         />
       )}
-      <Step />
+      {TEST_STEP[step] !== 'ONBOARDING' && (
+        <Step title='1. 연금 저축 계좌가 있으신가요?' answers={['있다', '없다']} currStep={step} />
+      )}
     </div>
   );
 }
