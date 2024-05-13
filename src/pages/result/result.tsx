@@ -4,92 +4,57 @@ import Band from '@/assets/result/band.png';
 import Facebook from '@/assets/result/facebook.svg';
 import Naver from '@/assets/result/naver.png';
 import Twitter from '@/assets/result/twitter.svg';
+import { SurveyContext } from '@/hooks/useContext';
+import { Scores } from '@/shared/types/survey';
+import { useContext, useEffect } from 'react';
 
 export const Result = () => {
-  const url = 'https://epiadvisor.github.io/TaxMbti2/';
-  const title = '[성향테스트] 나의 투자 MBTI ';
-  const hash = '%23투자MBTI %233투자성향테스트 %23성향테스트 ';
+  const scores = useContext(SurveyContext);
 
-  const shareFacebook = () => {
-    window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}${hash}`,
-      'facebooksharedialog',
-      'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'
-    );
-  };
-  const shareTwitter = () => {
-    window.open(
-      `https://twitter.com/intent/tweet?text=${title}%0A${hash}%0A${url}`,
-      'twittersharedialog',
-      'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'
-    );
-  };
-  const shareNaver = () => {
-    window.open(
-      `http://share.naver.com/web/shareView.nhn?url=${url}&title=${title}`,
-      'naversharedialog',
-      'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
-    );
-  };
-  const shareBand = () => {
-    window.open(
-      `https://band.us/plugin/share?url=${url}&title=${title}`,
-      'naversharedialog',
-      'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
-    );
+  const calcResult = (scores: Scores) => {
+    const { s1, s2, s3, s4, s5 } = scores;
+
+    const ie = s1 < 50 ? 'I' : 'E';
+    const sn = s3 % 2 ? 'N' : 'S';
+    const tf = s2 < 3 ? 'T' : 'F';
+    const jp = s4 < 2 ? 'J' : 'P';
+
+    const mbti = `${ie}${sn}${tf}${jp}`;
+    const s1Result = calcS1Result(s1);
+    const s2Result = s2 <= 1 ? 1 : s2;
+    const code = `${s1Result}${s3}${s2Result}${s4 + 1}`;
+    console.log(mbti, code);
   };
 
-  // TODO: 링크 복사
-  const copy = () => {
-    // const tmp = document.createElement('textarea');
-    // document.body.appendChild(tmp);
-    // tmp.value = url;
-    // tmp.select();
-    // document.execCommand('copy');
-    // document.body.removeChild(tmp);
+  const calcS1Result = (score: number) => {
+    if (score <= 10) return 1;
+    else if (score <= 49) return 2;
+    else if (score <= 89) return 3;
+    else return 4;
   };
+
+  useEffect(() => {
+    if (scores) {
+      calcResult(scores);
+    }
+  }, [scores]);
 
   return (
     <section className={styles['result']}>
       <div className={styles['result-box']}>
-        <div className={styles['title']}>{`추천 절세 계좌는 … \n국내투자형ISA, 연금저축`}</div>
-        <div
-          className={styles['desc']}
-        >{`최적 납입단계는 연금저축(600만원)\n→국내투자형ISA(4,000만원)\n→연금저축(1200만원)`}</div>
-      </div>
-      <div className={styles['link']}>
-        <a href='https://etfdiy.imweb.me/47/?idx=1896' target='_blank'>
-          더 자세한 팁과 설명은 <span>여기를</span> 클릭하세요
-        </a>
-      </div>
-      <hr className={styles['w-line']} />
-      <p className={styles['share']}>친구들과 공유하기</p>
-      <div className={styles['hash']}>#절세 #IRP,연금저축,ISA #절세 투자</div>
-      <div className={styles['share-box']}>
-        <a onClick={shareTwitter} target='_blank' title='트위터에 공유하기'>
-          <img width={30} height={30} src={Twitter} alt='share to twitter' />
-        </a>
-        <a onClick={shareFacebook} target='_blank' title='페이스북에 공유하기'>
-          <img width={30} height={30} src={Facebook} alt='share to facebook' />
-        </a>
-        <a onClick={shareNaver} target='_blank' title='네이버에 공유하기'>
-          <img width={30} height={30} src={Naver} alt='share to naver' />
-        </a>
-        <a onClick={shareBand} target='_blank' title='네이버 밴드에 공유하기'>
-          <img width={30} height={30} src={Band} alt='share to band' />
-        </a>
-      </div>
-      <button onClick={copy} className={styles['btn']}>
-        링크 복사하기
-      </button>
-      <hr className={styles['w-line']} />
-      <div className={styles['caution']}>
-        <p>
-          {`위 링크는 당신의 상황에 맞춘 절세 방식을 기반으로, 합리적인 투자 방향을 제시해줍니다.\n더욱 상세한 결과는 위 링크를 참조해 주세요!\n당신의 성공적인 투자를 기원합니다.\n\n`}
+        <hr className={styles['w-line']} />
+        <div className={styles['title']}>
+          당신의 투자 MBTI와 포트폴리오를 확인하려면?
+          <p className={styles['sub']}>▼ 아래 클릭 ▼</p>
+        </div>
+        <button className={styles['result-button']}>결과 보러 가기</button>
+
+        <p className={styles['caution']}>
+          {`위 성과 차트는 주식, 채권, 대체자산으로 구성된 포트폴리오의 성과입니다.\n본 결과가 본인의 투자성향을 완벽하게 알려주진 못할 수 있습니다.\n결과를 토대로 본인의 투자성향에 적합한 최적의 포트폴리오를 만들어 보세요.\n당신의 성공적인 투자를 기원합니다!\n`}
         </p>
-        <span className={styles['p-tit']}>ETF Platform Innovator</span>
+        <span className={styles['p-tit']}>EPI, ETF Platform Innovator</span>
+        <hr className={styles['w-line']} />
       </div>
-      <hr className={styles['w-line']} />
     </section>
   );
 };
