@@ -26,9 +26,9 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
         {currStep}. {title}
       </div>
       <ul className={styles['answer']}>
-        {answers.map((answer) => (
+        {answers.map((answer, i) => (
           <li key={answer.label} className={`${styles['box']} ${styles['a']}`} onClick={() => onClickAnswer(answer)}>
-            {answer.label}
+            {`${i + 1}) ${answer.label}`}
           </li>
         ))}
       </ul>
