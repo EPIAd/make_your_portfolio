@@ -36,7 +36,7 @@ function App() {
   return (
     <div className={styles['wrap']}>
       <SurveyContext.Provider value={scores}>
-        {/* {TEST_STEP[step] === 'ONBOARDING' && (
+        {TEST_STEP[step] === 'ONBOARDING' && (
           <Onboarding
             name={name}
             gender={gender}
@@ -49,10 +49,8 @@ function App() {
         )}
         {TEST_STEP[step] !== 'ONBOARDING' && step <= SURVEY_LENGTH && (
           <Step currStep={step} handleStep={handleStep} handleScores={handleScores} />
-        )} */}
-        {/* {step > SURVEY_LENGTH &&  */}
-        <Result />
-        {/* } */}
+        )}
+        {step > SURVEY_LENGTH && <Result />}
       </SurveyContext.Provider>
     </div>
   );

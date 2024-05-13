@@ -1,9 +1,4 @@
-// import { Calc } from './calc';
 import styles from './result.module.css';
-import Band from '@/assets/result/band.png';
-import Facebook from '@/assets/result/facebook.svg';
-import Naver from '@/assets/result/naver.png';
-import Twitter from '@/assets/result/twitter.svg';
 import { SurveyContext } from '@/hooks/useContext';
 import { Scores } from '@/shared/types/survey';
 import { useContext, useEffect } from 'react';
@@ -11,7 +6,8 @@ import { useContext, useEffect } from 'react';
 export const Result = () => {
   const scores = useContext(SurveyContext);
 
-  const calcResult = (scores: Scores) => {
+  const calcResult = (scores: Scores | null) => {
+    if (!scores) return '';
     const { s1, s2, s3, s4, s5 } = scores;
 
     const ie = s1 < 50 ? 'I' : 'E';
@@ -23,7 +19,7 @@ export const Result = () => {
     const s1Result = calcS1Result(s1);
     const s2Result = s2 <= 1 ? 1 : s2;
     const code = `${s1Result}${s3}${s2Result}${s4 + 1}`;
-    console.log(mbti, code);
+    return `${mbti}-${code}`;
   };
 
   const calcS1Result = (score: number) => {
@@ -33,11 +29,7 @@ export const Result = () => {
     else return 4;
   };
 
-  useEffect(() => {
-    if (scores) {
-      calcResult(scores);
-    }
-  }, [scores]);
+  const result = calcResult(scores);
 
   return (
     <section className={styles['result']}>
@@ -47,6 +39,8 @@ export const Result = () => {
           당신의 투자 MBTI와 포트폴리오를 확인하려면?
           <p className={styles['sub']}>▼ 아래 클릭 ▼</p>
         </div>
+        {/* TODO: 임시 결과 삭제 */}
+        <p>임시 결과 확인: {result}</p>
         <button className={styles['result-button']}>결과 보러 가기</button>
 
         <p className={styles['caution']}>
