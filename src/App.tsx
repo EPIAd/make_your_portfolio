@@ -1,20 +1,11 @@
 import { useState } from 'react';
 import styles from './App.module.css';
 import { Onboarding, Step } from './pages';
-
-export const GENDER = [
-  { label: '남성', value: 'male' },
-  { label: '여성', value: 'female' },
-] as const;
-export const AGE = [
-  { label: '20세 미만', value: 'under20' },
-  { label: '20대~30대', value: '20s' },
-  { label: '40대~50대', value: '40s' },
-  { label: '60세 이상', value: 'over60' },
-] as const;
-
-export type GenderValues = Pick<(typeof GENDER)[number], 'value'>['value'];
-export type AgeValues = Pick<(typeof AGE)[number], 'value'>['value'];
+import { AGE, GENDER } from './shared/constants/inputs';
+import { AgeValues, GenderValues } from './shared/types/input';
+import { SurveyContext, useSurveyContext } from './hooks/useContext';
+import { Scores } from './shared/types/survey';
+import { SURVEY_LENGTH } from './shared/constants/survey';
 
 const TEST_STEP: { [key: number]: string } = { 0: 'ONBOARDING', 1: 'STEP' };
 
@@ -30,22 +21,37 @@ function App() {
   const handleAge = (age: AgeValues) => setAge(age);
   const handleStep = () => setStep((prev) => prev + 1);
 
+  const [scores, setScores] = useState({ s1: 0, s2: 0, s3: 0, s4: 0, s5: 0 });
+
+  const handleScores = (score: Partial<Scores>) => {
+    setScores((prev) => ({
+      s1: prev.s1 + (score?.s1 || 0),
+      s2: prev.s2 + (score?.s2 || 0),
+      s3: prev.s3 + (score?.s3 || 0),
+      s4: prev.s4 + (score?.s4 || 0),
+      s5: prev.s5 + (score?.s5 || 0),
+    }));
+  };
+
   return (
     <div className={styles['wrap']}>
-      {TEST_STEP[step] === 'ONBOARDING' && (
-        <Onboarding
-          name={name}
-          gender={gender}
-          age={age}
-          handleName={handleName}
-          handleGender={handleGender}
-          handleAge={handleAge}
-          handleStep={handleStep}
-        />
-      )}
-      {TEST_STEP[step] !== 'ONBOARDING' && (
-        <Step title='1. 연금 저축 계좌가 있으신가요?' answers={['있다', '없다']} currStep={step} />
-      )}
+      <SurveyContext.Provider value={scores}>
+        {TEST_STEP[step] === 'ONBOARDING' && (
+          <Onboarding
+            name={name}
+            gender={gender}
+            age={age}
+            handleName={handleName}
+            handleGender={handleGender}
+            handleAge={handleAge}
+            handleStep={handleStep}
+          />
+        )}
+        {TEST_STEP[step] !== 'ONBOARDING' && step <= SURVEY_LENGTH && (
+          <Step currStep={step} handleStep={handleStep} handleScores={handleScores} />
+        )}
+        {step > SURVEY_LENGTH && <div></div>}
+      </SurveyContext.Provider>
     </div>
   );
 }

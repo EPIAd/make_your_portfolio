@@ -1,7 +1,8 @@
 import Clock from '@/assets/onboarding/clock.png';
 import styles from './onboarding.module.css';
-import { AGE, AgeValues, GENDER, GenderValues } from '@/App';
 import { Fragment } from 'react';
+import { AGE, GENDER } from '@/shared/constants/inputs';
+import { AgeValues, GenderValues } from '@/shared/types/input';
 
 type OnboardingProps = {
   name: string;
