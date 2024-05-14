@@ -3,9 +3,9 @@ import styles from './App.module.css';
 import { Onboarding, Result, Step } from './pages';
 import { AGE, GENDER } from './shared/constants/inputs';
 import { AgeValues, GenderValues } from './shared/types/input';
-import { SurveyContext, useSurveyContext } from './hooks/useContext';
 import { Scores } from './shared/types/survey';
 import { SURVEY_LENGTH } from './shared/constants/survey';
+import { SurveyContext } from './shared/context/survey';
 
 const TEST_STEP: { [key: number]: string } = { 0: 'ONBOARDING', 1: 'STEP' };
 

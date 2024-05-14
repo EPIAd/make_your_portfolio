@@ -1,14 +1,14 @@
+import { SurveyContext } from '@/shared/context/survey';
 import styles from './result.module.css';
-import { SurveyContext } from '@/hooks/useContext';
 import { Scores } from '@/shared/types/survey';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 export const Result = () => {
   const scores = useContext(SurveyContext);
 
   const calcResult = (scores: Scores | null) => {
     if (!scores) return '';
-    const { s1, s2, s3, s4, s5 } = scores;
+    const { s1, s2, s3, s4 } = scores;
 
     const ie = s1 < 50 ? 'I' : 'E';
     const sn = s3 % 2 ? 'N' : 'S';

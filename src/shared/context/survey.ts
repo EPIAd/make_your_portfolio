@@ -1,10 +1,4 @@
 import { createContext } from 'react';
-type Scores = {
-  s1: number;
-  s2: number;
-  s3: number;
-  s4: number;
-  s5: number;
-};
+import { Scores } from '../types/survey';
 
 export const SurveyContext = createContext<Scores | null>(null);
