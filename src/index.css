@@ -1,4 +1,5 @@
-@import url('./reset.css');
+@import url("./reset.css");
+@import url("./shared/styles/shared.css");
 
 @tailwind base;
 @tailwind components;
@@ -34,6 +35,25 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eafffc+0,f0e8ff+100 */
+  background: #eafffc; /* Old browsers */
+  background: -moz-linear-gradient(
+    left,
+    #eafffc 0%,
+    #f0e8ff 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    left,
+    #eafffc 0%,
+    #f0e8ff 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to right,
+    #eafffc 0%,
+    #f0e8ff 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eafffc', endColorstr='#f0e8ff',GradientType=1 ); /* IE6-9 */
 }
 
 h1 {

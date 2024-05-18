@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Wrapper } from "./components";
-import { InvestPage } from "./pages";
+import { InvestPage, TaxSavingPage } from "./pages";
 
 export const router = createBrowserRouter([
   {
@@ -10,6 +10,10 @@ export const router = createBrowserRouter([
       {
         path: "invest",
         element: <InvestPage />,
+      },
+      {
+        path: "tax-saving",
+        element: <TaxSavingPage />,
       },
     ],
   },

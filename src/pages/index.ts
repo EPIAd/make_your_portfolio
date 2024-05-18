@@ -1,1 +1,2 @@
-export { default as InvestPage } from "./invest";
+export { InvestPage } from "./invest";
+export { TaxSavingPage } from "./tax-saving";

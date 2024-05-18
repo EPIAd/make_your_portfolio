@@ -1,0 +1,15 @@
+.radio-container {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  input[type="radio"] {
+    width: 30px;
+    height: 30px;
+    border: 1px #ddd solid;
+    font-weight: lighter;
+    font-size: 19.2px;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}

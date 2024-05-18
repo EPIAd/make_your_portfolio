@@ -8,7 +8,7 @@ import { SurveyContext } from "@/shared/context/survey";
 
 const TEST_STEP: { [key: number]: string } = { 0: "ONBOARDING", 1: "STEP" };
 
-export default function InvestPage() {
+export function InvestPage() {
   const [step, setStep] = useState<number>(0);
 
   const [name, setName] = useState("");
