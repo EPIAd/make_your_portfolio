@@ -26,10 +26,32 @@ const INCOME_ANSWERS = [
 ] as const;
 type Income = (typeof INCOME_ANSWERS)[number];
 
+const NUMBER_AMOUNT_REGEX = /^\d*$/gm;
+
 export function TaxSavingPage() {
   const [yesNoAnswer, setYesNoAnswer] = useState<YesNo>();
   const [birthAnswer, setBirthAnswer] = useState<Birth>();
   const [incomeAnswer, setIncomeAnswer] = useState<Income>();
+  const [numberCode, setNumberCode] = useState("");
+  const [payAmount, setPayAmount] = useState("");
+  const [useAmount, setUseAmount] = useState("");
+
+  console.log(
+    yesNoAnswer,
+    birthAnswer,
+    incomeAnswer,
+    numberCode,
+    payAmount,
+    useAmount
+  );
+
+  const change = (input: string) => {
+    const inputValue = input.replaceAll(",", "");
+    const extractedNumbers = parseInt(
+      inputValue.match(NUMBER_AMOUNT_REGEX)?.join("") || ""
+    );
+    return Number.isNaN(extractedNumbers) ? null : extractedNumbers;
+  };
   return (
     <section className={styles["container"]}>
       <h1 className={`title ${styles["title"]}`}>절세 MBTI</h1>
@@ -95,13 +117,23 @@ export function TaxSavingPage() {
             <input
               type="text"
               placeholder="(아직 없다면 “0000”을 입력해주세요)"
+              value={numberCode}
+              onChange={(e) => setNumberCode(e.target.value)}
             />
           </div>
         </div>
         <div className={styles.question}>
           <p className={styles.title}>5. 연간 납입금액은?</p>
           <div className={styles.input}>
-            <input type="text" placeholder="(최대 10억원)" />
+            <input
+              type="text"
+              placeholder="(최대 10억원)"
+              value={payAmount}
+              onChange={(e) => {
+                const numValue = change(e.target.value);
+                setPayAmount(numValue ? numValue.toLocaleString() : "");
+              }}
+            />
             <span>만원</span>
           </div>
         </div>
@@ -110,7 +142,14 @@ export function TaxSavingPage() {
             6. 연 납입액 중, 55세 이후 사용할 금액은?
           </p>
           <div className={styles.input}>
-            <input type="text" />
+            <input
+              type="text"
+              value={useAmount}
+              onChange={(e) => {
+                const numValue = change(e.target.value);
+                setUseAmount(numValue ? numValue.toLocaleString() : "");
+              }}
+            />
             <span>만원</span>
           </div>
         </div>
