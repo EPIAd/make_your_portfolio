@@ -35,14 +35,15 @@ export function TaxSavingPage() {
   const [numberCode, setNumberCode] = useState("");
   const [payAmount, setPayAmount] = useState("");
   const [useAmount, setUseAmount] = useState("");
+  const isPayAmountOver = Number(payAmount.replaceAll(",", "")) > 100000;
+  const isUseAmountOver =
+    Number(payAmount.replaceAll(",", "")) <
+    Number(useAmount.replaceAll(",", ""));
 
   console.log(
-    yesNoAnswer,
-    birthAnswer,
-    incomeAnswer,
-    numberCode,
-    payAmount,
-    useAmount
+    Number(payAmount.replaceAll(",", "")),
+    Number(useAmount.replaceAll(",", "")),
+    isUseAmountOver
   );
 
   const change = (input: string) => {
@@ -50,7 +51,8 @@ export function TaxSavingPage() {
     const extractedNumbers = parseInt(
       inputValue.match(NUMBER_AMOUNT_REGEX)?.join("") || ""
     );
-    return Number.isNaN(extractedNumbers) ? null : extractedNumbers;
+    const value = Number.isNaN(extractedNumbers) ? null : extractedNumbers;
+    return value ? value.toLocaleString() : "";
   };
   return (
     <section className={styles["container"]}>
@@ -124,33 +126,55 @@ export function TaxSavingPage() {
         </div>
         <div className={styles.question}>
           <p className={styles.title}>5. 연간 납입금액은?</p>
-          <div className={styles.input}>
-            <input
-              type="text"
-              placeholder="(최대 10억원)"
-              value={payAmount}
-              onChange={(e) => {
-                const numValue = change(e.target.value);
-                setPayAmount(numValue ? numValue.toLocaleString() : "");
-              }}
-            />
-            <span>만원</span>
+          <div>
+            <div
+              className={`${styles.input} ${
+                isPayAmountOver ? styles.error : ""
+              }`}
+            >
+              <input
+                type="text"
+                placeholder="(최대 10억원)"
+                value={payAmount}
+                onChange={(e) => {
+                  const numValue = change(e.target.value);
+                  setPayAmount(numValue);
+                }}
+              />
+              <span>만원</span>
+            </div>
+            {isPayAmountOver && (
+              <span className={styles["error-message"]}>
+                최대 10억원 제한입니다.
+              </span>
+            )}
           </div>
         </div>
         <div className={styles.question}>
           <p className={styles.title}>
             6. 연 납입액 중, 55세 이후 사용할 금액은?
           </p>
-          <div className={styles.input}>
-            <input
-              type="text"
-              value={useAmount}
-              onChange={(e) => {
-                const numValue = change(e.target.value);
-                setUseAmount(numValue ? numValue.toLocaleString() : "");
-              }}
-            />
-            <span>만원</span>
+          <div>
+            <div
+              className={`${styles.input} ${
+                isUseAmountOver ? styles.error : ""
+              }`}
+            >
+              <input
+                type="text"
+                value={useAmount}
+                onChange={(e) => {
+                  const numValue = change(e.target.value);
+                  setUseAmount(numValue);
+                }}
+              />
+              <span>만원</span>
+            </div>
+            {isUseAmountOver && (
+              <span className={styles["error-message"]}>
+                연간 납입금액을 초과합니다.
+              </span>
+            )}
           </div>
         </div>
       </div>
