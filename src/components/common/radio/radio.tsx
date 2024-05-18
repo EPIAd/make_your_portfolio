@@ -4,13 +4,15 @@ type RadioProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > &
-  React.DetailedHTMLProps<
-    React.LabelHTMLAttributes<HTMLLabelElement>,
-    HTMLLabelElement
+  Pick<
+    React.DetailedHTMLProps<
+      React.LabelHTMLAttributes<HTMLLabelElement>,
+      HTMLLabelElement
+    >,
+    "htmlFor"
   > & {
     label: string;
   };
-
 export function Radio({
   id,
   name,
