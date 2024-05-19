@@ -1,30 +1,33 @@
-import dayjs from "dayjs";
-import styles from "./index.module.css";
-import { Radio } from "@/components";
-import { useState } from "react";
+import dayjs from 'dayjs';
+import styles from './index.module.css';
+import { Radio } from '@/components';
+import { useState } from 'react';
 
-const DATE_FORMAT = "YYYY년 MM월 DD일";
-const _19_YEARS_AGO = dayjs().subtract(19, "year").format(DATE_FORMAT);
-const _15_YEARS_AGO = dayjs().subtract(15, "year").format(DATE_FORMAT);
+const DATE_FORMAT = 'YYYY년 MM월 DD일';
+const _19_YEARS_AGO = dayjs().subtract(19, 'year').format(DATE_FORMAT);
+const _15_YEARS_AGO = dayjs().subtract(15, 'year').format(DATE_FORMAT);
 
-const IS_SUBJECT_ANSWERS = ["네", "아니오"] as const;
-type YesNo = (typeof IS_SUBJECT_ANSWERS)[number];
+const IS_SUBJECT_ANSWERS = [
+  { value: '200', label: '네' },
+  { value: '100', label: '아니오' },
+] as const;
+type YesNo = Pick<(typeof IS_SUBJECT_ANSWERS)[number], 'value'>['value'];
 
 const BIRTH_ANSWERS = [
-  `${_19_YEARS_AGO} 이전`,
-  `${_19_YEARS_AGO} ~ ${_15_YEARS_AGO} 사이`,
-  `${_15_YEARS_AGO} 이후`,
+  { value: '10', label: `${_19_YEARS_AGO} 이전` },
+  { value: '20', label: `${_19_YEARS_AGO} ~ ${_15_YEARS_AGO} 사이` },
+  { value: '30', label: `${_15_YEARS_AGO} 이후` },
 ] as const;
-type Birth = (typeof BIRTH_ANSWERS)[number];
+type Birth = Pick<(typeof BIRTH_ANSWERS)[number], 'value'>['value'];
 
 const INCOME_ANSWERS = [
-  "아니오",
-  "연간 근로소득 5,000만원 이하",
-  "연간 종합소득 3,800만원 이하",
-  "연간 농어업소득 3,800만원 이하",
-  "소득 종류별 위 금액 이상",
+  { value: '1', label: '아니오' },
+  { value: '2', label: '연간 근로소득 5,000만원 이하' },
+  { value: '3', label: '연간 종합소득 3,800만원 이하' },
+  { value: '4', label: '연간 농어업소득 3,800만원 이하' },
+  { value: '5', label: '소득 종류별 위 금액 이상' },
 ] as const;
-type Income = (typeof INCOME_ANSWERS)[number];
+type Income = Pick<(typeof INCOME_ANSWERS)[number], 'value'>['value'];
 
 const NUMBER_AMOUNT_REGEX = /^\d*$/gm;
 const NUMBER_CODE_REGEX = /^\d{4}$/;
@@ -33,27 +36,28 @@ export function TaxSavingSurvey() {
   const [yesNoAnswer, setYesNoAnswer] = useState<YesNo>();
   const [birthAnswer, setBirthAnswer] = useState<Birth>();
   const [incomeAnswer, setIncomeAnswer] = useState<Income>();
-  const [numberCode, setNumberCode] = useState("");
-  const [payAmount, setPayAmount] = useState("");
-  const [useAmount, setUseAmount] = useState("");
-  const isPayAmountOver = Number(payAmount.replaceAll(",", "")) > 100000;
+  const [numberCode, setNumberCode] = useState('');
+  const [payAmount, setPayAmount] = useState('');
+  const [useAmount, setUseAmount] = useState('');
+  const isPayAmountOver = Number(payAmount.replaceAll(',', '')) > 100000;
   const isUseAmountOver =
-    Number(payAmount.replaceAll(",", "")) <
-    Number(useAmount.replaceAll(",", ""));
+    Number(payAmount.replaceAll(',', '')) <
+    Number(useAmount.replaceAll(',', ''));
   const isNumberCodeWrong = numberCode && !NUMBER_CODE_REGEX.test(numberCode);
 
   const change = (input: string) => {
-    const inputValue = input.replaceAll(",", "");
+    const inputValue = input.replaceAll(',', '');
     const extractedNumbers = parseInt(
-      inputValue.match(NUMBER_AMOUNT_REGEX)?.join("") || ""
+      inputValue.match(NUMBER_AMOUNT_REGEX)?.join('') || ''
     );
     const value = Number.isNaN(extractedNumbers) ? null : extractedNumbers;
-    return value ? value.toLocaleString() : "";
+    return value ? value.toLocaleString() : '';
   };
+
   return (
-    <section className={styles["container"]}>
-      <h1 className={`title ${styles["title"]}`}>절세 MBTI</h1>
-      <div className={styles["survey-wrapper"]}>
+    <section className={styles['container']}>
+      <h1 className={`title ${styles['title']}`}>절세 MBTI</h1>
+      <div className={styles['survey-wrapper']}>
         <div className={styles.question}>
           <p className={styles.title}>
             1. 최근 3년 이내에 금융소득종합과세 대상자였나요?
@@ -61,13 +65,13 @@ export function TaxSavingSurvey() {
           <div className={styles.answer}>
             {IS_SUBJECT_ANSWERS.map((item) => (
               <Radio
-                key={item}
-                id={item}
-                name="answer-1"
-                value={item}
-                htmlFor={item}
-                label={item}
-                checked={yesNoAnswer === item}
+                key={item.value}
+                id={item.value}
+                name='answer-1'
+                value={item.value}
+                htmlFor={item.value}
+                label={item.label}
+                checked={yesNoAnswer === item.value}
                 onChange={(e) => setYesNoAnswer(e.target.value as YesNo)}
               />
             ))}
@@ -78,13 +82,13 @@ export function TaxSavingSurvey() {
           <div className={styles.answer}>
             {BIRTH_ANSWERS.map((item) => (
               <Radio
-                key={item}
-                id={item}
-                name="answer-2"
-                value={item}
-                htmlFor={item}
-                label={item}
-                checked={birthAnswer === item}
+                key={item.value}
+                id={item.value}
+                name='answer-2'
+                value={item.value}
+                htmlFor={item.value}
+                label={item.label}
+                checked={birthAnswer === item.value}
                 onChange={(e) => setBirthAnswer(e.target.value as Birth)}
               />
             ))}
@@ -95,13 +99,13 @@ export function TaxSavingSurvey() {
           <div className={styles.answer}>
             {INCOME_ANSWERS.map((item) => (
               <Radio
-                key={item}
-                id={item}
-                name="answer-3"
-                value={item}
-                htmlFor={item}
-                label={item}
-                checked={incomeAnswer === item}
+                key={item.value}
+                id={item.value}
+                name='answer-3'
+                value={item.value}
+                htmlFor={item.value}
+                label={item.label}
+                checked={incomeAnswer === item.value}
                 onChange={(e) => setIncomeAnswer(e.target.value as Income)}
               />
             ))}
@@ -114,18 +118,18 @@ export function TaxSavingSurvey() {
           <div className={styles.answer}>
             <div
               className={`${styles.input} ${
-                isNumberCodeWrong ? styles.error : ""
+                isNumberCodeWrong ? styles.error : ''
               }`}
             >
               <input
-                type="text"
-                placeholder="(아직 없다면 “0000”을 입력해주세요)"
+                type='text'
+                placeholder='(아직 없다면 “0000”을 입력해주세요)'
                 value={numberCode}
                 onChange={(e) => setNumberCode(e.target.value)}
               />
             </div>
             {isNumberCodeWrong && (
-              <span className={styles["error-message"]}>
+              <span className={styles['error-message']}>
                 네 자리 숫자를 입력해 주세요.
               </span>
             )}
@@ -136,12 +140,12 @@ export function TaxSavingSurvey() {
           <div>
             <div
               className={`${styles.input} ${
-                isPayAmountOver ? styles.error : ""
+                isPayAmountOver ? styles.error : ''
               }`}
             >
               <input
-                type="text"
-                placeholder="(최대 10억원)"
+                type='text'
+                placeholder='(최대 10억원)'
                 value={payAmount}
                 onChange={(e) => {
                   const numValue = change(e.target.value);
@@ -151,7 +155,7 @@ export function TaxSavingSurvey() {
               <span>만원</span>
             </div>
             {isPayAmountOver && (
-              <span className={styles["error-message"]}>
+              <span className={styles['error-message']}>
                 최대 10억원 제한입니다.
               </span>
             )}
@@ -164,11 +168,11 @@ export function TaxSavingSurvey() {
           <div>
             <div
               className={`${styles.input} ${
-                isUseAmountOver ? styles.error : ""
+                isUseAmountOver ? styles.error : ''
               }`}
             >
               <input
-                type="text"
+                type='text'
                 value={useAmount}
                 onChange={(e) => {
                   const numValue = change(e.target.value);
@@ -178,7 +182,7 @@ export function TaxSavingSurvey() {
               <span>만원</span>
             </div>
             {isUseAmountOver && (
-              <span className={styles["error-message"]}>
+              <span className={styles['error-message']}>
                 연간 납입금액을 초과합니다.
               </span>
             )}
@@ -186,7 +190,7 @@ export function TaxSavingSurvey() {
         </div>
       </div>
 
-      <button className={`big-button ${styles["result-button"]}`}>
+      <button className={`big-button ${styles['result-button']}`}>
         결과 보기
       </button>
     </section>
