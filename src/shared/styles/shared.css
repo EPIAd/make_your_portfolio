@@ -16,6 +16,22 @@ input[type="text"] {
   text-align: center;
 }
 
+.big-button {
+  color: #fff;
+  background-color: rgba(0, 135, 245, 0.9);
+  border-radius: 10rem;
+  letter-spacing: -0.2rem;
+  font-size: 2rem;
+
+  &:hover,
+  &:focus {
+    animation-play-state: paused;
+  }
+  &:active {
+    animation-play-state: running;
+  }
+}
+
 @media screen and (min-width: 486px) {
   h1.title {
     font-size: 3.2rem;

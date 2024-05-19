@@ -27,6 +27,7 @@ const INCOME_ANSWERS = [
 type Income = (typeof INCOME_ANSWERS)[number];
 
 const NUMBER_AMOUNT_REGEX = /^\d*$/gm;
+const NUMBER_CODE_REGEX = /^\d{4}$/;
 
 export function TaxSavingPage() {
   const [yesNoAnswer, setYesNoAnswer] = useState<YesNo>();
@@ -39,12 +40,7 @@ export function TaxSavingPage() {
   const isUseAmountOver =
     Number(payAmount.replaceAll(",", "")) <
     Number(useAmount.replaceAll(",", ""));
-
-  console.log(
-    Number(payAmount.replaceAll(",", "")),
-    Number(useAmount.replaceAll(",", "")),
-    isUseAmountOver
-  );
+  const isNumberCodeWrong = numberCode && !NUMBER_CODE_REGEX.test(numberCode);
 
   const change = (input: string) => {
     const inputValue = input.replaceAll(",", "");
@@ -116,12 +112,23 @@ export function TaxSavingPage() {
             4. 당신의 투자 MBTI 숫자 4자리 코드를 입력해주세요.
           </p>
           <div className={styles.answer}>
-            <input
-              type="text"
-              placeholder="(아직 없다면 “0000”을 입력해주세요)"
-              value={numberCode}
-              onChange={(e) => setNumberCode(e.target.value)}
-            />
+            <div
+              className={`${styles.input} ${
+                isNumberCodeWrong ? styles.error : ""
+              }`}
+            >
+              <input
+                type="text"
+                placeholder="(아직 없다면 “0000”을 입력해주세요)"
+                value={numberCode}
+                onChange={(e) => setNumberCode(e.target.value)}
+              />
+            </div>
+            {isNumberCodeWrong && (
+              <span className={styles["error-message"]}>
+                네 자리 숫자를 입력해 주세요.
+              </span>
+            )}
           </div>
         </div>
         <div className={styles.question}>
@@ -178,6 +185,10 @@ export function TaxSavingPage() {
           </div>
         </div>
       </div>
+
+      <button className={`big-button ${styles["result-button"]}`}>
+        결과 보기
+      </button>
     </section>
   );
 }
