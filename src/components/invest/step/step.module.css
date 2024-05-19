@@ -39,7 +39,6 @@
   padding: 15px;
   border: none;
   text-align: left;
-  transition: background-color, color 0.2s linear;
   cursor: pointer;
 }
 .a:hover,
