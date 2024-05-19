@@ -1,10 +1,10 @@
-import { SurveyContext } from '@/shared/context/survey';
+import { InvestSurveyContext } from '@/shared/context/survey';
 import styles from './result.module.css';
 import { Scores } from '@/shared/types/survey';
 import { useContext } from 'react';
 
 export const Result = () => {
-  const scores = useContext(SurveyContext);
+  const scores = useContext(InvestSurveyContext);
 
   const calcResult = (scores: Scores | null) => {
     if (!scores) return '';

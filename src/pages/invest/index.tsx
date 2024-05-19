@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { Onboarding, Result, Step } from "@/components";
-import { AGE, GENDER } from "@/shared/constants/inputs";
-import { AgeValues, GenderValues } from "@/shared/types/input";
-import { Scores } from "@/shared/types/survey";
-import { SURVEY_LENGTH } from "@/shared/constants/survey";
-import { SurveyContext } from "@/shared/context/survey";
+import { useState } from 'react';
+import { Onboarding, Result, Step } from '@/components';
+import { AGE, GENDER } from '@/shared/constants/inputs';
+import { AgeValues, GenderValues } from '@/shared/types/input';
+import { Scores } from '@/shared/types/survey';
+import { SURVEY_LENGTH } from '@/shared/constants/survey';
+import { InvestSurveyContext } from '@/shared/context/survey';
 
-const TEST_STEP: { [key: number]: string } = { 0: "ONBOARDING", 1: "STEP" };
+const TEST_STEP: { [key: number]: string } = { 0: 'ONBOARDING', 1: 'STEP' };
 
 export function InvestPage() {
   const [step, setStep] = useState<number>(0);
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [gender, setGender] = useState<GenderValues>(GENDER[0].value);
   const [age, setAge] = useState<AgeValues>(AGE[0].value);
 
@@ -33,8 +33,8 @@ export function InvestPage() {
   };
 
   return (
-    <SurveyContext.Provider value={scores}>
-      {TEST_STEP[step] === "ONBOARDING" && (
+    <InvestSurveyContext.Provider value={scores}>
+      {TEST_STEP[step] === 'ONBOARDING' && (
         <Onboarding
           name={name}
           gender={gender}
@@ -45,7 +45,7 @@ export function InvestPage() {
           handleStep={handleStep}
         />
       )}
-      {TEST_STEP[step] !== "ONBOARDING" && step <= SURVEY_LENGTH && (
+      {TEST_STEP[step] !== 'ONBOARDING' && step <= SURVEY_LENGTH && (
         <Step
           currStep={step}
           handleStep={handleStep}
@@ -53,6 +53,6 @@ export function InvestPage() {
         />
       )}
       {step > SURVEY_LENGTH && <Result />}
-    </SurveyContext.Provider>
+    </InvestSurveyContext.Provider>
   );
 }
