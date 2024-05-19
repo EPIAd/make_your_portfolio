@@ -1,4 +1,7 @@
 import { createContext } from 'react';
-import { Scores } from '../types/survey';
+import { InvestScores, TaxSavingScores } from '../types/survey';
 
-export const InvestSurveyContext = createContext<Scores | null>(null);
+export const InvestSurveyContext = createContext<InvestScores | null>(null);
+export const TaxSavingSurveyContext = createContext<TaxSavingScores | null>(
+  null
+);

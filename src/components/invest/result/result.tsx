@@ -1,12 +1,12 @@
 import { InvestSurveyContext } from '@/shared/context/survey';
 import styles from './result.module.css';
-import { Scores } from '@/shared/types/survey';
+import { InvestScores } from '@/shared/types/survey';
 import { useContext } from 'react';
 
 export const Result = () => {
   const scores = useContext(InvestSurveyContext);
 
-  const calcResult = (scores: Scores | null) => {
+  const calcResult = (scores: InvestScores | null) => {
     if (!scores) return '';
     const { s1, s2, s3, s4 } = scores;
 

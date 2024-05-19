@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import styles from './index.module.css';
 import { Radio } from '@/components';
 import { useState } from 'react';
+import { InvestScores } from '@/shared/types/survey';
 
 const DATE_FORMAT = 'YYYY년 MM월 DD일';
 const _19_YEARS_AGO = dayjs().subtract(19, 'year').format(DATE_FORMAT);
@@ -32,10 +33,17 @@ type Income = Pick<(typeof INCOME_ANSWERS)[number], 'value'>['value'];
 const NUMBER_AMOUNT_REGEX = /^\d*$/gm;
 const NUMBER_CODE_REGEX = /^\d{4}$/;
 
-export function TaxSavingSurvey() {
-  const [yesNoAnswer, setYesNoAnswer] = useState<YesNo>();
-  const [birthAnswer, setBirthAnswer] = useState<Birth>();
-  const [incomeAnswer, setIncomeAnswer] = useState<Income>();
+type TaxSavingSurveyProps = {
+  handleScore: (score: Partial<InvestScores>) => void;
+  handleNextStep: () => void;
+};
+export function TaxSavingSurvey({
+  handleScore,
+  handleNextStep,
+}: TaxSavingSurveyProps) {
+  const [yesNoAnswer, setYesNoAnswer] = useState<YesNo | 0>(0);
+  const [birthAnswer, setBirthAnswer] = useState<Birth | 0>(0);
+  const [incomeAnswer, setIncomeAnswer] = useState<Income | 0>(0);
   const [numberCode, setNumberCode] = useState('');
   const [payAmount, setPayAmount] = useState('');
   const [useAmount, setUseAmount] = useState('');
@@ -52,6 +60,11 @@ export function TaxSavingSurvey() {
     );
     const value = Number.isNaN(extractedNumbers) ? null : extractedNumbers;
     return value ? value.toLocaleString() : '';
+  };
+
+  const handleNext = () => {
+    handleScore({ s1: +yesNoAnswer, s2: +birthAnswer, s3: +incomeAnswer });
+    handleNextStep();
   };
 
   return (
@@ -190,7 +203,10 @@ export function TaxSavingSurvey() {
         </div>
       </div>
 
-      <button className={`big-button ${styles['result-button']}`}>
+      <button
+        className={`big-button ${styles['result-button']}`}
+        onClick={handleNext}
+      >
         결과 보기
       </button>
     </section>

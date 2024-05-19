@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Onboarding, Result, Step } from '@/components';
 import { AGE, GENDER } from '@/shared/constants/inputs';
 import { AgeValues, GenderValues } from '@/shared/types/input';
-import { Scores } from '@/shared/types/survey';
+import { InvestScores } from '@/shared/types/survey';
 import { SURVEY_LENGTH } from '@/shared/constants/survey';
 import { InvestSurveyContext } from '@/shared/context/survey';
 
@@ -22,7 +22,7 @@ export function InvestPage() {
 
   const [scores, setScores] = useState({ s1: 0, s2: 0, s3: 0, s4: 0, s5: 0 });
 
-  const handleScores = (score: Partial<Scores>) => {
+  const handleScores = (score: Partial<InvestScores>) => {
     setScores((prev) => ({
       s1: prev.s1 + (score?.s1 || 0),
       s2: prev.s2 + (score?.s2 || 0),
