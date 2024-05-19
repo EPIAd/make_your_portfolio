@@ -51,7 +51,17 @@ export function TaxSavingSurvey({
   const isUseAmountOver =
     Number(payAmount.replaceAll(',', '')) <
     Number(useAmount.replaceAll(',', ''));
-  const isNumberCodeWrong = numberCode && !NUMBER_CODE_REGEX.test(numberCode);
+  const isNumberCodeWrong = !NUMBER_CODE_REGEX.test(numberCode);
+
+  const isValid =
+    !!yesNoAnswer &&
+    !!birthAnswer &&
+    !!incomeAnswer &&
+    !isNumberCodeWrong &&
+    payAmount &&
+    useAmount &&
+    !isPayAmountOver &&
+    !isUseAmountOver;
 
   const change = (input: string) => {
     const inputValue = input.replaceAll(',', '');
@@ -131,7 +141,7 @@ export function TaxSavingSurvey({
           <div className={styles.answer}>
             <div
               className={`${styles.input} ${
-                isNumberCodeWrong ? styles.error : ''
+                numberCode && isNumberCodeWrong ? styles.error : ''
               }`}
             >
               <input
@@ -141,7 +151,7 @@ export function TaxSavingSurvey({
                 onChange={(e) => setNumberCode(e.target.value)}
               />
             </div>
-            {isNumberCodeWrong && (
+            {numberCode && isNumberCodeWrong && (
               <span className={styles['error-message']}>
                 네 자리 숫자를 입력해 주세요.
               </span>
@@ -206,6 +216,7 @@ export function TaxSavingSurvey({
       <button
         className={`big-button ${styles['result-button']}`}
         onClick={handleNext}
+        disabled={!isValid}
       >
         결과 보기
       </button>
