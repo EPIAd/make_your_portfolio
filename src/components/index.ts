@@ -5,3 +5,4 @@ export { Wrapper } from './wrapper';
 export { Radio } from './common/radio/radio';
 export { TaxSavingSurvey } from './tax-saving/survey';
 export { TaxSavingResult } from './tax-saving/result';
+export { EarnSurvey } from './earn';
