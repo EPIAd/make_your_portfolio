@@ -8,11 +8,11 @@ const DATE_FORMAT = 'YYYY년 MM월 DD일';
 const _19_YEARS_AGO = dayjs().subtract(19, 'year').format(DATE_FORMAT);
 const _15_YEARS_AGO = dayjs().subtract(15, 'year').format(DATE_FORMAT);
 
-const IS_SUBJECT_ANSWERS = [
+const SUBJECT_ANSWERS = [
   { value: '200', label: '네' },
   { value: '100', label: '아니오' },
 ] as const;
-type YesNo = Pick<(typeof IS_SUBJECT_ANSWERS)[number], 'value'>['value'];
+type YesNo = Pick<(typeof SUBJECT_ANSWERS)[number], 'value'>['value'];
 
 const BIRTH_ANSWERS = [
   { value: '10', label: `${_19_YEARS_AGO} 이전` },
@@ -86,7 +86,7 @@ export function TaxSavingSurvey({
             1. 최근 3년 이내에 금융소득종합과세 대상자였나요?
           </p>
           <div className={styles.answer}>
-            {IS_SUBJECT_ANSWERS.map((item) => (
+            {SUBJECT_ANSWERS.map((item) => (
               <Radio
                 key={item.value}
                 id={item.value}

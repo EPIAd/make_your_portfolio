@@ -1,18 +1,18 @@
 import { INVEST_SURVEY, SURVEY_LENGTH } from '@/shared/constants/survey';
 import styles from './step.module.css';
-import { InvestScores } from '@/shared/types/survey';
+import { Answers, InvestScores } from '@/shared/types/survey';
 
 type StepProps = {
   currStep: number;
   handleStep: () => void;
   handleScores: (score: Partial<InvestScores>) => void;
 };
-type Answer = (typeof INVEST_SURVEY)[number]['answers'][number];
 
 export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
-  const { title, answers } = INVEST_SURVEY[currStep - 1];
+  const currSurvey = INVEST_SURVEY[currStep - 1];
+  const { title, type, answers } = currSurvey;
 
-  const onClickAnswer = (answer: Answer) => {
+  const onClickAnswer = (answer: Answers) => {
     handleScores(answer);
     handleStep();
   };
@@ -27,17 +27,34 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
       </div>
       <div className={`${styles['box']} ${styles['q']}`}>
         {currStep}. {title}
+        {type === 'image' && (
+          <div className={styles['image-box']}>
+            <div className={styles['buttons']}>
+              {answers.map((answer) => (
+                <button
+                  type='button'
+                  key={answer.label}
+                  onClick={() => onClickAnswer(answer)}
+                >
+                  {answer.label}
+                </button>
+              ))}
+            </div>
+            <img className={styles['img']} src={currSurvey.image} alt='image' />
+          </div>
+        )}
       </div>
       <ul className={styles['answer']}>
-        {answers.map((answer, i) => (
-          <li
-            key={answer.label}
-            className={`${styles['box']} ${styles['a']}`}
-            onClick={() => onClickAnswer(answer)}
-          >
-            {`${i + 1}) ${answer.label}`}
-          </li>
-        ))}
+        {type === 'text' &&
+          answers.map((answer, i) => (
+            <li
+              key={answer.label}
+              className={`${styles['box']} ${styles['a']}`}
+              onClick={() => onClickAnswer(answer)}
+            >
+              {`${i + 1}) ${answer.label}`}
+            </li>
+          ))}
       </ul>
     </section>
   );

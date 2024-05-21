@@ -18,7 +18,7 @@
   width: 80%;
   box-shadow: #ddd 0px 0px 10px 5px;
   border-radius: 20px;
-  background: rgb(252, 252, 252);
+  background: rgb(255, 255, 255);
 }
 .q {
   box-sizing: border-box;
@@ -27,6 +27,33 @@
   font-size: 1.7rem;
   font-weight: bolder;
   overflow: hidden;
+}
+.image-box {
+  margin-top: 1rem;
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  button {
+    padding: 0.2rem 2rem;
+    color: white;
+    transition: background-color 0.3s;
+
+    &:first-child {
+      background-color: #d60093;
+    }
+    &:nth-child(2) {
+      background-color: #099;
+    }
+
+    &:hover {
+      background-color: #222;
+    }
+  }
 }
 .answer {
   font-size: 1.5rem;
@@ -47,7 +74,18 @@
   color: #eee;
 }
 
-@media all and (min-width: 768px) {
+@media screen and (min-width: 486px) {
+  .image-box {
+    .buttons {
+      justify-content: space-evenly;
+    }
+    button {
+      padding: 0.4rem 3rem;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
   .status-bar {
     margin: 0px 15% 30px;
     width: 70%;
@@ -59,7 +97,6 @@
     width: 80%;
     box-shadow: #ddd 0px 0px 10px 5px;
     border-radius: 20px;
-    background: rgb(252, 252, 252);
   }
   .q {
     margin: 0 auto;
@@ -77,6 +114,11 @@
     gap: 1.5rem;
     padding: 20px 30px;
     width: 100%;
+  }
+  .image-box {
+    button {
+      padding: 0.2rem 2rem;
+    }
   }
 }
 
@@ -96,6 +138,14 @@
   .a {
     padding: 25px 35px;
     width: 100%;
+  }
+  .image-box {
+    button {
+      padding: 0.2rem 2rem;
+
+      padding: 0.4rem 3rem;
+      font-size: 2rem;
+    }
   }
 }
 
