@@ -1,7 +1,6 @@
 import { TaxSavingScores } from '@/shared/types/survey';
 
-// 결과 계산식
-
+// 절세 MBTI 결과 계산식
 export const calcISA = (scores: TaxSavingScores | null) => {
   if (!scores) return;
   const { s1, s2, s3 } = scores;
