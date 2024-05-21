@@ -63,24 +63,17 @@ export function EarnPage() {
         </div>
         <div className={`${styles['question']} ${styles['row']}`}>
           <label className={styles['label']}>예금 선택</label>
+
           <div className={styles['radio']}>
             {SAVING.map((item) => (
-              <div
-                key={item.value}
-                className={`${styles['radio-select']} ${
+              <button
+                className={`${styles['button']} ${
                   item.value === saving ? styles['selected'] : ''
                 }`}
                 onClick={() => setSaving(item.value)}
               >
-                <input
-                  type='radio'
-                  id={item.value}
-                  value={item.value}
-                  name='saving'
-                  checked={saving === item.value}
-                />
-                <label htmlFor={item.value}>{item.label}</label>
-              </div>
+                {item.label}
+              </button>
             ))}
           </div>
         </div>

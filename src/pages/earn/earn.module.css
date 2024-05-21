@@ -79,33 +79,26 @@
   .radio {
     display: flex;
     border-radius: 1rem;
-    overflow: hidden;
-    border: 1px solid #d9d9d9;
     flex-grow: 1;
     width: 100%;
     height: 40px;
     font-size: 1rem;
     cursor: pointer;
+    gap: 1rem;
 
-    label {
-      cursor: pointer;
-    }
-
-    input {
-      visibility: hidden;
-    }
-
-    .radio-select {
-      display: flex;
+    .button {
       width: 50%;
-      justify-content: center;
-      align-items: center;
-      background-color: white;
-      color: #9f9f9f;
+      color: rgb(189, 189, 189);
+      border-radius: 6px;
+      background: #ffffff;
+      box-shadow: 5px 5px 11px #bfbfbf, -5px -5px 11px #ffffff;
 
       &.selected {
-        background-color: #d9d9d9;
-        color: black;
+        color: rgb(6, 6, 6);
+        font-weight: 500;
+        border-radius: 6px;
+        background: #ffffff;
+        box-shadow: inset 5px 5px 11px #bfbfbf, inset -5px -5px 11px #ffffff;
       }
     }
   }
