@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import styles from './index.module.css';
 import { Radio } from '@/components';
 import { useState } from 'react';
-import { InvestScores } from '@/shared/types/survey';
+import { TaxSavingScores } from '@/shared/types/survey';
 
 const DATE_FORMAT = 'YYYY년 MM월 DD일';
 const _19_YEARS_AGO = dayjs().subtract(19, 'year').format(DATE_FORMAT);
@@ -34,7 +34,7 @@ const NUMBER_AMOUNT_REGEX = /^\d*$/gm;
 const NUMBER_CODE_REGEX = /^\d{4}$/;
 
 type TaxSavingSurveyProps = {
-  handleScore: (score: Partial<InvestScores>) => void;
+  handleScore: (score: TaxSavingScores) => void;
   handleNextStep: () => void;
 };
 export function TaxSavingSurvey({
@@ -73,7 +73,13 @@ export function TaxSavingSurvey({
   };
 
   const handleNext = () => {
-    handleScore({ s1: +yesNoAnswer, s2: +birthAnswer, s3: +incomeAnswer });
+    handleScore({
+      s1: +yesNoAnswer,
+      s2: +birthAnswer,
+      s3: +incomeAnswer,
+      annualPayAmount: +payAmount.replaceAll(',', ''),
+      useAmount: +useAmount.replaceAll(',', ''),
+    });
     handleNextStep();
   };
 

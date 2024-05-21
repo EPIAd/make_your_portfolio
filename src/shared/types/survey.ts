@@ -10,6 +10,8 @@ export type TaxSavingScores = {
   s1: number;
   s2: number;
   s3: number;
+  annualPayAmount: number;
+  useAmount: number;
 };
 
 export type Answers = {
