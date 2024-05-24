@@ -80,7 +80,7 @@
       justify-content: space-evenly;
     }
     button {
-      padding: 0.4rem 3rem;
+      padding: 0.4rem 4.5rem;
     }
   }
 }
@@ -117,7 +117,7 @@
   }
   .image-box {
     button {
-      padding: 0.2rem 2rem;
+      padding: 0.2rem 3.5rem;
     }
   }
 }
@@ -141,9 +141,7 @@
   }
   .image-box {
     button {
-      padding: 0.2rem 2rem;
-
-      padding: 0.4rem 3rem;
+      padding: 0.4rem 4.5rem;
       font-size: 2rem;
     }
   }

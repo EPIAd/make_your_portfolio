@@ -165,7 +165,9 @@ export function TaxSavingSurvey({
           </div>
         </div>
         <div className={styles.question}>
-          <p className={styles.title}>5. 연간 납입금액은?</p>
+          <p className={styles.title}>
+            5. 절세 관련 투자상품에 대한 연간 납입금액은?
+          </p>
           <div>
             <div
               className={`${styles.input} ${

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './earn.module.css';
 import {
   Chart as ChartJS,
@@ -22,15 +22,14 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
       position: 'top' as const,
     },
     title: {
-      display: true,
-      text: 'Chart.js Line Chart',
+      display: false,
     },
   },
 };
@@ -240,6 +239,7 @@ const values = [
 ];
 
 type Asset = (typeof ASSET_LIST)[number];
+
 export function EarnSurvey() {
   const [amount, setAmount] = useState(0);
   const [year, setYear] = useState(0);
