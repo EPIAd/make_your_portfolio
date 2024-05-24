@@ -320,13 +320,13 @@ export function EarnSurvey() {
     labels: dates,
     datasets: [
       {
-        label: '적립',
+        label: '정기 납입 누적수익률',
         data: calcCumulativeDataset(amount / 12),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: '투자',
+        label: '누적수익률',
         data: calcInvestDataset(),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
