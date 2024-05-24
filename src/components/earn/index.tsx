@@ -270,9 +270,11 @@ export function EarnSurvey() {
 
   // 투자 차트
   const calcInvestDataset = () => {
+    let totalRate = 1;
     return values.reduce((acc: number[], curr) => {
-      const last = acc.length > 0 ? acc[acc.length - 1] : 0;
-      return [...acc, last + curr];
+      const rate = 1 + curr / 100;
+      totalRate *= rate;
+      return [...acc, (totalRate - 1) * 100];
     }, []);
   };
 
