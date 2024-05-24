@@ -258,16 +258,17 @@ export function EarnSurvey() {
     numberCode &&
     !isNumberCodeWrong;
 
+  // 적립 차트
   const calcCumulativeDataset = (amount: number) => {
-    return values.reduce(
-      (acc, curr) => {
-        const monthly = acc[acc.length - 1];
-        return [...acc, (monthly + amount) * (1 + curr / 100)];
-      },
-      [amount]
-    );
+    let accumulativeAmount = 0;
+    return values.reduce((acc: number[], curr, i) => {
+      const rate = curr / 100;
+      accumulativeAmount = (accumulativeAmount + amount) * (1 + rate);
+      return [...acc, (accumulativeAmount / (amount * (i + 1)) - 1) * 100];
+    }, []);
   };
 
+  // 투자 차트
   const calcInvestDataset = () => {
     return values.reduce((acc: number[], curr) => {
       const last = acc.length > 0 ? acc[acc.length - 1] : 0;
@@ -324,7 +325,7 @@ export function EarnSurvey() {
       },
       {
         label: '투자',
-        data: calcInvestDataset(amount * year),
+        data: calcInvestDataset(),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
