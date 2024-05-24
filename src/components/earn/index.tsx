@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import dayjs from 'dayjs';
 
 ChartJS.register(
   CategoryScale,
@@ -31,6 +32,19 @@ const options = {
     title: {
       display: true,
       text: '적립식 투자의 누적수익률 비교',
+    },
+  },
+};
+
+const options2 = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: '적립 투자 시, 투자 기간에 따른 누적 금액',
     },
   },
 };
@@ -241,6 +255,15 @@ const values = [
 
 type Asset = (typeof ASSET_LIST)[number];
 
+const calcAverageReturn = (dates: string[], values: number[]) => {
+  const startDate = dayjs(dates[0]);
+  const endDate = dayjs(dates[dates.length - 1]);
+  const diffMonth = endDate.diff(startDate, 'day') / 365;
+
+  const totalReturns = values.reduce((acc, curr) => acc + curr, 0);
+  return totalReturns / diffMonth;
+};
+
 export function EarnSurvey() {
   const [amount, setAmount] = useState(0);
   const [year, setYear] = useState(0);
@@ -250,6 +273,12 @@ export function EarnSurvey() {
   const [selectedAsset, setSelectedAsset] = useState<Asset>('선택');
   const [numberCode, setNumberCode] = useState('');
   const isNumberCodeWrong = !NUMBER_CODE_REGEX.test(numberCode);
+
+  const averageReturn = calcAverageReturn(dates, values);
+
+  const yearList = Array(year)
+    .fill(0)
+    .map((_, i) => dayjs().year() + i);
 
   const isValid =
     amount > 0 &&
@@ -299,12 +328,23 @@ export function EarnSurvey() {
       );
   };
 
-  const totalFutureValue = calcMonthlyDeposit(
-    amount / 12,
-    Number(saving),
-    year * 12
-  );
-  console.log(totalFutureValue);
+  const calcAccumulatedAmountDatasets = (amount: number, year: number) => {
+    let accumulatedAmount = 0;
+    return Array(year)
+      .fill(0)
+      .reduce((acc: number[]) => {
+        accumulatedAmount += amount;
+        accumulatedAmount *= 1 + averageReturn / 100;
+        return [...acc, accumulatedAmount];
+      }, []);
+  };
+
+  // const totalFutureValue = calcMonthlyDeposit(
+  //   amount / 12,
+  //   Number(saving),
+  //   year * 12
+  // );
+  // console.log(totalFutureValue);
 
   const calcInvestmentSplitDataset = (amount: number) => {
     const deposit = calcMonthlyDeposit(
@@ -312,9 +352,21 @@ export function EarnSurvey() {
       Number(saving),
       year * 12
     );
-    const invest = calcInvestDataset((amount * year) / 2);
+    // const invest = calcInvestDataset((amount * year) / 2);
 
-    return deposit.map((value, idx) => value + invest[idx]);
+    // return deposit.map((value, idx) => value + invest[idx]);
+  };
+
+  const data2 = {
+    labels: yearList,
+    datasets: [
+      {
+        label: '정기 납입 누적수익률',
+        data: calcAccumulatedAmountDatasets(amount, year),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
   };
 
   const data = {
@@ -438,6 +490,7 @@ export function EarnSurvey() {
         </div>
       </div>
       {isValid && <Line options={options} data={data} />}
+      <Line options={options2} data={data2} />
     </section>
   );
 }
