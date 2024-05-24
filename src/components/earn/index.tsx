@@ -53,11 +53,11 @@ const AMOUNT_MAX = 2000;
 const YEAR_MAX = 50;
 
 const SAVING = [
-  { label: '한국 예금: 금리 5%', value: '0.05' },
-  { label: '해외 예금: 금리 6%', value: '0.06' },
+  { label: '한국 예금: 금리 5%', value: 5 },
+  { label: '해외 예금: 금리 6%', value: 6 },
 ] as const;
 
-type Saving = Pick<(typeof SAVING)[number], 'value'>['value'];
+type Saving = (typeof SAVING)[number];
 
 const ASSET_LIST = ['선택', 'ACWI', 'EWY', 'QQQ', 'SPY'] as const;
 const NUMBER_CODE_REGEX = /^\d{4}$/;
@@ -308,26 +308,6 @@ export function EarnSurvey() {
     }, []);
   };
 
-  const calcMonthlyDeposit = (
-    monthlyDeposit: number,
-    annualInterestRate: number,
-    months: number
-  ): number[] => {
-    const monthlyInterestRate = annualInterestRate / 12;
-    return Array(months)
-      .fill(0)
-      .reduce(
-        (acc, _, i) => {
-          const prev = acc[acc.length - 1];
-          const futureValue = Number(
-            monthlyDeposit * Math.pow(1 + monthlyInterestRate, months - i)
-          );
-          return [...acc, prev + futureValue];
-        },
-        [0]
-      );
-  };
-
   const calcAccumulatedAmountDatasets = (amount: number, year: number) => {
     let accumulatedAmount = 0;
     return Array(year)
@@ -339,22 +319,35 @@ export function EarnSurvey() {
       }, []);
   };
 
-  // const totalFutureValue = calcMonthlyDeposit(
-  //   amount / 12,
-  //   Number(saving),
-  //   year * 12
-  // );
-  // console.log(totalFutureValue);
+  const calcCumulativeReturns = (
+    yearlyDeposit: number,
+    annualInterestRate: number
+  ) => {
+    const monthlyRate = annualInterestRate / 12 / 100; // 월 이자율
+    const totalMonths = dates.length;
+    let cumulativeBalance = 0; // 누적 잔고
 
-  const calcInvestmentSplitDataset = (amount: number) => {
-    const deposit = calcMonthlyDeposit(
-      amount / 12 / 2,
-      Number(saving),
-      year * 12
-    );
-    // const invest = calcInvestDataset((amount * year) / 2);
+    return Array(totalMonths)
+      .fill(0)
+      .reduce((acc: number[], _, i) => {
+        cumulativeBalance += yearlyDeposit;
+        cumulativeBalance *= 1 + monthlyRate;
+        const accumulateRate =
+          (cumulativeBalance - yearlyDeposit * Math.ceil(i + 1 / 12)) /
+          (yearlyDeposit * Math.ceil(i + 1 / 12));
 
-    // return deposit.map((value, idx) => value + invest[idx]);
+        return [...acc, accumulateRate * 100];
+      }, []);
+  };
+
+  const calcInvestmentSplitDataset = (amount: number, annualRate: number) => {
+    const deposit = calcCumulativeReturns(amount / 12 / 2, annualRate);
+    const invest = calcInvestDataset();
+
+    if (!(deposit.length === invest.length)) {
+      throw new Error('배열 길이 일치하지 않음');
+    }
+    return deposit.map((value, idx) => value + invest[idx]);
   };
 
   const data2 = {
@@ -385,8 +378,10 @@ export function EarnSurvey() {
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
       {
-        label: '반반',
-        data: calcInvestmentSplitDataset(amount),
+        label: `${saving?.label} + ${selectedAsset}`,
+        data: saving?.value
+          ? calcInvestmentSplitDataset(amount, saving.value)
+          : [],
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
@@ -446,9 +441,9 @@ export function EarnSurvey() {
               <button
                 key={item.label}
                 className={`${styles['button']} ${
-                  item.value === saving ? styles['selected'] : ''
+                  item.value === saving?.value ? styles['selected'] : ''
                 }`}
-                onClick={() => setSaving(item.value)}
+                onClick={() => setSaving(item)}
               >
                 {item.label}
               </button>
@@ -489,8 +484,12 @@ export function EarnSurvey() {
           </div>
         </div>
       </div>
-      {isValid && <Line options={options} data={data} />}
-      <Line options={options2} data={data2} />
+      {isValid && (
+        <>
+          <Line options={options} data={data} />
+          <Line options={options2} data={data2} />
+        </>
+      )}
     </section>
   );
 }
