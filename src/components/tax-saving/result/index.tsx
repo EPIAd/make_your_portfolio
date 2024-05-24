@@ -25,12 +25,15 @@ const makeData = <T extends NonNullable<unknown>>({
 export function TaxSavingResult() {
   const scores = useContext(TaxSavingSurveyContext);
 
+  const M = scores?.annualPayAmount || 0;
+  const P = scores?.useAmount || 0;
   const ISA = calcISA(scores);
   const A = ISA ? 2000 : 0;
   const B = 1800;
   const ISAEffect = calcISAEffect(scores);
-  const a = (scores?.annualPayAmount || 0) - (scores?.useAmount || 0);
-  const [b1, b2, _r2] = calcB1(scores?.useAmount || 0);
+  const _a = M - P;
+  const a = A < _a ? A : _a;
+  const [b1, b2, _r2] = calcB1(P);
   const r2 = A > a ? _r2 : _r2 - (A - a);
   const r1 = A < a ? a - A : 0;
   const R = r1 + r2;
