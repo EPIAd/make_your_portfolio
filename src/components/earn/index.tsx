@@ -268,13 +268,10 @@ export function EarnSurvey() {
     );
   };
 
-  const calcInvestDataset = (amount: number) => {
-    const init = amount;
-
+  const calcInvestDataset = () => {
     return values.reduce((acc: number[], curr) => {
-      const rate = curr / 100;
-      amount *= 1 + rate;
-      return [...acc, (amount / init) * (1 / 100)];
+      const last = acc.length > 0 ? acc[acc.length - 1] : 0;
+      return [...acc, last + curr];
     }, []);
   };
 
