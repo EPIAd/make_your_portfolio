@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import dayjs from 'dayjs';
+import { comparedDataOptions, payDataOptions } from './chart';
 
 ChartJS.register(
   CategoryScale,
@@ -22,32 +23,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: '적립식 투자의 누적수익률 비교',
-    },
-  },
-};
-
-const options2 = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: '적립 투자 시, 투자 기간에 따른 누적 금액',
-    },
-  },
-};
 
 const AMOUNT_MAX = 2000;
 const YEAR_MAX = 50;
@@ -350,11 +325,12 @@ export function EarnSurvey() {
     return deposit.map((value, idx) => value + invest[idx]);
   };
 
-  const data2 = {
+  // 적립 투자 시, 투자 기간에 따른 누적 금액 차트 데이터
+  const payData = {
     labels: yearList,
     datasets: [
       {
-        label: '정기 납입 누적수익률',
+        label: '누적 금액',
         data: calcAccumulatedAmountDatasets(amount, year),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -362,7 +338,8 @@ export function EarnSurvey() {
     ],
   };
 
-  const data = {
+  // 적립식 투자의 누적수익률 비교 차트 데이터
+  const comparedData = {
     labels: dates,
     datasets: [
       {
@@ -486,8 +463,8 @@ export function EarnSurvey() {
       </div>
       {isValid && (
         <>
-          <Line options={options} data={data} />
-          <Line options={options2} data={data2} />
+          <Line options={comparedDataOptions} data={comparedData} />
+          <Line options={payDataOptions} data={payData} />
         </>
       )}
     </section>
