@@ -29,7 +29,8 @@ const options = {
       position: 'top' as const,
     },
     title: {
-      display: false,
+      display: true,
+      text: '적립식 투자의 누적수익률 비교',
     },
   },
 };
