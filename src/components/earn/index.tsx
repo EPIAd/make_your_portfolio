@@ -269,13 +269,13 @@ export function EarnSurvey() {
   };
 
   const calcInvestDataset = (amount: number) => {
-    return values.reduce(
-      (acc, curr) => {
-        const monthly = acc[acc.length - 1];
-        return [...acc, monthly * (1 + curr / 100)];
-      },
-      [amount]
-    );
+    const init = amount;
+
+    return values.reduce((acc: number[], curr) => {
+      const rate = curr / 100;
+      amount *= 1 + rate;
+      return [...acc, (amount / init) * (1 / 100)];
+    }, []);
   };
 
   const calcMonthlyDeposit = (
