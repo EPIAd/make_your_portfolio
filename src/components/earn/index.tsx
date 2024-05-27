@@ -296,10 +296,10 @@ export function EarnSurvey() {
         </div>
       </div>
       {isValid && (
-        <>
+        <div className={styles['graph']}>
           <Line options={comparedDataOptions} data={comparedData} />
           <Line options={payDataOptions} data={payData} />
-        </>
+        </div>
       )}
     </section>
   );

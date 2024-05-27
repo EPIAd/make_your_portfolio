@@ -124,6 +124,14 @@
   margin-left: 0.5rem;
 }
 
+.graph {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
 @media screen and (min-width: 420px) {
   .question {
     &.row {
