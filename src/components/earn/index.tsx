@@ -147,13 +147,17 @@ export function EarnSurvey() {
     return deposit.map((value, idx) => value + invest[idx]);
   };
 
+  const payDataset = calcAccumulatedAmountDatasets(amount, year);
+  const lastPayData = payDataset[payDataset.length - 1];
+  const finalAmount = +lastPayData?.toFixed();
+
   // 적립 투자 시, 투자 기간에 따른 누적 금액 차트 데이터
   const payData = {
     labels: yearList,
     datasets: [
       {
         label: '누적 금액',
-        data: calcAccumulatedAmountDatasets(amount, year),
+        data: payDataset,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
@@ -195,7 +199,11 @@ export function EarnSurvey() {
     <section className={styles['container']}>
       <h1 className={`title ${styles['title']}`}>적립 MBTI</h1>
       <div className={styles['wrapper']}>
-        <p className={styles['result-price']}>최종 금액:</p>
+        <p className={styles['result-price']}>
+          {isValid &&
+            !Number.isNaN(finalAmount) &&
+            `최종 금액: ${finalAmount?.toLocaleString()}만원`}
+        </p>
         <div className={`${styles['question']} ${styles['column']}`}>
           <div className={styles['title']}>
             <label className={styles['label']} htmlFor='amount'>
