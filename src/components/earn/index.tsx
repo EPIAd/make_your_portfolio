@@ -13,7 +13,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import dayjs from 'dayjs';
 import { comparedDataOptions, payDataOptions } from './chart';
-import { getReturnRate, getReturnRateDate } from './csvReader';
+import { getMbtiData, getReturnRate, getReturnRateDate } from './csvReader';
 
 ChartJS.register(
   CategoryScale,
@@ -62,6 +62,10 @@ export function EarnSurvey() {
 
   const assetsReturnRateValues =
     selectedAsset !== '선택' ? getReturnRate(selectedAsset) : [];
+  const mbtiData =
+    numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
+
+  const mbtiValues = Object.values(mbtiData).map(Number);
 
   const averageReturn = calcAverageReturn(dates, assetsReturnRateValues);
 
@@ -87,9 +91,6 @@ export function EarnSurvey() {
     }, []);
   };
 
-  useEffect(() => {
-    getReturnRateDate();
-  }, []);
   // 투자 차트
   const calcInvestDataset = (values: number[]) => {
     let totalRate = 1;
@@ -132,9 +133,13 @@ export function EarnSurvey() {
       }, []);
   };
 
-  const calcInvestmentSplitDataset = (amount: number, annualRate: number) => {
+  const calcInvestmentSplitDataset = (
+    amount: number,
+    annualRate: number,
+    values: number[]
+  ) => {
     const deposit = calcCumulativeReturns(amount / 12 / 2, annualRate);
-    const invest = calcInvestDataset(assetsReturnRateValues);
+    const invest = calcInvestDataset(values);
 
     if (!(deposit.length === invest.length)) {
       return [];
@@ -161,20 +166,24 @@ export function EarnSurvey() {
     datasets: [
       {
         label: '정기 납입 누적수익률',
-        data: calcCumulativeDataset(amount / 12, assetsReturnRateValues),
+        data: calcCumulativeDataset(amount / 12, mbtiValues),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: '누적수익률',
-        data: calcInvestDataset(assetsReturnRateValues),
+        data: calcInvestDataset(mbtiValues),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
       {
         label: `${saving?.label} + ${selectedAsset}`,
         data: saving?.value
-          ? calcInvestmentSplitDataset(amount, saving.value)
+          ? calcInvestmentSplitDataset(
+              amount,
+              saving.value,
+              assetsReturnRateValues
+            )
           : [],
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
