@@ -22,15 +22,16 @@ h1.title {
 }
 
 .result-wrapper {
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  padding: 0 4rem 0 8rem;
 
   .section {
-    width: 30%;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    min-width: 0;
 
     .title {
       font-size: 1.8rem;
@@ -39,17 +40,8 @@ h1.title {
     }
 
     &.chart-gap {
-      margin-left: 5rem;
-      padding-right: 5rem;
+      margin-left: 3rem;
     }
-  }
-
-  .contents {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    padding: 1rem;
-    word-break: keep-all;
   }
 
   .empty {
@@ -58,6 +50,16 @@ h1.title {
 
   .chart {
     height: 50vh;
+  }
+}
+
+.contents {
+  text-align: center;
+  word-break: keep-all;
+
+  &.highlight {
+    background: #ffe6e6;
+    font-weight: 600;
   }
 }
 
@@ -80,4 +82,28 @@ h1.title {
   letter-spacing: 0.3rem;
   color: #979797;
   border-radius: 3rem;
+}
+
+.result-table {
+  display: grid;
+
+  .row {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr;
+
+    &.header {
+      font-weight: 700;
+      background: #3a3737;
+      color: white;
+    }
+    > div {
+      padding: 0.5rem;
+      word-break: keep-all;
+      border: 1px solid #d3d3d3;
+    }
+    > div:not(.title) {
+      text-align: center;
+      white-space: break-spaces;
+    }
+  }
 }

@@ -35,7 +35,7 @@ export function TaxSavingResult() {
   const a = A < _a ? A : _a;
   const [b1, b2, _r2] = calcB1(P);
   const r2 = A > a ? _r2 : _r2 - (A - a);
-  const r1 = A < a ? a - A : 0;
+  const r1 = A < _a ? _a - A : 0;
   const R = r1 + r2;
 
   const yMax = Math.max(A, B, R);
@@ -82,18 +82,28 @@ export function TaxSavingResult() {
             </div>
           </div>
         </div>
-        <div className={styles['effect']}>▼ 절세효과 ▼</div>
-        <div className={styles['result-wrapper']}>
-          <div className={`${styles.section} ${styles.contents}`}>
-            {ISAEffect}
+        <div className={styles['result-table']}>
+          <div className={`${styles['row']} ${styles['header']}`}>
+            <div className={styles['title']}>최대납입금액</div>
+            <div>{A.toLocaleString()}만원</div>
+            <div>{B.toLocaleString()}만원</div>
+            <div>제한 없음</div>
           </div>
-          <div className={`${styles.section} ${styles.contents}`}>
-            {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
+          <div className={styles['row']}>
+            <div className={styles['title']}>추천납입금액</div>
+            <div>ISA {a.toLocaleString()}만원</div>
+            <div>{`연금저축: ${b1}만원\nIRP: ${b2}만원`}</div>
+            <div>예금 : {(r1 + r2).toLocaleString()}만원</div>
           </div>
-          <div
-            className={`${styles.section} ${styles.contents} ${styles['chart-gap']}`}
-          >
-            <p className={styles['empty']}>없음</p>
+          <div className={styles['row']}>
+            <div className={styles['title']}>절세효과</div>
+            <div className={`${styles['contents']} ${styles['highlight']}`}>
+              {ISAEffect}
+            </div>
+            <div className={`${styles['contents']} ${styles['highlight']}`}>
+              {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
+            </div>
+            <div>없음</div>
           </div>
         </div>
       </div>
