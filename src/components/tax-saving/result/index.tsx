@@ -69,8 +69,8 @@ export function TaxSavingResult() {
               />
             </div>
           </div>
-          <div className={styles.section}>
-            <p className={styles['title']}> 일반예금 </p>
+          <div className={`${styles.section} ${styles['chart-gap']}`}>
+            <p className={styles['title']}>일반예금</p>
             <div className={styles['chart']}>
               <Bar
                 options={chartOptions(yMax)}
@@ -90,7 +90,11 @@ export function TaxSavingResult() {
           <div className={`${styles.section} ${styles.contents}`}>
             {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
           </div>
-          <div className={`${styles.section} ${styles.contents}`}>없음</div>
+          <div
+            className={`${styles.section} ${styles.contents} ${styles['chart-gap']}`}
+          >
+            <p className={styles['empty']}>없음</p>
+          </div>
         </div>
       </div>
     </section>
