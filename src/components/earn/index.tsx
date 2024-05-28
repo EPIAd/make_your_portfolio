@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './earn.module.css';
 import {
   Chart as ChartJS,
@@ -81,7 +81,7 @@ export function EarnSurvey() {
     numberCode &&
     !isNumberCodeWrong;
 
-  // 적립 차트
+  // 정기 납입 누적수익률 차트
   const calcCumulativeDataset = (amount: number, values: number[]) => {
     let accumulativeAmount = 0;
     return values.reduce((acc: number[], curr, i) => {
@@ -91,7 +91,7 @@ export function EarnSurvey() {
     }, []);
   };
 
-  // 투자 차트
+  // 누적수익률 차트
   const calcInvestDataset = (values: number[]) => {
     let totalRate = 1;
     return values.reduce((acc: number[], curr) => {
@@ -101,6 +101,7 @@ export function EarnSurvey() {
     }, []);
   };
 
+  // 두 번째 누적 금액 차트
   const calcAccumulatedAmountDatasets = (amount: number, year: number) => {
     let accumulatedAmount = 0;
     return Array(year)
@@ -133,6 +134,7 @@ export function EarnSurvey() {
       }, []);
   };
 
+  // 예금 + 투자 차트
   const calcInvestmentSplitDataset = (
     amount: number,
     annualRate: number,
