@@ -82,30 +82,33 @@ export function TaxSavingResult() {
             </div>
           </div>
         </div>
-        <div className={styles['result-table']}>
-          <div className={`${styles['row']} ${styles['header']}`}>
-            <div className={styles['title']}>최대납입금액</div>
-            <div>{A.toLocaleString()}만원</div>
-            <div>{B.toLocaleString()}만원</div>
-            <div>제한 없음</div>
-          </div>
-          <div className={styles['row']}>
-            <div className={styles['title']}>추천납입금액</div>
-            <div>ISA {a.toLocaleString()}만원</div>
-            <div>{`연금저축: ${b1}만원\nIRP: ${b2}만원`}</div>
-            <div>예금 : {(r1 + r2).toLocaleString()}만원</div>
-          </div>
-          <div className={styles['row']}>
-            <div className={styles['title']}>절세효과</div>
-            <div className={`${styles['contents']} ${styles['highlight']}`}>
-              {ISAEffect}
-            </div>
-            <div className={`${styles['contents']} ${styles['highlight']}`}>
-              {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
-            </div>
-            <div>없음</div>
-          </div>
-        </div>
+
+        <table className={styles['result-table']}>
+          <thead>
+            <tr className={styles['header']}>
+              <th className={styles['title']}>최대납입금액</th>
+              <th>{A.toLocaleString()}만원</th>
+              <th>{B.toLocaleString()}만원</th>
+              <th>제한 없음</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={styles['title']}>추천납입금액</td>
+              <td>ISA {a.toLocaleString()}만원</td>
+              <td>{`연금저축: ${b1}만원\nIRP: ${b2}만원`}</td>
+              <td>예금 : {(r1 + r2).toLocaleString()}만원</td>
+            </tr>
+            <tr>
+              <td className={styles['title']}>절세효과</td>
+              <td className={styles['highlight']}>{ISAEffect}</td>
+              <td className={styles['highlight']}>
+                {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
+              </td>
+              <td>없음</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   );

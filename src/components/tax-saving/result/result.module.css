@@ -13,6 +13,7 @@ section.container {
 
 h1.title {
   margin-block-end: 0.83em;
+  white-space: pre;
 }
 
 .wrapper {
@@ -85,25 +86,31 @@ h1.title {
 }
 
 .result-table {
-  display: grid;
+  width: 100%;
+  border-collapse: collapse;
 
-  .row {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr;
+  th,
+  td {
+    padding: 0.5rem;
+    border: 1px solid #d3d3d3;
+  }
+  th {
+    white-space: pre;
+    background: #3a3737;
+    color: white;
+    font-weight: 700;
+  }
 
-    &.header {
-      font-weight: 700;
-      background: #3a3737;
-      color: white;
-    }
-    > div {
-      padding: 0.5rem;
-      word-break: keep-all;
-      border: 1px solid #d3d3d3;
-    }
-    > div:not(.title) {
-      text-align: center;
-      white-space: break-spaces;
-    }
+  td {
+    text-align: center;
+    white-space: break-spaces;
+  }
+
+  .title {
+    text-align: left;
+  }
+
+  .highlight {
+    background-color: #ffd9d9;
   }
 }
