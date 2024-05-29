@@ -3,7 +3,7 @@
   box-shadow: #ddd 0px 0px 10px 5px;
   background: rgb(252, 252, 252);
 
-  & > p:first-of-type {
+  .desc {
     padding: 0 5%;
     line-height: 19.2px;
     line-height: 1.2rem;
@@ -270,7 +270,7 @@ h1 {
     letter-spacing: -0.05rem;
   }
   .welcome {
-    & > p:first-of-type {
+    .desc {
       padding: 0 15%;
     }
   }
@@ -351,7 +351,7 @@ h1 {
     letter-spacing: -0.08rem;
   }
   .welcome {
-    & > p:first-of-type {
+    .desc {
       padding: 0 17.5%;
       line-height: 27.2px;
       line-height: 1.7rem;

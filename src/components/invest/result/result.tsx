@@ -2,6 +2,7 @@ import { InvestSurveyContext } from '@/shared/context/survey';
 import styles from './result.module.css';
 import { InvestScores } from '@/shared/types/survey';
 import { useContext } from 'react';
+import { getMbtiLink } from './csvReader';
 
 export const Result = () => {
   const scores = useContext(InvestSurveyContext);
@@ -22,7 +23,7 @@ export const Result = () => {
     const s3Result = s3 + s5Result;
     const s4Result = s4 + 1 + s5Result;
     const code = `${s1Result}${s3Result}${s2Result}${s4Result}`;
-    return `${mbti}-${code}`;
+    return `${mbti}_${code}`;
   };
 
   const calcS1Result = (score: number) => {
@@ -33,7 +34,10 @@ export const Result = () => {
   };
 
   const result = calcResult(scores);
-
+  const link = getMbtiLink(result);
+  const handleClickLink = () => {
+    window.open(link);
+  };
   return (
     <section className={styles['result']}>
       <div className={styles['result-box']}>
@@ -43,8 +47,10 @@ export const Result = () => {
           <p className={styles['sub']}>▼ 아래 클릭 ▼</p>
         </div>
         {/* TODO: 임시 결과 삭제 */}
-        <p style={{ color: 'white' }}>임시 결과 확인: {result}</p>
-        <button className={styles['result-button']}>결과 보러 가기</button>
+        <p style={{ color: 'white' }}>{result}</p>
+        <button className={styles['result-button']} onClick={handleClickLink}>
+          결과 보러 가기
+        </button>
 
         <p className={styles['caution']}>
           {`위 성과 차트는 주식, 채권, 대체자산으로 구성된 포트폴리오의 성과입니다.\n본 결과가 본인의 투자성향을 완벽하게 알려주진 못할 수 있습니다.\n결과를 토대로 본인의 투자성향에 적합한 최적의 포트폴리오를 만들어 보세요.\n당신의 성공적인 투자를 기원합니다!\n`}

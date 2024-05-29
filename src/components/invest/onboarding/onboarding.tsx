@@ -13,7 +13,15 @@ type OnboardingProps = {
   handleAge: (age: AgeValues) => void;
   handleStep: () => void;
 };
-export const Onboarding = ({ name, gender, age, handleName, handleGender, handleAge, handleStep }: OnboardingProps) => {
+export const Onboarding = ({
+  name,
+  gender,
+  age,
+  handleName,
+  handleGender,
+  handleAge,
+  handleStep,
+}: OnboardingProps) => {
   const [error, setError] = useState(false);
 
   const onClickStart = () => {
@@ -33,11 +41,17 @@ export const Onboarding = ({ name, gender, age, handleName, handleGender, handle
           <br />
           최적의 절세 납입 순서
         </h3>
-        <img src={Clock} alt='time-logo' className={styles['time-logo']} width={30} height={30} />
+        <img
+          src={Clock}
+          alt='time-logo'
+          className={styles['time-logo']}
+          width={30}
+          height={30}
+        />
         <div className={styles['time']}>소요 시간 : 1분 내외</div>
       </div>
       <hr className={styles['w-line']} />
-      <p>
+      <div className={styles['desc']}>
         <span id='p-tit'>이 테스트로 당신은...</span>
         <br />
         당신의 소득과 상황에 맞는 절세 방법을 확인할 수 있습니다.
@@ -46,13 +60,22 @@ export const Onboarding = ({ name, gender, age, handleName, handleGender, handle
         <br />
         <div className={styles['link']}>
           <span>{`->`}</span>
-          <a href='https://etfdiy.imweb.me/39' target='_blank'>{`<절세 계좌 종류 알아보러 가기>`}</a>
+          <a
+            href='https://etfdiy.imweb.me/39'
+            target='_blank'
+          >{`<절세 계좌 종류 알아보러 가기>`}</a>
           <span>{`<-`}</span>
         </div>
-      </p>
+      </div>
       <hr className={styles['w-line']} />
       <div className={styles['name-input']}>
-        <input type='text' placeholder='이름' autoFocus value={name} onChange={(e) => handleName(e.target.value)} />
+        <input
+          type='text'
+          placeholder='이름'
+          autoFocus
+          value={name}
+          onChange={(e) => handleName(e.target.value)}
+        />
       </div>
       <div className={styles['gender-input']}>
         <div className={styles['input-label']}>성별</div>
@@ -72,7 +95,10 @@ export const Onboarding = ({ name, gender, age, handleName, handleGender, handle
       </div>
       <div className={styles['age-input']}>
         <div className={styles['input-label']}>나이</div>
-        <select value={age} onChange={(e) => handleAge(e.target.value as AgeValues)}>
+        <select
+          value={age}
+          onChange={(e) => handleAge(e.target.value as AgeValues)}
+        >
           {AGE.map((age) => (
             <option key={age.value} value={age.value}>
               {age.label}
@@ -80,7 +106,11 @@ export const Onboarding = ({ name, gender, age, handleName, handleGender, handle
           ))}
         </select>
       </div>
-      {error && <p className={`${styles['check-name']} ${styles['warning']}`}>이름을 입력하고 시작해 주세요.</p>}
+      {error && (
+        <p className={`${styles['check-name']} ${styles['warning']}`}>
+          이름을 입력하고 시작해 주세요.
+        </p>
+      )}
       <div className={styles['start-wrap']}>
         <button className={styles['start']} onClick={onClickStart}>
           시 작
