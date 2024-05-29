@@ -8,7 +8,7 @@ export const Result = () => {
 
   const calcResult = (scores: InvestScores | null) => {
     if (!scores) return '';
-    const { s1, s2, s3, s4 } = scores;
+    const { s1, s2, s3, s4, s5 } = scores;
 
     const ie = s1 < 50 ? 'I' : 'E';
     const sn = s3 % 2 ? 'N' : 'S';
@@ -16,9 +16,12 @@ export const Result = () => {
     const jp = s4 < 2 ? 'J' : 'P';
 
     const mbti = `${ie}${sn}${tf}${jp}`;
-    const s1Result = calcS1Result(s1);
-    const s2Result = s2 <= 1 ? 1 : s2;
-    const code = `${s1Result}${s3}${s2Result}${s4 + 1}`;
+    const s5Result = s5 < 4 ? 0 : 5;
+    const s1Result = calcS1Result(s1) + s5Result;
+    const s2Result = (s2 <= 1 ? 1 : s2) + s5Result;
+    const s3Result = s3 + s5Result;
+    const s4Result = s4 + 1 + s5Result;
+    const code = `${s1Result}${s3Result}${s2Result}${s4Result}`;
     return `${mbti}-${code}`;
   };
 
