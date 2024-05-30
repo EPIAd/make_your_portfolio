@@ -10,7 +10,7 @@ export const CalcResult = ({
   useEffect(() => {
     setTimeout(() => {
       setIsShowCalc(false);
-    }, 8000);
+    }, 5000);
   }, []);
 
   if (isShowCalc) return <CalcComponent />;

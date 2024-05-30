@@ -56,7 +56,7 @@
       #e577c4 100%
     ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#57a0db', endColorstr='#e577c4',GradientType=1 ); /* IE6-9 */
-    animation: working 5.5s 2s forwards;
+    animation: working 4s 1s forwards;
   }
 }
 @keyframes working {
