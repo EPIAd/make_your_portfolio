@@ -4,26 +4,12 @@ export const chartOptions = (yMax: number) => ({
   maintainAspectRatio: false,
   scales: {
     x: {
-      // display: false,
       stacked: true,
-      // grid: {
-      //   display: false,
-      // },
     },
     y: {
       min: 0,
       max: yMax,
-      // display: false,
       stacked: true,
-      // grid: {
-      //   display: false,
-      // },
-      // ticks: {
-      //   display: false,
-      //   border: {
-      //     display: false,
-      //   },
-      // },
     },
   },
   plugins: {

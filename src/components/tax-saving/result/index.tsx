@@ -44,59 +44,66 @@ export function TaxSavingResult() {
     <section className={styles.container}>
       <h1 className={`title ${styles['title']}`}>최적 절세</h1>
       <div className={styles['wrapper']}>
-        <div className={styles['result-wrapper']}>
-          <div className={styles.section}>
-            <p className={styles['title']}>ISA</p>
-            <div className={styles['chart']}>
-              <Bar
-                options={chartOptions(yMax)}
-                data={makeData({
-                  labels: ['ISA'],
-                  datasets: makeISADataset(a, A),
-                })}
-              />
-            </div>
-          </div>
-          <div className={styles.section}>
-            <p className={styles['title']}>연금저축+IRP</p>
-            <div className={styles['chart']}>
-              <Bar
-                options={chartOptions(yMax)}
-                data={makeData({
-                  labels: ['연금저축+IRP'],
-                  datasets: makeIRPDataset(b1, b2, B),
-                })}
-              />
-            </div>
-          </div>
-          <div className={`${styles.section} ${styles['chart-gap']}`}>
-            <p className={styles['title']}>일반예금</p>
-            <div className={styles['chart']}>
-              <Bar
-                options={chartOptions(yMax)}
-                data={makeData({
-                  labels: ['일반예금'],
-                  datasets: makeDepositDataset(R),
-                })}
-              />
-            </div>
-          </div>
-        </div>
-
         <table className={styles['result-table']}>
           <thead>
-            <tr className={styles['header']}>
-              <th className={styles['title']}>최대납입금액</th>
-              <th>{A.toLocaleString()}만원</th>
-              <th>{B.toLocaleString()}만원</th>
-              <th>제한 없음</th>
+            <tr>
+              <td className={styles['title']} />
+              <th>
+                <div>ISA</div>
+              </th>
+              <th>
+                <div>연금저축+IRP</div>
+              </th>
+              <td className={styles['empty']} />
+              <th>
+                <div>일반예금</div>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td className={styles['title']}></td>
+              <td className={styles['section']}>
+                <Bar
+                  options={chartOptions(yMax)}
+                  data={makeData({
+                    labels: ['ISA'],
+                    datasets: makeISADataset(a, A),
+                  })}
+                />
+              </td>
+              <td className={styles['section']}>
+                <Bar
+                  options={chartOptions(yMax)}
+                  data={makeData({
+                    labels: ['연금저축+IRP'],
+                    datasets: makeIRPDataset(b1, b2, B),
+                  })}
+                />
+              </td>
+              <td className={styles['empty']} />
+              <td className={styles['section']}>
+                <Bar
+                  options={chartOptions(yMax)}
+                  data={makeData({
+                    labels: ['일반예금'],
+                    datasets: makeDepositDataset(R),
+                  })}
+                />
+              </td>
+            </tr>
+            <tr className={styles['header']}>
+              <td className={styles['title']}>최대납입금액</td>
+              <td>{A.toLocaleString()}만원</td>
+              <td>{B.toLocaleString()}만원</td>
+              <td className={styles['empty']} />
+              <td>제한 없음</td>
+            </tr>
+            <tr>
               <td className={styles['title']}>추천납입금액</td>
               <td>ISA {a.toLocaleString()}만원</td>
               <td>{`연금저축: ${b1.toLocaleString()}만원\nIRP: ${b2.toLocaleString()}만원`}</td>
+              <td className={styles['empty']} />
               <td>예금 : {(r1 + r2).toLocaleString()}만원</td>
             </tr>
             <tr>
@@ -105,6 +112,7 @@ export function TaxSavingResult() {
               <td className={styles['highlight']}>
                 {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
               </td>
+              <td className={styles['empty']} />
               <td>없음</td>
             </tr>
           </tbody>
