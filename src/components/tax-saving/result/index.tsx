@@ -96,7 +96,7 @@ export function TaxSavingResult() {
             <tr>
               <td className={styles['title']}>추천납입금액</td>
               <td>ISA {a.toLocaleString()}만원</td>
-              <td>{`연금저축: ${b1}만원\nIRP: ${b2}만원`}</td>
+              <td>{`연금저축: ${b1.toLocaleString()}만원\nIRP: ${b2.toLocaleString()}만원`}</td>
               <td>예금 : {(r1 + r2).toLocaleString()}만원</td>
             </tr>
             <tr>
