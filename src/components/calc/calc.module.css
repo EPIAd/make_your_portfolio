@@ -1,12 +1,16 @@
-/* calc로 넘어갈 때 display: block; */
-#calc {
-  /* display: none;
-  opacity: 0; */
+.calc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
 }
 .calc-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   box-sizing: border-box;
-  margin: 30vh 15vw 10px 15vw;
   width: 70%;
   height: 9vh;
   line-height: 9vh;
@@ -19,8 +23,15 @@
   letter-spacing: 11.2px;
   letter-spacing: 0.7rem;
   text-align: center;
-  animation: fade-in 0.5s ease-out 0s forwards, going-down 0.5s ease-out 0s forwards;
-  & > .calc {
+  animation: fade-in 0.5s ease-out 0s forwards,
+    going-down 0.5s ease-out 0s forwards;
+
+  p {
+    position: relative;
+    z-index: 10;
+  }
+
+  .calc {
     position: absolute;
     top: 0;
     left: 0;
@@ -29,8 +40,16 @@
     border-radius: 10px;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#57a0db+1,e577c4+100 */
     background: #57a0db; /* Old browsers */
-    background: -moz-linear-gradient(left, #57a0db 1%, #e577c4 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, #57a0db 1%, #e577c4 100%); /* Chrome10-25,Safari5.1-6 */
+    background: -moz-linear-gradient(
+      left,
+      #57a0db 1%,
+      #e577c4 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      left,
+      #57a0db 1%,
+      #e577c4 100%
+    ); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(
       to right,
       #57a0db 1%,
@@ -40,6 +59,17 @@
     animation: working 5.5s 2s forwards;
   }
 }
+@keyframes working {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 40%;
+  }
+  100% {
+    width: 100%;
+  }
+}
 
 .wait {
   padding-bottom: 10px;
@@ -47,10 +77,27 @@
   font-size: 1.7rem;
   font-weight: lighter;
   text-align: center;
-  animation: fade-in 0.3s ease-out 0.6s forwards, going-down 0.3s ease-out 0.6s forwards;
+  animation: fade-in 0.3s ease-out 0.6s forwards,
+    going-down 0.3s ease-out 0.6s forwards;
   opacity: 0;
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes going-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
 /* media query */
 @media all and (min-width: 486px) {
   .calc-bar {
@@ -63,7 +110,6 @@
 
 @media all and (min-width: 768px) {
   .calc-bar {
-    margin: 25vh 20vw 30px 20vw;
     width: 60%;
     font-size: 17.6px;
     font-size: 1.1rem;
@@ -80,7 +126,6 @@
 
 @media all and (min-width: 1024px) {
   .calc-bar {
-    margin: 25vh 25vw 40px 25vw;
     width: 50%;
     font-size: 20.8px;
     font-size: 1.3rem;
