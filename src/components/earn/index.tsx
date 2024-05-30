@@ -221,10 +221,15 @@ export function EarnSurvey() {
             max={AMOUNT_MAX}
             value={amount}
             onChange={(e) => setAmount(+e.target.value)}
+            step={100}
             style={{
               background: `linear-gradient(to right, #65b9fd 0%, #65b9fd ${amountGradientValue}%, #ececec ${amountGradientValue}%, #ececec 100%)`,
             }}
           />
+          <div className={styles['amount-bar']}>
+            <span>0만원</span>
+            <span>{AMOUNT_MAX.toLocaleString()}만원</span>
+          </div>
         </div>
         <div className={`${styles['question']} ${styles['column']}`}>
           <div className={styles['title']}>
@@ -241,10 +246,15 @@ export function EarnSurvey() {
             max={YEAR_MAX}
             onChange={(e) => setYear(+e.target.value)}
             value={year}
+            step={5}
             style={{
               background: `linear-gradient(to right, #65b9fd 0%, #65b9fd ${yearGradientValue}%, #ececec ${yearGradientValue}%, #ececec 100%)`,
             }}
           />
+          <div className={styles['amount-bar']}>
+            <span>0년</span>
+            <span>{YEAR_MAX}년</span>
+          </div>
         </div>
         <div className={`${styles['question']} ${styles['row']}`}>
           <label className={styles['label']}>예금 선택</label>

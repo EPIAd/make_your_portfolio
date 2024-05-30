@@ -103,6 +103,13 @@
   }
 }
 
+.amount-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-top: -0.5rem;
+}
+
 .input {
   display: flex;
   gap: 0.3rem;
