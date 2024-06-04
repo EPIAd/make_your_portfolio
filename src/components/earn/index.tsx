@@ -81,7 +81,7 @@ export function EarnSurvey() {
     numberCode &&
     !isNumberCodeWrong;
 
-  // 정기 납입 누적수익률 차트
+  // MBTI 적립식투자 누적수익률 차트
   const calcCumulativeDataset = (amount: number, values: number[]) => {
     let accumulativeAmount = 0;
     return values.reduce((acc: number[], curr, i) => {
@@ -91,7 +91,7 @@ export function EarnSurvey() {
     }, []);
   };
 
-  // 누적수익률 차트
+  // MBTI 최초투자 누적수익률 차트
   const calcInvestDataset = (values: number[]) => {
     let totalRate = 1;
     return values.reduce((acc: number[], curr) => {
@@ -171,19 +171,21 @@ export function EarnSurvey() {
     labels: dates,
     datasets: [
       {
-        label: '정기 납입 누적수익률',
+        label: 'MBTI 적립식투자 누적수익률',
         data: calcCumulativeDataset(amount / 12, mbtiValues),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: '누적수익률',
+        label: 'MBTI 최초투자 누적수익률',
         data: calcInvestDataset(mbtiValues),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
       {
-        label: `${saving?.label} + ${selectedAsset}`,
+        label: `${
+          saving?.label?.split(':')[0]
+        } 50% + ${selectedAsset} 50% 적립식투자 누적수익률`,
         data: saving?.value
           ? calcInvestmentSplitDataset(
               amount,
