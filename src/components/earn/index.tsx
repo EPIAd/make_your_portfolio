@@ -254,8 +254,11 @@ export function EarnSurvey() {
             }}
           />
           <div className={styles['amount-bar']}>
-            <span>0년</span>
-            <span>{YEAR_MAX}년</span>
+            {Array.from({ length: YEAR_MAX / 5 + 1 }, (_, i) => i * 5).map(
+              (year) => (
+                <span>{year}년</span>
+              )
+            )}
           </div>
         </div>
         <div className={`${styles['question']} ${styles['row']}`}>
