@@ -312,7 +312,7 @@ export function EarnSurvey() {
       {isValid && (
         <div className={styles['graph']}>
           <Line options={comparedDataOptions} data={comparedData} />
-          <Line options={payDataOptions} data={payData} />
+          <Line options={payDataOptions(selectedAsset)} data={payData} />
         </div>
       )}
     </section>

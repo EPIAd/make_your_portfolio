@@ -11,7 +11,9 @@ export const comparedDataOptions = {
   },
 };
 
-export const payDataOptions = {
+export const payDataOptions = (
+  asset: '선택' | 'ACWI' | 'EWY' | 'QQQ' | 'SPY'
+) => ({
   responsive: true,
   plugins: {
     legend: {
@@ -19,7 +21,7 @@ export const payDataOptions = {
     },
     title: {
       display: true,
-      text: '적립 투자 시, 투자 기간에 따른 누적 금액',
+      text: `${asset} 적립 투자 시, 투자기간별 누적 금액`,
     },
   },
-};
+});
