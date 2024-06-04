@@ -74,6 +74,15 @@
   color: #eee;
 }
 
+.fade-out {
+  animation: fade-out 0.5s ease-out 0s forwards,
+    going-up 0.5s ease-out 0s forwards;
+}
+.fade-in {
+  animation: fade-in 0.5s ease-out 0s forwards,
+    going-down 0.5s ease-out 0s forwards;
+}
+
 @media screen and (min-width: 486px) {
   .image-box {
     .buttons {
@@ -164,5 +173,40 @@
     width: 100%;
     font-size: 28.8px;
     font-size: 1.8rem;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes going-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes going-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
   }
 }

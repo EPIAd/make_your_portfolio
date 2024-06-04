@@ -1,6 +1,7 @@
 import { INVEST_SURVEY, SURVEY_LENGTH } from '@/shared/constants/survey';
 import styles from './step.module.css';
 import { Answers, InvestScores } from '@/shared/types/survey';
+import { useRef } from 'react';
 
 type StepProps = {
   currStep: number;
@@ -12,9 +13,33 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
   const currSurvey = INVEST_SURVEY[currStep - 1];
   const { title, type, answers } = currSurvey;
 
+  const answerRef = useRef<HTMLUListElement>(null);
+  const questionRef = useRef<HTMLDivElement>(null);
   const onClickAnswer = (answer: Answers) => {
-    handleScores(answer);
-    handleStep();
+    setTimeout(() => {
+      if (answerRef.current) {
+        answerRef.current.classList.remove(styles['fade-in']);
+        answerRef.current.classList.add(styles['fade-out']);
+      }
+
+      if (questionRef.current) {
+        questionRef.current.classList.remove(styles['fade-in']);
+        questionRef.current.classList.add(styles['fade-out']);
+      }
+    }, 500);
+
+    setTimeout(() => {
+      handleScores(answer);
+      handleStep();
+      if (answerRef) {
+        answerRef.current?.classList.remove(styles['fade-out']);
+        answerRef.current?.classList.add(styles['fade-in']);
+      }
+      if (questionRef) {
+        questionRef.current?.classList.remove(styles['fade-out']);
+        questionRef.current?.classList.add(styles['fade-in']);
+      }
+    }, 1500);
   };
 
   return (
@@ -25,7 +50,7 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
           style={{ width: `${(currStep / SURVEY_LENGTH) * 100}%` }}
         ></div>
       </div>
-      <div className={`${styles['box']} ${styles['q']}`}>
+      <div className={`${styles['box']} ${styles['q']}`} ref={questionRef}>
         {currStep}. {title}
         {type === 'image' && (
           <div className={styles['image-box']}>
@@ -44,7 +69,7 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
           </div>
         )}
       </div>
-      <ul className={styles['answer']}>
+      <ul className={styles['answer']} ref={answerRef}>
         {type === 'text' &&
           answers.map((answer, i) => (
             <li
