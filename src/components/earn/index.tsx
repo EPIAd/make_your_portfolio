@@ -199,7 +199,7 @@ export function EarnSurvey() {
 
   return (
     <section className={styles['container']}>
-      <h1 className={`title ${styles['title']}`}>적립 MBTI</h1>
+      <h1 className={`title ${styles['title']}`}>모으기 MBTI</h1>
       <div className={styles['wrapper']}>
         <p className={styles['result-price']}>
           {isValid &&

@@ -1,6 +1,6 @@
 - invest: 투자 MBTI
 - tax-saving: 절세 MBTI
-- earn: 적립 MBTI
+- earn: 모으기 MBTI
 
 ```bash
 .
@@ -57,7 +57,7 @@
 │   ├── index.css
 │   ├── main.tsx
 │   ├── pages
-│   │   ├── earn # 적립 MBTI
+│   │   ├── earn # 모으기 MBTI
 │   │   │   ├── earn.module.css
 │   │   │   └── index.tsx
 │   │   ├── index.ts
