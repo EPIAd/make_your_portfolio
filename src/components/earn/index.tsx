@@ -141,7 +141,8 @@ export function EarnSurvey() {
     values: number[]
   ) => {
     const deposit = calcCumulativeReturns(amount / 12 / 2, annualRate);
-    const invest = calcInvestDataset(values);
+    const halfValues = values.map((item) => item / 2);
+    const invest = calcInvestDataset(halfValues);
 
     if (!(deposit.length === invest.length)) {
       return [];
