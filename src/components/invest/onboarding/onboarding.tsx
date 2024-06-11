@@ -34,12 +34,11 @@ export const Onboarding = ({
   return (
     <section className={styles['welcome']}>
       <div className={styles['title-box']}>
-        <span className={styles['p-tit']}>ETF Platform Innovator</span>
-        <h1 className={styles['title']}>My Best Tax Investment</h1>
+        <h1 className={styles['title']}>Make Your Portfolio</h1>
         <h3 className={styles['sec-tit']}>
-          나에게 꼭 맞는
+          투자 MBTI
           <br />
-          최적의 절세 납입 순서
+          나만의 포트폴리오 만들기
         </h3>
         <img
           src={Clock}
@@ -48,22 +47,29 @@ export const Onboarding = ({
           width={30}
           height={30}
         />
-        <div className={styles['time']}>소요 시간 : 1분 내외</div>
+        <div className={styles['time']}>소요 시간: 3분 내외</div>
       </div>
       <hr className={styles['w-line']} />
       <div className={styles['desc']}>
         <span id='p-tit'>이 테스트로 당신은...</span>
         <br />
-        당신의 소득과 상황에 맞는 절세 방법을 확인할 수 있습니다.
+        당신의 투자성향에 맞는 포트폴리오를 만들 수 있습니다.
         <br />
-        테스트 결과를 가이드라인으로 활용해 보세요. <br /> <br />
+        투자 시작 전 본인의 위험성향, 목표 수익률을 인지하는 것은
+        <br />
+        성공적인 투자를 위해 필수적입니다.
+        <br />
+        테스트 결과를 투자 가이드라인으로 활용해 보세요. <br /> <br />
+        ※ 질문에서의 자산 선택은 위험성향 분석 과정으로
+        <br /> 포트폴리오 구성과는 무관합니다.
+        <br />
         <br />
         <div className={styles['link']}>
           <span>{`->`}</span>
           <a
             href='https://etfdiy.imweb.me/39'
             target='_blank'
-          >{`<절세 계좌 종류 알아보러 가기>`}</a>
+          >{`<투자 MBTI 알아보러 가기>`}</a>
           <span>{`<-`}</span>
         </div>
       </div>
