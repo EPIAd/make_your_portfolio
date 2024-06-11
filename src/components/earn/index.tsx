@@ -117,7 +117,7 @@ export function EarnSurvey() {
     yearlyDeposit: number,
     annualInterestRate: number
   ) => {
-    const monthlyRate = annualInterestRate / 12 / 100; // 월 이자율
+    const monthlyRate = annualInterestRate / 100; // 월 이자율
     const totalMonths = dates.length;
     let cumulativeBalance = 0; // 누적 잔고
 
@@ -140,7 +140,10 @@ export function EarnSurvey() {
     annualRate: number,
     values: number[]
   ) => {
-    const deposit = calcCumulativeReturns(amount / 12 / 2, annualRate);
+    const deposit = calcCumulativeReturns(
+      amount / 12 / 2,
+      Math.pow(annualRate, 1 / 12) / 2
+    );
     const halfValues = values.map((item) => item / 2);
     const invest = calcInvestDataset(halfValues);
 
