@@ -141,16 +141,15 @@ export function EarnSurvey() {
     values: number[]
   ) => {
     const deposit = calcCumulativeReturns(
-      amount / 12 / 2,
-      Math.pow(annualRate, 1 / 12) / 2
+      amount / 12,
+      Math.pow(annualRate, 1 / 12)
     );
-    const halfValues = values.map((item) => item / 2);
-    const invest = calcInvestDataset(halfValues);
+    const invest = calcCumulativeDataset(amount / 12, values);
 
     if (!(deposit.length === invest.length)) {
       return [];
     }
-    return deposit.map((value, idx) => value + invest[idx]);
+    return deposit.map((value, idx) => (value + invest[idx]) / 2);
   };
 
   const payDataset = calcAccumulatedAmountDatasets(amount, year);
