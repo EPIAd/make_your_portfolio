@@ -113,43 +113,20 @@ export function EarnSurvey() {
       }, []);
   };
 
-  const calcCumulativeReturns = (
-    yearlyDeposit: number,
-    annualInterestRate: number
-  ) => {
-    const monthlyRate = annualInterestRate / 100; // 월 이자율
-    const totalMonths = dates.length;
-    let cumulativeBalance = 0; // 누적 잔고
-
-    return Array(totalMonths)
-      .fill(0)
-      .reduce((acc: number[], _, i) => {
-        cumulativeBalance += yearlyDeposit;
-        cumulativeBalance *= 1 + monthlyRate;
-        const accumulateRate =
-          (cumulativeBalance - yearlyDeposit * Math.ceil(i + 1 / 12)) /
-          (yearlyDeposit * Math.ceil(i + 1 / 12));
-
-        return [...acc, accumulateRate * 100];
-      }, []);
-  };
-
   // 예금 + 투자 차트
-  const calcInvestmentSplitDataset = (
-    amount: number,
-    annualRate: number,
-    values: number[]
-  ) => {
-    const deposit = calcCumulativeReturns(
-      amount / 12,
-      Math.pow(annualRate, 1 / 12)
-    );
-    const invest = calcCumulativeDataset(amount / 12, values);
+  const calcInvestmentSplitDataset = (annualRate: number, values: number[]) => {
+    const monthlyDepositRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
 
-    if (!(deposit.length === invest.length)) {
-      return [];
-    }
-    return deposit.map((value, idx) => (value + invest[idx]) / 2);
+    const result = values
+      .map((value) => (value / 100 / 2 + monthlyDepositRate / 2) * 100)
+      .reduce(
+        (acc, curr) => {
+          return [...acc, acc[acc.length - 1] + curr];
+        },
+        [0]
+      );
+
+    return result.slice(1);
   };
 
   const payDataset = calcAccumulatedAmountDatasets(amount, year);
@@ -190,11 +167,7 @@ export function EarnSurvey() {
           saving?.label?.split(':')[0]
         } 50% + ${selectedAsset} 50% 적립식투자 누적수익률`,
         data: saving?.value
-          ? calcInvestmentSplitDataset(
-              amount,
-              saving.value,
-              assetsReturnRateValues
-            )
+          ? calcInvestmentSplitDataset(saving.value, assetsReturnRateValues)
           : [],
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
