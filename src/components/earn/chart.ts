@@ -9,6 +9,13 @@ export const comparedDataOptions = {
       text: '적립식 투자의 누적수익률 비교',
     },
   },
+  scales: {
+    y: {
+      ticks: {
+        callback: (value: number) => `${value}%`,
+      },
+    },
+  },
 };
 
 export const payDataOptions = (
