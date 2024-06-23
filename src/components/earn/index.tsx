@@ -117,16 +117,31 @@ export function EarnSurvey() {
   const calcInvestmentSplitDataset = (annualRate: number, values: number[]) => {
     const monthlyDepositRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
 
-    const result = values
-      .map((value) => (value / 100 / 2 + monthlyDepositRate / 2) * 100)
-      .reduce(
-        (acc, curr) => {
-          return [...acc, acc[acc.length - 1] + curr];
-        },
-        [0]
-      );
+    // 월별 납입금
+    const monthlyInvestment = 1;
 
-    return result.slice(1);
+    // 누적 수익금 계산을 위한 초기 설정
+    let cumulativeReturn = 0;
+    let cumulativeInvestment = 0;
+    const cumulativeReturns: number[] = [];
+
+    for (let i = 0; i < values.length; i++) {
+      const investmentReturnDecimal = values[i] / 100;
+      const combinedReturn =
+        0.5 * investmentReturnDecimal + 0.5 * monthlyDepositRate;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      cumulativeInvestment += monthlyInvestment; // 매달 1씩 납입
+      cumulativeReturn =
+        (cumulativeReturn + monthlyInvestment) * (1 + combinedReturn);
+      cumulativeReturns.push(cumulativeReturn);
+    }
+
+    // 수익률 계산
+    const returns = cumulativeReturns.map((value, i) =>
+      Number(((value / (i + 1)) * 100 - 100).toFixed(1))
+    );
+
+    return returns;
   };
 
   const payDataset = calcAccumulatedAmountDatasets(amount, year);
