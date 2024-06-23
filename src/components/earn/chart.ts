@@ -12,7 +12,9 @@ export const comparedDataOptions = {
   scales: {
     y: {
       ticks: {
-        callback: (value: number) => `${value}%`,
+        callback: function (value: string | number) {
+          return `${value}%`;
+        },
       },
     },
   },
