@@ -6,7 +6,7 @@ export const comparedDataOptions = {
     },
     title: {
       display: true,
-      text: '적립식 투자의 누적수익률 비교',
+      text: '전략별 누적 수익률 비교',
     },
   },
   scales: {
@@ -30,7 +30,7 @@ export const payDataOptions = (
     },
     title: {
       display: true,
-      text: `${asset} 적립 투자 시, 투자기간별 누적 금액`,
+      text: `${asset} 적립식 투자 시뮬레이션`,
     },
   },
 });

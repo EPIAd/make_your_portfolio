@@ -81,7 +81,7 @@ export function EarnSurvey() {
     numberCode &&
     !isNumberCodeWrong;
 
-  // MBTI 적립식투자 누적수익률 차트
+  // MBTI 포트폴리오 적립식투자 차트
   const calcCumulativeDataset = (amount: number, values: number[]) => {
     let accumulativeAmount = 0;
     return values.reduce((acc: number[], curr, i) => {
@@ -91,7 +91,7 @@ export function EarnSurvey() {
     }, []);
   };
 
-  // MBTI 최초투자 누적수익률 차트
+  // MBTI 포트폴리오 일시납투자 차트
   const calcInvestDataset = (values: number[]) => {
     let totalRate = 1;
     return values.reduce((acc: number[], curr) => {
@@ -166,13 +166,13 @@ export function EarnSurvey() {
     labels: dates,
     datasets: [
       {
-        label: 'MBTI 적립식투자 누적수익률',
+        label: 'MBTI 포트폴리오 적립식투자',
         data: calcCumulativeDataset(amount / 12, mbtiValues),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: 'MBTI 최초투자 누적수익률',
+        label: 'MBTI 포트폴리오 일시납투자',
         data: calcInvestDataset(mbtiValues),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -180,7 +180,7 @@ export function EarnSurvey() {
       {
         label: `${
           saving?.label?.split(':')[0]
-        } 50% + ${selectedAsset} 50% 적립식투자 누적수익률`,
+        } 50% + ${selectedAsset} 적립식 투자`,
         data: saving?.value
           ? calcInvestmentSplitDataset(saving.value, assetsReturnRateValues)
           : [],
@@ -302,7 +302,14 @@ export function EarnSurvey() {
             )}
           </div>
         </div>
+        <div className={`${styles['question']} ${styles['desc']}`}>
+          <div>모으기 전략 3가지</div>
+          <div>1. MBTI 포트폴리오 적립식투자 : 투자MBTI 포트폴리오 적립형</div>
+          <div>2. MBTI 포트폴리오 일시납투자 : 투자MBTI 포트폴리오 일시납</div>
+          <div>3. 한국/해외 예금 50% + 선택한 ETF 적립식 투자</div>
+        </div>
       </div>
+
       {isValid && (
         <div className={styles['graph']}>
           <Line options={comparedDataOptions} data={comparedData} />
