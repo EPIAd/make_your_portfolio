@@ -1,12 +1,14 @@
-@import url("./reset.css");
-@import url("./shared/styles/shared.css");
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url('./reset.css');
+@import url('./shared/styles/shared.css');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Jeju Gothic', Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
