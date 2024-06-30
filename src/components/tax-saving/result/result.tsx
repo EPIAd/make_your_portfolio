@@ -44,6 +44,81 @@ export function TaxSavingResult() {
     <section className={styles.container}>
       <h1 className={`title ${styles['title']}`}>최적 절세</h1>
       <div className={styles['wrapper']}>
+        <table className={styles['mobile-result-table']}>
+          <thead>
+            <tr>
+              <th>납입액</th>
+              <th>납입구조</th>
+              <th>절세액</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{R.toLocaleString()}만원</td>
+              <td>
+                <Bar
+                  options={chartOptions(yMax)}
+                  data={makeData({
+                    labels: ['일반예금'],
+                    datasets: makeDepositDataset(R),
+                  })}
+                />
+              </td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>{`연금저축: ${b1.toLocaleString()}만원\nIRP: ${b2.toLocaleString()}만원`}</td>
+              <td>
+                <Bar
+                  options={chartOptions(yMax)}
+                  data={makeData({
+                    labels: ['연금저축+IRP'],
+                    datasets: makeIRPDataset(b1, b2, B),
+                  })}
+                />
+              </td>
+              <td className={styles['highlight']}>
+                {(b1 + b2).toLocaleString()}만원에 대한 세액공제 13.2%~16.5%
+              </td>
+            </tr>
+            <tr>
+              <td>{a.toLocaleString()}만원</td>
+              <td>
+                <Bar
+                  options={chartOptions(yMax)}
+                  data={makeData({
+                    labels: ['ISA'],
+                    datasets: makeISADataset(a, A),
+                  })}
+                />
+              </td>
+              <td>미정</td>
+            </tr>
+            <tr className={styles['result']}>
+              <td>{(R + b1 + b2 + a).toLocaleString()}만원</td>
+              <td className={styles['blue']}>총계</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div className={styles['mobile-result']}>
+          <div>
+            <span>최대 납입 금액: </span>
+            ISA: {A.toLocaleString()}만원 / 연금저축+IRP: {B.toLocaleString()}
+            만원 / 일반 예금: 제한 없음
+          </div>
+          <div>
+            <span>추천 납입 금액: </span>
+            ISA: {a.toLocaleString()}만원 / 연금저축+IRP:{' '}
+            {`연금저축: ${b1.toLocaleString()}만원\nIRP: ${b2.toLocaleString()}만원`}{' '}
+            / 일반 예금: {(r1 + r2).toLocaleString()}만원
+          </div>
+          <div>
+            <span>절세 효과: </span>
+            ISA: {ISAEffect} / 연금저축+IRP: {(b1 + b2).toLocaleString()}만원에
+            대한 세액공제 13.2%~16.5% / 일반 예금: 없음
+          </div>
+        </div>
         <table className={styles['result-table']}>
           <thead>
             <tr>
