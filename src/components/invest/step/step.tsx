@@ -1,7 +1,8 @@
 import { INVEST_SURVEY, SURVEY_LENGTH } from '@/shared/constants/survey';
 import styles from './step.module.css';
 import { Answers, InvestScores } from '@/shared/types/survey';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import * as _ from 'lodash';
 
 type StepProps = {
   currStep: number;
@@ -12,10 +13,14 @@ type StepProps = {
 export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
   const currSurvey = INVEST_SURVEY[currStep - 1];
   const { title, type, answers } = currSurvey;
+  const [disabled, setDisabled] = useState(false);
 
   const answerRef = useRef<HTMLUListElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const onClickAnswer = (answer: Answers) => {
+    if (disabled) return;
+
+    setDisabled(true);
     setTimeout(() => {
       if (answerRef.current) {
         answerRef.current.classList.remove(styles['fade-in']);
@@ -39,7 +44,8 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
         questionRef.current?.classList.remove(styles['fade-out']);
         questionRef.current?.classList.add(styles['fade-in']);
       }
-    }, 1500);
+      setDisabled(false);
+    }, 1000);
   };
 
   return (
