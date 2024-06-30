@@ -43,7 +43,7 @@ export const Result = () => {
       <div className={styles['result-box']}>
         <hr className={styles['w-line']} />
         <div className={styles['title']}>
-          당신의 투자 MBTI와 포트폴리오를 확인하려면?
+          당신의 투자 MBTI 결과와 추천 포트폴리오를 찾았습니다.
           <p className={styles['sub']}>▼ 아래 클릭 ▼</p>
         </div>
         {/* TODO: 임시 결과 삭제 */}
