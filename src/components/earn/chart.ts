@@ -9,7 +9,6 @@ export const comparedDataOptions = {
       text: '전략별 누적 수익률 비교',
       color: 'rgb(33, 53, 71)',
       font: {
-        weight: 'bold',
         size: 20,
         family: 'Jeju Gothic',
       },
@@ -39,7 +38,6 @@ export const payDataOptions = (
       text: `${asset} 적립식 투자 시뮬레이션`,
       color: 'rgb(33, 53, 71)',
       font: {
-        weight: 'bold',
         size: 20,
         family: 'Jeju Gothic',
       },
