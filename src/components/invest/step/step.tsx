@@ -2,7 +2,6 @@ import { INVEST_SURVEY, SURVEY_LENGTH } from '@/shared/constants/survey';
 import styles from './step.module.css';
 import { Answers, InvestScores } from '@/shared/types/survey';
 import { useRef, useState } from 'react';
-import * as _ from 'lodash';
 
 type StepProps = {
   currStep: number;
