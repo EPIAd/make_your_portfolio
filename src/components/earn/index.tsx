@@ -113,6 +113,21 @@ export function EarnSurvey() {
       }, []);
   };
 
+  const calcAccumulatedAmountHalfDatasets = (amount: number, year: number) => {
+    let accumulatedAmount = 0;
+    const halfAverageReturn = averageReturn / 2;
+
+    return Array(year)
+      .fill(0)
+      .reduce((acc: number[], _, i) => {
+        accumulatedAmount += amount;
+        const assetReturn =
+          assetsReturnRateValues[i % assetsReturnRateValues.length] / 2;
+        accumulatedAmount *= 1 + (halfAverageReturn + assetReturn) / 100;
+        return [...acc, accumulatedAmount];
+      }, []);
+  };
+
   // 예금 + 투자 차트
   const calcInvestmentSplitDataset = (annualRate: number, values: number[]) => {
     const monthlyDepositRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
@@ -153,10 +168,16 @@ export function EarnSurvey() {
     labels: yearList,
     datasets: [
       {
-        label: '누적 금액',
+        label: `${selectedAsset} 자산에 100% 투자`,
         data: payDataset,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: `${saving?.label.split(':')[0]}과 ${selectedAsset}에 5:5 투자`,
+        data: calcAccumulatedAmountHalfDatasets(amount, year),
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
     ],
   };
@@ -165,6 +186,16 @@ export function EarnSurvey() {
   const comparedData = {
     labels: dates,
     datasets: [
+      {
+        label: `${
+          saving?.label?.split(':')[0]
+        } 50% + ${selectedAsset} 적립식 투자`,
+        data: saving?.value
+          ? calcInvestmentSplitDataset(saving.value, assetsReturnRateValues)
+          : [],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+      },
       {
         label: 'MBTI 포트폴리오 적립식투자',
         data: calcCumulativeDataset(amount / 12, mbtiValues),
@@ -177,16 +208,6 @@ export function EarnSurvey() {
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
-      {
-        label: `${
-          saving?.label?.split(':')[0]
-        } 50% + ${selectedAsset} 적립식 투자`,
-        data: saving?.value
-          ? calcInvestmentSplitDataset(saving.value, assetsReturnRateValues)
-          : [],
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-      },
     ],
   };
 
@@ -194,15 +215,15 @@ export function EarnSurvey() {
     <section className={styles['container']}>
       <h1 className={`title ${styles['title']}`}>모으기 MBTI</h1>
       <div className={styles['wrapper']}>
-        <p className={styles['result-price']}>
+        {/* <p className={styles['result-price']}>
           {isValid &&
             !Number.isNaN(finalAmount) &&
             `최종 금액: ${finalAmount?.toLocaleString()}만원`}
-        </p>
+        </p> */}
         <div className={`${styles['question']} ${styles['column']}`}>
           <div className={styles['title']}>
             <label className={styles['label']} htmlFor='amount'>
-              연 납입 금액
+              1년간 납입할 금액이 얼마인가요?
             </label>
             <p className={styles['value']}>{amount.toLocaleString()}만원</p>
           </div>
@@ -227,7 +248,7 @@ export function EarnSurvey() {
         <div className={`${styles['question']} ${styles['column']}`}>
           <div className={styles['title']}>
             <label className={styles['label']} htmlFor='year'>
-              총 납입 기간
+              몇 년간 납입하실 계획인가요?{' '}
             </label>
             <p className={styles['value']}>{year}년</p>
           </div>
@@ -252,8 +273,10 @@ export function EarnSurvey() {
             )}
           </div>
         </div>
-        <div className={`${styles['question']} ${styles['row']}`}>
-          <label className={styles['label']}>예금 선택</label>
+        <div className={`${styles['question']} ${styles['column']}`}>
+          <label className={styles['label']}>
+            어떤 예금을 선택하고 싶으세요?
+          </label>
 
           <div className={styles['radio']}>
             {SAVING.map((item) => (
@@ -269,8 +292,10 @@ export function EarnSurvey() {
             ))}
           </div>
         </div>
-        <div className={`${styles['question']} ${styles['row']}`}>
-          <label className={styles['label']}>투자 자산</label>
+        <div className={`${styles['question']} ${styles['column']}`}>
+          <label className={styles['label']}>
+            {`투자 자산을 고른다면 어떤 것을 고르시겠어요?`}
+          </label>
           <select
             onChange={(e) => setSelectedAsset(e.target.value as Asset)}
             value={selectedAsset || ''}
@@ -282,8 +307,10 @@ export function EarnSurvey() {
             ))}
           </select>
         </div>
-        <div className={`${styles['question']} ${styles['row']}`}>
-          <label className={styles['label']}>투자 MBTI</label>
+        <div className={`${styles['question']} ${styles['column']}`}>
+          <label className={styles['label']}>
+            투자 MBTI의 네 자리 숫자 코드를 입력해주세요
+          </label>
           <div
             className={`${styles.input} ${
               numberCode && isNumberCodeWrong ? styles.error : ''
@@ -302,19 +329,30 @@ export function EarnSurvey() {
             )}
           </div>
         </div>
-        <div className={`${styles['question']} ${styles['desc']}`}>
-          <div>모으기 전략 3가지</div>
-          <div>1. MBTI 포트폴리오 적립식투자 : 투자MBTI 포트폴리오 적립형</div>
-          <div>2. MBTI 포트폴리오 일시납투자 : 투자MBTI 포트폴리오 일시납</div>
-          <div>3. 한국/해외 예금 50% + 선택한 ETF 적립식 투자</div>
-        </div>
       </div>
 
       {isValid && (
-        <div className={styles['graph']}>
-          <Line options={comparedDataOptions} data={comparedData} />
-          <Line options={payDataOptions(selectedAsset)} data={payData} />
-        </div>
+        <>
+          <div className={`${styles['question']} ${styles['desc']}`}>
+            <div>
+              {`${amount?.toLocaleString()}만원을 ${year}년간\n${
+                saving?.label.split(':')[0]
+              }과 ${selectedAsset}에 5:5로 적립 투자하면\n${finalAmount?.toLocaleString()}만원이 모입니다.`}
+            </div>
+          </div>
+          <div className={styles['graph']}>
+            <Line options={payDataOptions(selectedAsset)} data={payData} />
+            <div className={`${styles['question']} ${styles['desc']}`}>
+              <p className={styles['desc-title']}>
+                비교할만한 모으기 전략 3가지
+              </p>
+              {`1) ${
+                saving.label.split(':')[0]
+              } 50% 저축 + ${selectedAsset} 50% 적립식 투자하는 경우\n2) MBTI 포트폴리오에 따라 적립식으로 투자하는  경우\n3) MBTI 포트폴리오에 따라 목돈을 일시에 투자하는 경우`}
+            </div>
+            <Line options={comparedDataOptions} data={comparedData} />
+          </div>
+        </>
       )}
     </section>
   );
