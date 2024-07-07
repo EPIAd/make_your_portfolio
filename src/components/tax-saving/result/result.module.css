@@ -109,6 +109,7 @@ table {
 
 .mobile-result-table {
   thead {
+    font-size: 1.1rem;
     border-bottom: 2px solid #3a3737;
   }
 

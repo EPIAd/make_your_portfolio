@@ -1,3 +1,4 @@
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import styles from './result.module.css';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -47,16 +48,17 @@ export function TaxSavingResult() {
         <table className={styles['mobile-result-table']}>
           <thead>
             <tr>
-              <th>납입액</th>
-              <th>납입구조</th>
-              <th>절세액</th>
+              <th>추천 연 납입액</th>
+              <th>납입상품</th>
+              <th>절세 혜택</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{R.toLocaleString()}만원</td>
+              <td>예금 : {(r1 + r2).toLocaleString()}만원</td>
               <td>
                 <Bar
+                  plugins={[ChartDataLabels]}
                   options={chartOptions(yMax)}
                   data={makeData({
                     labels: ['일반예금'],
@@ -64,12 +66,13 @@ export function TaxSavingResult() {
                   })}
                 />
               </td>
-              <td>0</td>
+              <td>없음</td>
             </tr>
             <tr>
-              <td>{`연금저축: ${b1.toLocaleString()}만원\nIRP: ${b2.toLocaleString()}만원`}</td>
+              <td>{`IRP: ${b2.toLocaleString()}만원\n연금저축: ${b1.toLocaleString()}만원`}</td>
               <td>
                 <Bar
+                  plugins={[ChartDataLabels]}
                   options={chartOptions(yMax)}
                   data={makeData({
                     labels: ['연금저축+IRP'],
@@ -82,9 +85,10 @@ export function TaxSavingResult() {
               </td>
             </tr>
             <tr>
-              <td>{a.toLocaleString()}만원</td>
+              <td>ISA: {a.toLocaleString()}만원</td>
               <td>
                 <Bar
+                  plugins={[ChartDataLabels]}
                   options={chartOptions(yMax)}
                   data={makeData({
                     labels: ['ISA'],
@@ -92,7 +96,7 @@ export function TaxSavingResult() {
                   })}
                 />
               </td>
-              <td>미정</td>
+              <td>{ISAEffect}</td>
             </tr>
             <tr className={styles['result']}>
               <td>{(R + b1 + b2 + a).toLocaleString()}만원</td>

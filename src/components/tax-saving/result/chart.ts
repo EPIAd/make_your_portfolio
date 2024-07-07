@@ -1,20 +1,35 @@
+import { ChartOptions } from 'chart.js';
+import { Context } from 'chartjs-plugin-datalabels';
+import { isMobile } from 'react-device-detect';
+
 let delayed: number | boolean;
-export const chartOptions = (yMax: number) => ({
+export const chartOptions = (yMax?: number): ChartOptions<'bar'> => ({
   responsive: true,
   maintainAspectRatio: false,
   scales: {
     x: {
+      display: !isMobile,
       stacked: true,
     },
     y: {
+      display: !isMobile,
       min: 0,
-      max: yMax,
+      max: isMobile ? undefined : yMax,
       stacked: true,
     },
   },
   plugins: {
     legend: {
       display: false,
+    },
+    datalabels: {
+      formatter: (_: unknown, context: Context) => {
+        return context.dataset.data[0] !== 0 ? context.dataset.label : '';
+      },
+      display: true,
+      color: 'white',
+      anchor: 'end' as const,
+      align: 'start' as const,
     },
   },
   animation: {
@@ -45,7 +60,7 @@ export const makeDepositDataset = (R: number) => [
 ];
 export const makeISADataset = (a: number, max: number) => [
   {
-    label: `${a}만원`,
+    label: `ISA`,
     data: [a],
     backgroundColor: 'rgb(255, 167, 11)',
   },
