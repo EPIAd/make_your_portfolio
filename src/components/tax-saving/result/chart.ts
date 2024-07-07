@@ -40,14 +40,14 @@ export const makeDepositDataset = (R: number) => [
   {
     label: '일반예금',
     data: [R],
-    backgroundColor: 'rgb(255, 99, 132)',
+    backgroundColor: 'rgb(67, 175, 226)',
   },
 ];
 export const makeISADataset = (a: number, max: number) => [
   {
     label: `${a}만원`,
     data: [a],
-    backgroundColor: 'rgba(248, 98, 132)',
+    backgroundColor: 'rgb(255, 167, 11)',
   },
   {
     label: '최대 납입 금액',
