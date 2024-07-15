@@ -1,0 +1,134 @@
+.result {
+  min-height: 100vh;
+  box-shadow: #ddd 0px 0px 10px 5px;
+  background: rgb(252, 252, 252);
+  text-align: center;
+  word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title,
+h1 {
+  line-height: 48px;
+  line-height: 3rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.2rem;
+  white-space: break-spaces;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sub {
+  font-size: 2rem;
+}
+
+.w-line {
+  margin: 20px 0;
+  border: 1.5px dashed #222;
+  width: 100%;
+}
+
+.p-tit {
+  display: block;
+  font-size: 24px;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.caution {
+  margin: 3rem 0 2rem;
+  padding: 0 7.5%;
+  white-space: break-spaces;
+  line-height: 20.8px;
+  line-height: 1.3rem;
+  font-size: 15.2px;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.result-button {
+  color: #fff;
+  background-color: #380ed1;
+  border-radius: 10rem;
+  letter-spacing: -0.2rem;
+  font-size: 2rem;
+}
+
+/* media query */
+@media all and (min-width: 486px) {
+  .title {
+    line-height: 64px;
+    line-height: 4rem;
+    font-size: 51.2px;
+    font-size: 3.2rem;
+  }
+
+  .p-tit {
+    font-size: 28.8px;
+    font-size: 1.8rem;
+  }
+
+  .caution {
+    padding: 5px 7.5%;
+    line-height: 24px;
+    line-height: 1.5rem;
+    font-size: 16px;
+    font-size: 1rem;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .title {
+    line-height: 80px;
+    line-height: 5rem;
+    font-size: 59.2px;
+    font-size: 3.7rem;
+  }
+
+  .p-tit {
+    font-size: 28.8px;
+    font-size: 1.8rem;
+  }
+
+  .caution {
+    padding: 10px 7.5%;
+    line-height: 27.2px;
+    line-height: 1.7rem;
+    font-size: 17.6px;
+    font-size: 1.1rem;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .title {
+    line-height: 88px;
+    line-height: 5.5rem;
+    font-size: 67.2px;
+    font-size: 4.2rem;
+  }
+
+  .p-tit {
+    font-size: 32px;
+    font-size: 2rem;
+  }
+
+  .caution {
+    padding: 15px 7.5%;
+  }
+}
+
+@media all and (min-width: 1440px) {
+  .caution {
+    padding: 20px 10%;
+    line-height: 28.8px;
+    line-height: 1.8rem;
+    font-size: 19.2px;
+    font-size: 1.2rem;
+  }
+}
