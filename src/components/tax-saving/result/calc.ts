@@ -6,8 +6,8 @@ export const calcISA = (scores: TaxSavingScores | null) => {
   const { s1, s2, s3 } = scores;
   // 금융소득종합과세 대상자일경우 ISA
   if (s1 === 200) {
-    if (s2 === 10) return '국내투자형ISA';
-    else if (s2 === 20 && s3 !== 1) return '국내투자형ISA';
+    if (s2 === 10) return '일반형ISA';
+    else if (s2 === 20 && s3 !== 1) return '일반형ISA';
     else if (s2 === 30) return '';
   }
 
