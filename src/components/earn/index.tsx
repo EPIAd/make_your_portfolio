@@ -113,17 +113,17 @@ export function EarnSurvey() {
       }, []);
   };
 
-  const calcAccumulatedAmountHalfDatasets = (amount: number, year: number) => {
+  const calcAccumulatedAmountHalfDatasets = (amount: number, year: number, savingRate: number) => {
     let accumulatedAmount = 0;
     const halfAverageReturn = averageReturn / 2;
-
+    const halfSavingReturn = savingRate / 2;
+    const combinedReturn = halfAverageReturn + halfSavingReturn;
+  
     return Array(year)
       .fill(0)
-      .reduce((acc: number[], _, i) => {
+      .reduce((acc: number[]) => {
         accumulatedAmount += amount;
-        const assetReturn =
-          assetsReturnRateValues[i % assetsReturnRateValues.length] / 2;
-        accumulatedAmount *= 1 + (halfAverageReturn + assetReturn) / 100;
+        accumulatedAmount *= 1 + combinedReturn / 100;
         return [...acc, accumulatedAmount];
       }, []);
   };
@@ -175,7 +175,7 @@ export function EarnSurvey() {
       },
       {
         label: `${saving?.label.split(':')[0]}과 ${selectedAsset}에 5:5 투자`,
-        data: calcAccumulatedAmountHalfDatasets(amount, year),
+        data: calcAccumulatedAmountHalfDatasets(amount, year, saving?.value || 0),
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
