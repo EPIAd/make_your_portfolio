@@ -215,11 +215,6 @@ export function EarnSurvey() {
     <section className={styles['container']}>
       <h1 className={`title ${styles['title']}`}>모으기 MBTI</h1>
       <div className={styles['wrapper']}>
-        {/* <p className={styles['result-price']}>
-          {isValid &&
-            !Number.isNaN(finalAmount) &&
-            `최종 금액: ${finalAmount?.toLocaleString()}만원`}
-        </p> */}
         <div className={`${styles['question']} ${styles['column']}`}>
           <div className={styles['title']}>
             <label className={styles['label']} htmlFor='amount'>
@@ -350,7 +345,11 @@ export function EarnSurvey() {
                 saving.label.split(':')[0]
               } 50% 저축 + ${selectedAsset} 50% 적립식 투자하는 경우\n2) MBTI 포트폴리오에 따라 적립식으로 투자하는  경우\n3) MBTI 포트폴리오에 따라 목돈을 일시에 투자하는 경우`}
             </div>
-            <Line options={comparedDataOptions} data={comparedData} />
+            <Line
+              height={100}
+              options={comparedDataOptions}
+              data={comparedData}
+            />
           </div>
         </>
       )}

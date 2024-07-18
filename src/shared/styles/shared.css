@@ -52,3 +52,9 @@ input[type='text'] {
     font-size: 4.2rem;
   }
 }
+
+@media screen and (max-width: 768px) {
+  input[type='text'] {
+    font-size: 0.8rem;
+  }
+}

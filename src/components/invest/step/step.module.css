@@ -23,8 +23,7 @@
 .q {
   box-sizing: border-box;
   margin-bottom: 1.5rem;
-  font-size: 27.2px;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: bolder;
   overflow: hidden;
 }
@@ -56,7 +55,7 @@
   }
 }
 .answer {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 100%;
   display: flex;
   flex-direction: column;
