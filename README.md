@@ -1,3 +1,5 @@
+# directory structure
+
 - invest: 투자 MBTI
 - tax-saving: 절세 MBTI
 - earn: 모으기 MBTI
