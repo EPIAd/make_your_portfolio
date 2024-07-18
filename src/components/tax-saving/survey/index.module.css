@@ -49,7 +49,7 @@ h1.title {
     font-size: 1.2rem;
   }
 
-  &.error > input[type="text"] {
+  &.error > input[type='text'] {
     outline: 2px solid red;
   }
 }
@@ -67,5 +67,11 @@ h1.title {
 @media screen and (min-width: 768px) {
   .question {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 1.2rem;
   }
 }

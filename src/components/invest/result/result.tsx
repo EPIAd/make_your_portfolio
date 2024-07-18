@@ -46,8 +46,6 @@ export const Result = () => {
           당신의 투자 MBTI 결과와 추천 포트폴리오를 찾았습니다.
           <p className={styles['sub']}>▼ 아래 클릭 ▼</p>
         </div>
-        {/* TODO: 임시 결과 삭제 */}
-        <p style={{ color: 'white' }}>{result}</p>
         <button className={styles['result-button']} onClick={handleClickLink}>
           결과 보러 가기
         </button>
