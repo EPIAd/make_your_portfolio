@@ -1,4 +1,4 @@
-export const comparedDataOptions = {
+export const comparedDataOptions = (width: number) => ({
   responsive: true,
   plugins: {
     legend: {
@@ -23,10 +23,13 @@ export const comparedDataOptions = {
       },
     },
   },
-};
+  maintainAspectRatio: true,
+  aspectRatio: width > 768 ? 2 : 1,
+});
 
 export const payDataOptions = (
-  asset: '선택' | 'ACWI' | 'EWY' | 'QQQ' | 'SPY'
+  asset: '선택' | 'ACWI' | 'EWY' | 'QQQ' | 'SPY',
+  width: number
 ) => ({
   responsive: true,
   plugins: {
@@ -43,4 +46,6 @@ export const payDataOptions = (
       },
     },
   },
+  maintainAspectRatio: true,
+  aspectRatio: width > 768 ? 2 : 1,
 });

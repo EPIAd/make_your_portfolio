@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './earn.module.css';
 import {
   Chart as ChartJS,
@@ -211,6 +211,14 @@ export function EarnSurvey() {
     ],
   };
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
+
   return (
     <section className={styles['container']}>
       <h1 className={`title ${styles['title']}`}>모으기 MBTI</h1>
@@ -336,20 +344,19 @@ export function EarnSurvey() {
             </div>
           </div>
           <div className={styles['graph']}>
-            <Line options={payDataOptions(selectedAsset)} data={payData} />
+            <Line
+              options={payDataOptions(selectedAsset, width)}
+              data={payData}
+            />
             <div className={`${styles['question']} ${styles['desc']}`}>
               <p className={styles['desc-title']}>
                 비교할만한 모으기 전략 3가지
               </p>
               {`1) ${
                 saving.label.split(':')[0]
-              } 50% 저축 + ${selectedAsset} 50% 적립식 투자하는 경우\n2) MBTI 포트폴리오에 따라 적립식으로 투자하는  경우\n3) MBTI 포트폴리오에 따라 목돈을 일시에 투자하는 경우`}
+              } 50% 저축 + ${selectedAsset} 50% 적립식 투자하는 경우\n2) MBTI 포트폴리오에 따라 적립식으로 투자하는 경우\n3) MBTI 포트폴리오에 따라 목돈을 일시에 투자하는 경우`}
             </div>
-            <Line
-              height={100}
-              options={comparedDataOptions}
-              data={comparedData}
-            />
+            <Line options={comparedDataOptions(width)} data={comparedData} />
           </div>
         </>
       )}
