@@ -425,4 +425,3 @@ export function EarnSurvey() {
     </section>
   );
 }
-}
