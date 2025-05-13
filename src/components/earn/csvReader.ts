@@ -29,7 +29,7 @@ export const getMbtiData = (mbti: string) => {
   mbtiAssets.forEach((entry: Record<string, string>) => {
     const keys = Object.keys(entry);
     const key = keys.find((item) => item.includes(mbti)) || keys[1];
-    result[entry.date] = Number(entry[key].replace('%', ''));
+    result[entry.date] = Number(entry[key].replace('%', '')) / 100;
   });
   return result;
 };
