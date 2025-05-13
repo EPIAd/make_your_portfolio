@@ -41,6 +41,22 @@ const dates = getReturnRateDate();
 
 type Asset = (typeof ASSET_LIST)[number];
 
+const prepareMbtiData = () => {
+  // mbtiData에서 날짜와 값을 추출
+  const mbtiDates = Object.keys(mbtiData);
+  
+  // 공통 날짜만 필터링
+  const commonDates = dates.filter(date => mbtiDates.includes(date));
+  
+  // 필터링된 날짜만 사용하는 배열 생성
+  const filteredMbtiValues = commonDates.map(date => mbtiData[date] || 0);
+  
+  // MBTI 값 연율화 적용 (필요시)
+  // const annualizedMbtiValues = calcAverageReturn(filteredMbtiValues);
+  
+  return { commonDates, filteredMbtiValues };
+};
+
 const calcAverageReturn = (values: number[]) => {
   // 일별 데이터의 기하평균 계산
   const geometricMean = Math.pow(
@@ -199,29 +215,36 @@ export function EarnSurvey() {
     ],
   };
 
+  const { commonDates, filteredMbtiValues } = prepareMbtiData();
+  
   // 적립식 투자의 누적수익률 비교 차트 데이터
   const comparedData = {
-    labels: dates,
+    labels: commonDates,
     datasets: [
       {
         label: `${
           saving?.label?.split(':')[0]
         } 50% + ${selectedAsset} 적립식 투자`,
         data: saving?.value
-          ? calcInvestmentSplitDataset(saving.value, assetsReturnRateValues)
-          : [],
+          ? calcInvestmentSplitDataset(saving.value, 
+            commonDates.map(date => {
+              const index = dates.indexOf(date);
+              return index !== -1 ? assetsReturnRateValues[index] : 0;
+            })
+          ) 
+        : [],
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
       {
         label: 'MBTI 포트폴리오 적립식투자',
-        data: calcCumulativeDataset(amount / 12, mbtiValues),
+        data: calcCumulativeDataset(amount / 12, filteredMbtiValues),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: 'MBTI 포트폴리오 일시납투자',
-        data: calcInvestDataset(mbtiValues),
+        data: calcInvestDataset(filteredMbtiValues),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
