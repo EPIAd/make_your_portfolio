@@ -98,8 +98,14 @@ export function EarnSurvey() {
       
       // 같은 월의 자산 데이터 중 16일과 가장 가까운 날짜 찾기
       const datesInSameMonth = dates.filter((assetDate: string) => 
-        assetDate.startsWith(mbtiYearMonth)
-      );
+        // undefined 체크 추가
+        if (!assetDate) {
+          return false;
+        }
+
+        // String.prototype.includes() 메서드 사용 - startsWith보다 유연함
+        return assetDate.includes(mbtiYearMonth);
+      });
       
       if (datesInSameMonth.length > 0) {
         matchingDates.push(datesInSameMonth[0]); // 해당 월의 첫 번째 날짜 사용
