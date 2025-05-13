@@ -89,12 +89,6 @@ export function EarnSurvey() {
   const getCommonDates = (): string[] => {
     const mbtiDates = Object.keys(mbtiDataRecord);
 
-    // 자산 데이터의 날짜를 YYYY-MM-DD 형식으로 변환
-    const formattedAssetDates = dates.map((date: string) => {
-      // "2010-01-05 12:00:00 AM" -> "2010-01-05"
-      return date.split(' ')[0];
-    });
-
     // MBTI 데이터 날짜와 일치하는 자산 데이터 날짜 찾기
     const matchingDates: string[] = [];
     
@@ -103,7 +97,7 @@ export function EarnSurvey() {
       const mbtiYearMonth = mbtiDate.substring(0, 7); // "2010-01"
       
       // 같은 월의 자산 데이터 중 16일과 가장 가까운 날짜 찾기
-      const datesInSameMonth = formattedAssetDates.filter((assetDate: string) => 
+      const datesInSameMonth = dates.filter((assetDate: string) => 
         assetDate.startsWith(mbtiYearMonth)
       );
       
@@ -112,7 +106,7 @@ export function EarnSurvey() {
        }
     });
   
-    return matchingDates; // 반환 문 추가
+    return matchingDates;
   };
   
   const getFilteredValues = (allDates: string[], targetDates: string[], values: number[]): number[] => {
