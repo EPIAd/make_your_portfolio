@@ -41,22 +41,6 @@ const dates = getReturnRateDate();
 
 type Asset = (typeof ASSET_LIST)[number];
 
-const prepareMbtiData = () => {
-  // mbtiData에서 날짜와 값을 추출
-  const mbtiDates = Object.keys(mbtiData);
-  
-  // 공통 날짜만 필터링
-  const commonDates = dates.filter(date => mbtiDates.includes(date));
-  
-  // 필터링된 날짜만 사용하는 배열 생성
-  const filteredMbtiValues = commonDates.map(date => mbtiData[date] || 0);
-  
-  // MBTI 값 연율화 적용 (필요시)
-  // const annualizedMbtiValues = calcAverageReturn(filteredMbtiValues);
-  
-  return { commonDates, filteredMbtiValues };
-};
-
 const calcAverageReturn = (values: number[]) => {
   // 일별 데이터의 기하평균 계산
   const geometricMean = Math.pow(
@@ -81,12 +65,11 @@ export function EarnSurvey() {
 
   const assetsReturnRateValues =
     selectedAsset !== '선택' ? getReturnRate(selectedAsset) : [];
-  const mbtiData =
+  
+  const mbtiDataRecord =
     numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
 
-  const mbtiValues = dates.map((date: string) => 
-    mbtiData[date] !== undefined ? mbtiData[date] : null
-  );
+  const mbtiValues = Object.values(mbtiDataRecord).map(Number);
 
   let averageReturn = calcAverageReturn(assetsReturnRateValues);
   const MAX_RETURN_RATE = 1;
@@ -104,13 +87,23 @@ export function EarnSurvey() {
     numberCode &&
     !isNumberCodeWrong;
 
+  // 날짜 매칭 함수 추가 - mbtiData와 assetReturnRateValues 간 공통 날짜 찾기
+  const getCommonDates = (): string[] => {
+    const mbtiDates = Object.keys(mbtiDataRecord);
+    // 공통 날짜 필터링 (mbtiDates에 포함된 날짜만)
+    return dates.filter(date => mbtiDates.includes(date));
+  };
+  
+  // 공통 날짜 가져오기
+  const commonDates = getCommonDates();
+
   // MBTI 포트폴리오 적립식투자 차트
   const calcCumulativeDataset = (amount: number, values: number[]) => {
     let accumulativeAmount = 0;
     return values.reduce((acc: number[], curr, i) => {
       const rate = curr;
       accumulativeAmount = (accumulativeAmount + amount) * (1 + rate);
-      return [...acc, (accumulativeAmount / (amount * (i + 1)) - 1)];
+      return [...acc, (accumulativeAmount / (amount * (i + 1)) - 1) * 100];
     }, []);
   };
 
@@ -120,7 +113,7 @@ export function EarnSurvey() {
     return values.reduce((acc: number[], curr) => {
       const rate = 1 + curr;
       totalRate *= rate;
-      return [...acc, (totalRate - 1)];
+      return [...acc, (totalRate - 1) * 100];
     }, []);
   };
 
@@ -214,8 +207,14 @@ export function EarnSurvey() {
       },
     ],
   };
+  
+  // 필터링된 자산 수익률 (commonDates에 해당하는 것만)
+  const filteredAssetValues = getFilteredValues(dates, commonDates, assetsReturnRateValues);  
 
-  const { commonDates, filteredMbtiValues } = prepareMbtiData();
+  // mbtiValues와 함께 사용할 필터링된 MBTI 값
+  const filteredMbtiValues: number[] = commonDates.map(date => 
+    mbtiDataRecord[date] || 0
+  );
   
   // 적립식 투자의 누적수익률 비교 차트 데이터
   const comparedData = {
@@ -226,13 +225,8 @@ export function EarnSurvey() {
           saving?.label?.split(':')[0]
         } 50% + ${selectedAsset} 적립식 투자`,
         data: saving?.value
-          ? calcInvestmentSplitDataset(saving.value, 
-            commonDates.map(date => {
-              const index = dates.indexOf(date);
-              return index !== -1 ? assetsReturnRateValues[index] : 0;
-            })
-          ) 
-        : [],
+          ? calcInvestmentSplitDataset(saving.value, filteredAssetValues)
+          : [],
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
