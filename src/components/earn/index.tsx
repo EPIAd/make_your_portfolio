@@ -68,7 +68,9 @@ export function EarnSurvey() {
   const mbtiData =
     numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
 
-  const mbtiValues = Object.values(mbtiData).map(Number);
+  const mbtiValues = dates.map(date => 
+    mbtiData[date] !== undefined ? mbtiData[date] : null
+  );
 
   let averageReturn = calcAverageReturn(assetsReturnRateValues);
   const MAX_RETURN_RATE = 1;
