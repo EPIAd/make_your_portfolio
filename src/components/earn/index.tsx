@@ -69,8 +69,6 @@ export function EarnSurvey() {
   const mbtiDataRecord =
     numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
 
-  const mbtiValues = Object.values(mbtiDataRecord).map(Number);
-
   let averageReturn = calcAverageReturn(assetsReturnRateValues);
   const MAX_RETURN_RATE = 1;
   averageReturn = Math.min(averageReturn, MAX_RETURN_RATE);
@@ -87,11 +85,18 @@ export function EarnSurvey() {
     numberCode &&
     !isNumberCodeWrong;
 
-  // 날짜 매칭 함수 추가 - mbtiData와 assetReturnRateValues 간 공통 날짜 찾기
+  // 날짜 매칭 함수 - mbtiData와 assetReturnRateValues 간 공통 날짜 찾기
   const getCommonDates = (): string[] => {
     const mbtiDates = Object.keys(mbtiDataRecord);
     // 공통 날짜 필터링 (mbtiDates에 포함된 날짜만)
-    return dates.filter(date => mbtiDates.includes(date));
+    return dates.filter((date: string) => mbtiDates.includes(date));
+  };
+  
+  const getFilteredValues = (allDates: string[], targetDates: string[], values: number[]): number[] => {
+    return targetDates.map((date: string) => {
+      const index = allDates.indexOf(date);
+      return index !== -1 ? values[index] : 0;
+    });
   };
   
   // 공통 날짜 가져오기
