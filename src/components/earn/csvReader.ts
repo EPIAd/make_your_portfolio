@@ -28,8 +28,10 @@ export const getMbtiData = (mbti: string) => {
   const result: Record<string, number> = {};
   mbtiAssets.forEach((entry: Record<string, string>) => {
     const keys = Object.keys(entry);
-    const key = keys.find((item) => item.includes(mbti)) || keys[1];
-    result[entry.date] = Number(entry[key].replace('%', '')) / 100;
+    // 모든 MBTI 타입(ISTJ, ISTP 등)에서 해당 코드를 찾음
+    const key = keys.find((item) => item.includes(`_${mbti}`)) || keys[1];
+    // % 제거하고 숫자로 변환
+    result[entry.date] = Number(entry[key].replace('%', ''));
   });
   return result;
 };
