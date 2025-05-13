@@ -67,8 +67,10 @@ export function EarnSurvey() {
 
   const mbtiValues = Object.values(mbtiData).map(Number);
 
-  const averageReturn = calcAverageReturn(dates, assetsReturnRateValues);
-
+  let averageReturn = calcAverageReturn(dates, assetsReturnRateValues);
+  const MAX_RETURN_RATE = 100;
+  averageReturn = Math.min(averageReturn, MAX_RETURN_RATE);
+  
   const yearList = Array(year)
     .fill(0)
     .map((_, i) => dayjs().year() + i);
