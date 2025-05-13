@@ -97,7 +97,7 @@ export function EarnSurvey() {
       const mbtiYearMonth = mbtiDate.substring(0, 7); // "2010-01"
       
       // 같은 월의 자산 데이터 중 16일과 가장 가까운 날짜 찾기
-      const datesInSameMonth = dates.filter((assetDate: string) => 
+      const datesInSameMonth = dates.filter((assetDate: string) => {
         // undefined 체크 추가
         if (!assetDate) {
           return false;
