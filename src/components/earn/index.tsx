@@ -42,16 +42,14 @@ const dates = getReturnRateDate();
 type Asset = (typeof ASSET_LIST)[number];
 
 const calcAverageReturn = (dates: string[], values: number[]) => {
-  // 복리로 전체 수익률 계산
-  const compoundReturn = values.reduce((acc, curr) => acc * (1 + curr), 1);
+  // 일별 데이터의 기하평균 계산
+  const geometricMean = Math.pow(
+    values.reduce((acc, curr) => acc * (1 + curr), 1), 
+    1 / values.length
+  ) - 1;
 
-  //전체 기간 (연환산)
-  const startDate = dayjs(dates[0]);
-  const endDate = dayjs(dates[dates.length - 1]);
-  const diffYears = endDate.diff(startDate, 'day') / 365;
-
-  // 연률화된 수익
-  const annualizedReturn = Math.pow(compoundReturn, 1 / diffYears) - 1;
+  // 일별 평균을 연율화 (252 거래일 사용)
+  const annualizedReturn = Math.pow(1 + geometricMean, 252) - 1;
   return annualizedReturn;
 };
 
