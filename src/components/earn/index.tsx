@@ -29,8 +29,8 @@ const AMOUNT_MAX = 2000;
 const YEAR_MAX = 50;
 
 const SAVING = [
-  { label: '한국 예금: 금리 5%', value: 5 },
-  { label: '해외 예금: 금리 6%', value: 6 },
+  { label: '한국 예금: 금리 5%', value: 0.05 },
+  { label: '해외 예금: 금리 6%', value: 0.06 },
 ] as const;
 
 type Saving = (typeof SAVING)[number];
@@ -121,17 +121,23 @@ export function EarnSurvey() {
   };
 
   const calcAccumulatedAmountHalfDatasets = (amount: number, year: number, savingRate: number) => {
+    const monthlyAmount = amount / 12; // 월별 납입액
     let accumulatedAmount = 0;
 
-    // 전체 투자금의 절반씩 각각 다른 수익률로 적
-    const combinedReturn = (averageReturn + (savingRate/100)) / 2; // savingRate는 퍼센트 단위(5, 6)로 저장되어 있을 수 있음
+    // 전체 투자금의 절반씩 각각 다른 수익률로 적용
+    const combinedMonthlyReturn = (averageReturn + savingRate) / 2 / 12; //월 수익률
   
-    return Array(year)
+    return Array(year * 12) // 월별로 계산
       .fill(0)
-      .reduce((acc: number[]) => {
-        accumulatedAmount += amount;
-        accumulatedAmount *= 1 + combinedReturn;
-        return [...acc, accumulatedAmount];
+      .reduce((acc: number[], _, i) => {
+        accumulatedAmount += monthlyAmount;
+        accumulatedAmount *= 1 + combinedMonthlyReturn;
+
+        // 연도 변화 시점에만 결과 기록
+        if ((i + 1) % 12 === 0)  {
+          return [...acc, accumulatedAmount];
+        }
+        return acc;
       }, []);
   };
 
