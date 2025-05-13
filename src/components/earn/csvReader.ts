@@ -15,7 +15,7 @@ export const getReturnRateDate = () => {
 
 export const getReturnRate = (asset: 'ACWI' | 'EWY' | 'QQQ' | 'SPY') => {
   return assets.map((item: ReturnRateAsset) =>
-    Number(item[asset].replace('%', ''))
+    Number(item[asset].replace('%', '')) / 100
   );
 };
 
