@@ -48,10 +48,10 @@ const calcAverageReturn = (dates: string[], values: number[]) => {
   //전체 기간 (연환산)
   const startDate = dayjs(dates[0]);
   const endDate = dayjs(dates[dates.length - 1]);
-  const diffMonth = endDate.diff(startDate, 'day') / 365;
+  const diffYears = endDate.diff(startDate, 'day') / 365;
 
   // 연률화된 수익
-  const annualizedReturn = Math.pow(compoundReturn, 1 / years) - 1;
+  const annualizedReturn = Math.pow(compoundReturn, 1 / diffYears) - 1;
   return annualizedReturn;
 };
 
@@ -73,7 +73,7 @@ export function EarnSurvey() {
   const mbtiValues = Object.values(mbtiData).map(Number);
 
   let averageReturn = calcAverageReturn(dates, assetsReturnRateValues);
-  const MAX_RETURN_RATE = 100;
+  const MAX_RETURN_RATE = 1;
   averageReturn = Math.min(averageReturn, MAX_RETURN_RATE);
   
   const yearList = Array(year)
