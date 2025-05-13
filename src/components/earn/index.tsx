@@ -68,7 +68,7 @@ export function EarnSurvey() {
   const mbtiData =
     numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
 
-  const mbtiValues = dates.map(date => 
+  const mbtiValues = dates.map((date: string) => 
     mbtiData[date] !== undefined ? mbtiData[date] : null
   );
 
