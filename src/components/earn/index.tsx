@@ -87,9 +87,9 @@ export function EarnSurvey() {
   const calcCumulativeDataset = (amount: number, values: number[]) => {
     let accumulativeAmount = 0;
     return values.reduce((acc: number[], curr, i) => {
-      const rate = curr / 100;
+      const rate = curr;
       accumulativeAmount = (accumulativeAmount + amount) * (1 + rate);
-      return [...acc, (accumulativeAmount / (amount * (i + 1)) - 1) * 100];
+      return [...acc, (accumulativeAmount / (amount * (i + 1)) - 1)];
     }, []);
   };
 
@@ -97,9 +97,9 @@ export function EarnSurvey() {
   const calcInvestDataset = (values: number[]) => {
     let totalRate = 1;
     return values.reduce((acc: number[], curr) => {
-      const rate = 1 + curr / 100;
+      const rate = 1 + curr;
       totalRate *= rate;
-      return [...acc, (totalRate - 1) * 100];
+      return [...acc, (totalRate - 1)];
     }, []);
   };
 
@@ -110,7 +110,7 @@ export function EarnSurvey() {
       .fill(0)
       .reduce((acc: number[]) => {
         accumulatedAmount += amount;
-        accumulatedAmount *= 1 + averageReturn / 100;
+        accumulatedAmount *= 1 + averageReturn;
         return [...acc, accumulatedAmount];
       }, []);
   };
@@ -125,14 +125,14 @@ export function EarnSurvey() {
       .fill(0)
       .reduce((acc: number[]) => {
         accumulatedAmount += amount;
-        accumulatedAmount *= 1 + combinedReturn / 100;
+        accumulatedAmount *= 1 + combinedReturn;
         return [...acc, accumulatedAmount];
       }, []);
   };
 
   // 예금 + 투자 차트
   const calcInvestmentSplitDataset = (annualRate: number, values: number[]) => {
-    const monthlyDepositRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
+    const monthlyDepositRate = Math.pow(1 + annualRate, 1 / 12) - 1;
 
     // 월별 납입금
     const monthlyInvestment = 1;
@@ -143,7 +143,7 @@ export function EarnSurvey() {
     const cumulativeReturns: number[] = [];
 
     for (let i = 0; i < values.length; i++) {
-      const investmentReturnDecimal = values[i] / 100;
+      const investmentReturnDecimal = values[i];
       const combinedReturn =
         0.5 * investmentReturnDecimal + 0.5 * monthlyDepositRate;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -155,7 +155,7 @@ export function EarnSurvey() {
 
     // 수익률 계산
     const returns = cumulativeReturns.map((value, i) =>
-      Number(((value / (i + 1)) * 100 - 100).toFixed(1))
+      Number(((value / (i + 1)) - 1).toFixed(1))
     );
 
     return returns;
