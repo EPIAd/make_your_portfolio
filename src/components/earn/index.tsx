@@ -42,12 +42,17 @@ const dates = getReturnRateDate();
 type Asset = (typeof ASSET_LIST)[number];
 
 const calcAverageReturn = (dates: string[], values: number[]) => {
+  // 복리로 전체 수익률 계산
+  const compoundReturn = values.reduce((acc, curr) => acc * (1 + curr), 1);
+
+  //전체 기간 (연환산)
   const startDate = dayjs(dates[0]);
   const endDate = dayjs(dates[dates.length - 1]);
   const diffMonth = endDate.diff(startDate, 'day') / 365;
 
-  const totalReturns = values.reduce((acc, curr) => acc + curr, 0);
-  return totalReturns / diffMonth;
+  // 연률화된 수익
+  const annualizedReturn = Math.pow(compoundReturn, 1 / years) - 1;
+  return annualizedReturn;
 };
 
 export function EarnSurvey() {
