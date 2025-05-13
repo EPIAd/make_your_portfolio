@@ -88,9 +88,29 @@ export function EarnSurvey() {
   // 날짜 매칭 함수 - mbtiData와 assetReturnRateValues 간 공통 날짜 찾기
   const getCommonDates = (): string[] => {
     const mbtiDates = Object.keys(mbtiDataRecord);
-    // 공통 날짜 필터링 (mbtiDates에 포함된 날짜만)
-    return dates.filter((date: string) => mbtiDates.includes(date));
-  };
+
+    // 자산 데이터의 날짜를 YYYY-MM-DD 형식으로 변환
+    const formattedAssetDates = dates.map((date: string) => {
+      // "2010-01-05 12:00:00 AM" -> "2010-01-05"
+      return date.split(' ')[0];
+    });
+
+    // MBTI 데이터 날짜와 일치하는 자산 데이터 날짜 찾기
+    const matchingDates: string[] = [];
+    
+    mbtiDates.forEach(mbtiDate => {
+      // mbtiDate(2010-01-16)의 월과 연도 가져오기
+      const mbtiYearMonth = mbtiDate.substring(0, 7); // "2010-01"
+      
+      // 같은 월의 자산 데이터 중 16일과 가장 가까운 날짜 찾기
+      const datesInSameMonth = dates.filter(assetDate => 
+        assetDate.startsWith(mbtiYearMonth)
+      );
+      
+      if (datesInSameMonth.length > 0) {
+        matchingDates.push(datesInSameMonth[0]); // 해당 월의 첫 번째 날짜 사용
+     }
+  });
   
   const getFilteredValues = (allDates: string[], targetDates: string[], values: number[]): number[] => {
     return targetDates.map((date: string) => {
