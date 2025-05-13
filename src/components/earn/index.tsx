@@ -103,14 +103,17 @@ export function EarnSurvey() {
       const mbtiYearMonth = mbtiDate.substring(0, 7); // "2010-01"
       
       // 같은 월의 자산 데이터 중 16일과 가장 가까운 날짜 찾기
-      const datesInSameMonth = dates.filter(assetDate => 
+      const datesInSameMonth = dates.filter((assetDate: string) => 
         assetDate.startsWith(mbtiYearMonth)
       );
       
       if (datesInSameMonth.length > 0) {
         matchingDates.push(datesInSameMonth[0]); // 해당 월의 첫 번째 날짜 사용
-     }
-  });
+       }
+    });
+  
+    return matchingDates; // 반환 문 추가
+  };
   
   const getFilteredValues = (allDates: string[], targetDates: string[], values: number[]): number[] => {
     return targetDates.map((date: string) => {
