@@ -122,9 +122,9 @@ export function EarnSurvey() {
 
   const calcAccumulatedAmountHalfDatasets = (amount: number, year: number, savingRate: number) => {
     let accumulatedAmount = 0;
-    const halfAverageReturn = averageReturn / 2;
-    const halfSavingReturn = savingRate / 2;
-    const combinedReturn = halfAverageReturn + halfSavingReturn;
+
+    // 전체 투자금의 절반씩 각각 다른 수익률로 적
+    const combinedReturn = (averageReturn + (savingRate/100)) / 2; // savingRate는 퍼센트 단위(5, 6)로 저장되어 있을 수 있음
   
     return Array(year)
       .fill(0)
@@ -166,9 +166,9 @@ export function EarnSurvey() {
     return returns;
   };
 
-  const payDataset = calcAccumulatedAmountDatasets(amount, year);
-  const lastPayData = payDataset[payDataset.length - 1];
-  const finalAmount = +lastPayData?.toFixed();
+  const combinedDataset = calcAccumulatedAmountHalfDatasets(amount, year, saving?.value || 0);
+  const lastCombinedData = combinedDataset[combinedDataset.length - 1];
+  const finalAmount = +lastCombinedData?.toFixed();
 
   // 적립 투자 시, 투자 기간에 따른 누적 금액 차트 데이터
   const payData = {
