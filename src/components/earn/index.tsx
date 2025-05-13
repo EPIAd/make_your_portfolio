@@ -172,8 +172,12 @@ export function EarnSurvey() {
     return returns;
   };
 
-  const combinedDataset = calcAccumulatedAmountHalfDatasets(amount, year, saving?.value || 0);
-  const lastCombinedData = combinedDataset[combinedDataset.length - 1];
+  // 각 데이터셋을 계산
+  const asset100Dataset = calcAccumulatedAmountDatasets(amount, year);
+  const asset50SavingDataset = calcAccumulatedAmountHalfDatasets(amount, year, saving?.value || 0);
+
+  // 5:5 투자 금액을 최종 금액으로 사용
+  const lastCombinedData = asset50SavingDataset[asset50SavingDataset.length - 1];
   const finalAmount = +lastCombinedData?.toFixed();
 
   // 적립 투자 시, 투자 기간에 따른 누적 금액 차트 데이터
@@ -182,13 +186,13 @@ export function EarnSurvey() {
     datasets: [
       {
         label: `${selectedAsset} 자산에 100% 투자`,
-        data: payDataset,
+        data: asset100Dataset,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: `${saving?.label.split(':')[0]}과 ${selectedAsset}에 5:5 투자`,
-        data: calcAccumulatedAmountHalfDatasets(amount, year, saving?.value || 0),
+        data: asset50SavingDataset,
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
