@@ -41,7 +41,7 @@ const dates = getReturnRateDate();
 
 type Asset = (typeof ASSET_LIST)[number];
 
-const calcAverageReturn = (dates: string[], values: number[]) => {
+const calcAverageReturn = (values: number[]) => {
   // 일별 데이터의 기하평균 계산
   const geometricMean = Math.pow(
     values.reduce((acc, curr) => acc * (1 + curr), 1), 
@@ -70,7 +70,7 @@ export function EarnSurvey() {
 
   const mbtiValues = Object.values(mbtiData).map(Number);
 
-  let averageReturn = calcAverageReturn(dates, assetsReturnRateValues);
+  let averageReturn = calcAverageReturn(assetsReturnRateValues);
   const MAX_RETURN_RATE = 1;
   averageReturn = Math.min(averageReturn, MAX_RETURN_RATE);
   
