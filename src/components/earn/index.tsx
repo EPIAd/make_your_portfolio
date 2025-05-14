@@ -35,7 +35,7 @@ const SAVING = [
 
 type Saving = (typeof SAVING)[number];
 
-const ASSET_LIST = ['선택', 'ACWI', 'EWY', 'QQQ', 'SPY'] as const;
+const ASSET_LIST = ['선택', 'TIGER 미국S&P500' , 'KODEX 미국나스닥100' , 'TIGER 미국배당다우존스' , 'PLUS 고배당주' , 'TIGER 유로스탁스50(합성 H)' , 'TIGER 차이나HSCEI' , 'TIGER 미국채10년선물' , 'WON 대한민국국고채액티브' , 'KODEX 장기종합채권(AA-이상)액티브' , 'ACE KRX금현물' , 'TIGER 리츠부동산인프라'] as const;
 const NUMBER_CODE_REGEX = /^\d{4}$/;
 const dates = getReturnRateDate();
 
