@@ -24,10 +24,10 @@ export const getReturnRate = (asset: 'TIGER 미국S&P500' | 'KODEX 미국나스�
   return assets.map((item: ReturnRateAsset) => {
     // 값이 문자열이고 '%' 문자가 포함되어 있는 경우
     if (typeof item[asset] === 'string' && item[asset].includes('%')) {
-      return Number(item[asset].replace('%', '')) / 100;
+      return Number(item[asset].replace('%', ''));
     }
     // 그렇지 않은 경우 (이미 소수점 형태의 퍼센트)
-    return Number(item[asset]) / 100;
+    return Number(item[asset]);
   });
 };
 
