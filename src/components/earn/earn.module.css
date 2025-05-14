@@ -2,10 +2,12 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: #212121; /* Explicit text color for light mode */
 }
 
 .title {
   margin-bottom: 1em;
+  color: #212121; /* Explicit color for light mode */
 }
 .wrapper {
   display: flex;
@@ -27,6 +29,7 @@
   box-shadow: #ddd 0px 0px 10px 2px;
   border-radius: 20px;
   background: rgb(252, 252, 252);
+  color: #212121; /* Explicit text color */
 
   .title {
     display: flex;
@@ -58,7 +61,8 @@
     border: 1px solid;
     flex-grow: 1;
     padding: 0 0.4rem;
-
+    color: #212121; /* Explicit text color */
+    background-color: #fff; /* Explicit background color */
     height: 40px;
     border: 1px #ddd solid;
     border-radius: 1rem;
@@ -114,6 +118,7 @@
   font-size: 1.05rem;
   white-space: break-spaces;
   text-align: center;
+  color: #212121; /* Explicit text color */
 }
 
 .amount-bar {
@@ -122,6 +127,7 @@
   font-size: 0.8rem;
   margin-top: -0.5rem;
   white-space: pre;
+  color: #212121; /* Explicit text color */
 
   & > span {
     margin-left: 0.8rem;
@@ -136,6 +142,15 @@
 
   span {
     white-space: pre;
+  }
+
+  input[type='text'] {
+    color: #212121; /* Explicit text color */
+    background-color: #fff; /* Explicit background color */
+    border: 1px #ddd solid;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
   }
 
   &.error > input[type='text'] {
@@ -159,6 +174,7 @@
   .desc-title {
     font-size: 1.3rem;
     margin-bottom: 1rem;
+    color: #212121; /* Explicit text color */
   }
 }
 
@@ -190,5 +206,60 @@
     & > span {
       margin-left: 0;
     }
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .container {
+    color: #f5f5f5; /* Light text for dark mode */
+    background-color: #121212; /* Dark background */
+  }
+
+  .title {
+    color: #f5f5f5;
+  }
+
+  .question {
+    background: #2d2d2d;
+    color: #f5f5f5;
+    box-shadow: #444 0px 0px 10px 2px;
+  }
+
+  .question.desc {
+    color: #f5f5f5;
+    background-color: transparent;
+  }
+
+  .question select {
+    color: #f5f5f5;
+    background-color: #3d3d3d;
+    border-color: #555;
+  }
+
+  .input input[type='text'] {
+    color: #f5f5f5;
+    background-color: #3d3d3d;
+    border-color: #555;
+  }
+
+  .amount-bar {
+    color: #f5f5f5;
+  }
+
+  .graph .desc-title {
+    color: #f5f5f5;
+  }
+
+  .radio .button {
+    background: #3d3d3d;
+    color: #aaa;
+    box-shadow: 5px 5px 11px #222, -5px -5px 11px #444;
+  }
+
+  .radio .button.selected {
+    color: #f5f5f5;
+    background: #3d3d3d;
+    box-shadow: inset 5px 5px 11px #222, inset -5px -5px 11px #444;
   }
 }
