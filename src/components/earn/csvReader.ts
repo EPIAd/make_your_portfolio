@@ -3,10 +3,17 @@ import mbtiAssets from './mbti.csv';
 
 type ReturnRateAsset = {
   date: string;
-  ACWI: string;
-  EWY: string;
-  QQQ: string;
-  SPY: string;
+  'TIGER 미국S&P500': string;
+  'KODEX 미국나스닥100': string;
+  'TIGER 미국배당다우존스': string;
+  'PLUS 고배당주': string;
+  'TIGER 유로스탁스50(합성 H)': string;
+  'TIGER 차이나HSCEI': string;
+  'TIGER 미국채10년선물': string;
+  'WON 대한민국국고채액티브': string;
+  'KODEX 장기종합채권(AA-이상)액티브': string;
+  'ACE KRX금현물': string;
+  'TIGER 리츠부동산인프라': string
 };
 
 export const getReturnRateDate = () => {
