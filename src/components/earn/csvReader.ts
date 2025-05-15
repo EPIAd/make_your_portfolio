@@ -16,6 +16,11 @@ type ReturnRateAsset = {
   'TIGER 리츠부동산인프라': string
 };
 
+type MbtiAsset = {
+  date: string;
+  [key: string]: string; // 모든 MBTI_CODE 컬럼을 위한 동적 필드
+};
+
 export const getReturnRateDate = () => {
   return assets.map((item: ReturnRateAsset) => item.date);
 };
@@ -32,39 +37,32 @@ export const getReturnRate = (asset: 'TIGER 미국S&P500' | 'KODEX 미국나스�
 };
 
 export const getMbtiReturnRate = (mbtiCode: string) => {
-  // 4자리 코드가 아니면 빈 배열 반환
+  // 4자리 숫자 코드만 받도록 합니다
   if (!/^\d{4}$/.test(mbtiCode)) {
     return [];
   }
-
-  return mbtiAssets.map((entry: Record<string, string>) => {
-    const keys = Object.keys(entry);
-    // 모든 MBTI 타입에서 해당 코드를 포함하는 키 찾기 (예: ISTJ_2011, ENFP_2011 등)
-    const matchingKeys = keys.filter(key => key.endsWith(`_${mbtiCode}`));
-    
-    if (matchingKeys.length > 0) {
-      // 모든 해당 MBTI 타입의 평균값 계산
-      let sum = 0;
-      let validCount = 0;
-      
-      for (const key of matchingKeys) {
-        const valueStr = entry[key];
-        if (valueStr) {
-          // '%' 문자가 있으면 제거
-          const cleanValue = typeof valueStr === 'string' && valueStr.includes('%') 
-            ? Number(valueStr.replace('%', '')) 
-            : Number(valueStr);
-            
-          if (!isNaN(cleanValue)) {
-            sum += cleanValue;
-            validCount++;
-          }
-        }
+  
+  // 각 MBTI 타입에 대한 접두사 리스트
+  const mbtiPrefixes = [
+    'ISTJ', 'ISTP', 'ISFJ', 'ISFP',
+    'INTJ', 'INTP', 'INFJ', 'INFP',
+    'ESTJ', 'ESTP', 'ESFJ', 'ESFP',
+    'ENTJ', 'ENTP', 'ENFJ', 'ENFP'
+  ];
+  
+  // 모든 MBTI 타입에 대해 해당 코드의 값을 검색하여 배열로 반환
+  return mbtiAssets.map((item: MbtiAsset) => {
+    // 각 MBTI 타입에 대한 해당 코드 열 찾기
+    for (const prefix of mbtiPrefixes) {
+      const columnName = `${prefix}_${mbtiCode}`;
+      if (item[columnName]) {
+        // 값이 있으면 변환하여 반환
+        return item[columnName].includes('%')
+          ? Number(item[columnName].replace('%', ''))
+          : Number(item[columnName]);
       }
-      
-      return validCount > 0 ? sum / validCount : 0;
     }
-    
-    return 0; // 일치하는 코드가 없으면 0 반환
+    // 일치하는 열을 찾지 못한 경우 0 반환
+    return 0;
   });
 };
