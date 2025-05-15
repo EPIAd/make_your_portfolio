@@ -190,10 +190,9 @@ export function EarnSurvey() {
   const assetAverageReturn = calcAverageReturn(assetReturnRates);
   
   // Get MBTI portfolio data and calculate average
-  const mbtiData: Record<string, number> = numberCode && !isNumberCodeWrong ? getMbtiReturnRate(numberCode) : {};
-  const mbtiValues = dates.map((date: string) => mbtiData[date] || 0);
-  const mbtiAverageReturn = calcAverageReturn(mbtiValues);
-
+  const mbtiReturnRates = numberCode && !isNumberCodeWrong ? getMbtiReturnRate(numberCode) : [];
+  const mbtiAverageReturn = calcAverageReturn(mbtiReturnRates);
+  
   // Calculate investment outcomes
   const asset100Dataset = calcAccumulatedAmount(amount, year, assetAverageReturn);
   
