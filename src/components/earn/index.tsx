@@ -204,7 +204,7 @@ export function EarnSurvey() {
 
     // 수익률 계산
     const returns = cumulativeReturns.map((value, i) =>
-      Number(((value / (i + 1)) - 1).toFixed(1))
+      Number((((value / (i + 1)) - 1) * 100).toFixed(1))
     );
 
     return returns;
