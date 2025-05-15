@@ -62,6 +62,7 @@ export function EarnSurvey() {
   const [selectedAsset, setSelectedAsset] = useState<Asset>('선택');
   const [numberCode, setNumberCode] = useState('');
   const isNumberCodeWrong = !NUMBER_CODE_REGEX.test(numberCode);
+  const isDarkMode = useDarkMode();
 
   const assetsReturnRateValues =
     selectedAsset !== '선택' ? getReturnRate(selectedAsset) : [];
@@ -407,7 +408,7 @@ export function EarnSurvey() {
           </div>
           <div className={styles['graph']}>
             <Line
-              options={payDataOptions(selectedAsset, width)}
+              options={payDataOptions(selectedAsset, width, isDarkMode)}
               data={payData}
             />
             <div className={`${styles['question']} ${styles['desc']}`}>
@@ -418,7 +419,7 @@ export function EarnSurvey() {
                 saving.label.split(':')[0]
               } 50% 저축 + ${selectedAsset} 50% 적립식 투자하는 경우\n2) MBTI 포트폴리오에 따라 적립식으로 투자하는 경우\n3) MBTI 포트폴리오에 따라 목돈을 일시에 투자하는 경우`}
             </div>
-            <Line options={comparedDataOptions(width)} data={comparedData} />
+            <Line options={comparedDataOptions(width, isDarkMode)} data={comparedData} />
           </div>
         </>
       )}
