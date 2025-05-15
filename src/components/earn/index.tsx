@@ -14,7 +14,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import dayjs from 'dayjs';
 import { comparedDataOptions, payDataOptions, useDarkMode } from './chart';
-import { getMbtiData, getReturnRate, getReturnRateDate } from './csvReader';
+import { getMbtiReturnRate, getReturnRate, getReturnRateDate } from './csvReader';
 
 ChartJS.register(
   CategoryScale,
@@ -190,7 +190,7 @@ export function EarnSurvey() {
   const assetAverageReturn = calcAverageReturn(assetReturnRates);
   
   // Get MBTI portfolio data and calculate average
-  const mbtiData: Record<string, number> = numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
+  const mbtiData: Record<string, number> = numberCode && !isNumberCodeWrong ? getMbtiReturnRate(numberCode) : {};
   const mbtiValues = dates.map((date: string) => mbtiData[date] || 0);
   const mbtiAverageReturn = calcAverageReturn(mbtiValues);
 

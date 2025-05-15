@@ -31,20 +31,40 @@ export const getReturnRate = (asset: 'TIGER 미국S&P500' | 'KODEX 미국나스�
   });
 };
 
-export const getMbtiData = (mbti: string) => {
+export const getMbtiReturnRate = (mbtiCode: string) => {
+  // 4자리 코드가 아니면 빈 배열 반환
+  if (!/^\d{4}$/.test(mbtiCode)) {
+    return [];
+  }
+
   return mbtiAssets.map((entry: Record<string, string>) => {
     const keys = Object.keys(entry);
-    const matchingKeys = keys.filter(item => item.includes(`_${mbti}`));
+    // 모든 MBTI 타입에서 해당 코드를 포함하는 키 찾기 (예: ISTJ_2011, ENFP_2011 등)
+    const matchingKeys = keys.filter(key => key.endsWith(`_${mbtiCode}`));
     
     if (matchingKeys.length > 0) {
-      // Option 1: Use the first matching key (what you were doing before)
-      const key = matchingKeys[0];
-      return Number(entry[key].replace('%', ''));
+      // 모든 해당 MBTI 타입의 평균값 계산
+      let sum = 0;
+      let validCount = 0;
       
-      // Option 2: Average of all matching keys (if you want to combine multiple MBTI profiles)
-      // let sum = matchingKeys.reduce((acc, key) => acc + Number(entry[key].replace('%', '')), 0);
-      // return sum / matchingKeys.length;
+      for (const key of matchingKeys) {
+        const valueStr = entry[key];
+        if (valueStr) {
+          // '%' 문자가 있으면 제거
+          const cleanValue = typeof valueStr === 'string' && valueStr.includes('%') 
+            ? Number(valueStr.replace('%', '')) 
+            : Number(valueStr);
+            
+          if (!isNaN(cleanValue)) {
+            sum += cleanValue;
+            validCount++;
+          }
+        }
+      }
+      
+      return validCount > 0 ? sum / validCount : 0;
     }
-    return 0; // Default if no matching MBTI code found
+    
+    return 0; // 일치하는 코드가 없으면 0 반환
   });
 };
