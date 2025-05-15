@@ -32,8 +32,8 @@ const YEAR_MAX = 50;
 const MAX_RETURN_RATE = 1;
 
 const SAVING = [
-  { label: '한국 예금: 금리 5%', value: 0.05 },
-  { label: '해외 예금: 금리 6%', value: 0.06 },
+  { label: '원화 정기예금: 금리 3%', value: 0.03 },
+  { label: '외화 정기예금: 금리 4%', value: 0.04 },
 ] as const;
 
 type Saving = (typeof SAVING)[number];
@@ -66,7 +66,7 @@ const calcAverageReturn = (values: number[]): number => {
   
   // Calculate geometric mean from daily data
   const geometricMean = Math.pow(
-    values.reduce((acc, curr) => acc * (1 + curr / 100), 1), 
+    values.reduce((acc, curr) => acc * (1 + curr), 1), 
     1 / values.length
   ) - 1;
 
