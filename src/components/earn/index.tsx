@@ -181,9 +181,6 @@ export function EarnSurvey() {
     selectedAsset !== '선택' &&
     numberCode &&
     !isNumberCodeWrong;
-
-  // Data preparation
-  const dates: string[] = getReturnRateDate();
   
   // Get asset return rates and calculate average
   const assetReturnRates = selectedAsset !== '선택' ? getReturnRate(selectedAsset) : [];
@@ -192,7 +189,7 @@ export function EarnSurvey() {
   // Get MBTI portfolio data and calculate average
   const mbtiReturnRates = numberCode && !isNumberCodeWrong ? getMbtiReturnRate(numberCode) : [];
   const mbtiAverageReturn = calcAverageReturn(mbtiReturnRates);
-  
+
   // Calculate investment outcomes
   const asset100Dataset = calcAccumulatedAmount(amount, year, assetAverageReturn);
   
