@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import styles from './earn.module.css';
 import {
@@ -206,8 +207,7 @@ export function EarnSurvey() {
   // Calculate MBTI portfolio with lump sum investment (all invested at the start)
   const mbtiLumpSumDataset = calcLumpSumInvestment(amount * year, year, mbtiAverageReturn);
   
-  // For percentage comparisons
-  const asset100ReturnPercent = convertToPercentageReturns(asset100Dataset, amount);
+  // For percentage comparisons - only calculate what we use
   const asset50SavingReturnPercent = convertToPercentageReturns(asset50SavingDataset, amount);
   const mbti100ReturnPercent = convertToPercentageReturns(mbti100Dataset, amount);
 
@@ -254,7 +254,7 @@ export function EarnSurvey() {
       {
         label: 'MBTI 포트폴리오 (목돈 일시납)',
         // For lump sum, percentage calculation needs to be different
-        data: mbtiLumpSumDataset.map((val, i) => ((val / (amount * year)) - 1) * 100),
+        data: mbtiLumpSumDataset.map(val => ((val / (amount * year)) - 1) * 100),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
