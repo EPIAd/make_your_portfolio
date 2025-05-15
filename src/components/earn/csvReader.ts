@@ -38,7 +38,7 @@ export const getMbtiData = (mbti: string) => {
     // 모든 MBTI 타입(ISTJ, ISTP 등)에서 해당 코드를 찾음
     const key = keys.find((item) => item.includes(`_${mbti}`)) || keys[1];
     // % 제거하고 숫자로 변환
-    result[entry.date] = Number(entry[key].replace('%', ''));
+    result[entry.date] = Number(entry[key].replace('%', '')) * (-1);
   });
   return result;
 };
