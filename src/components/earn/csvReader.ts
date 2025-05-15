@@ -32,13 +32,16 @@ export const getReturnRate = (asset: 'TIGER 미국S&P500' | 'KODEX 미국나스�
 };
 
 export const getMbtiData = (mbti: string) => {
-  const result: Record<string, number> = {};
-  mbtiAssets.forEach((entry: Record<string, string>) => {
-    const keys = Object.keys(entry);
-    // 모든 MBTI 타입(ISTJ, ISTP 등)에서 해당 코드를 찾음
-    const key = keys.find((item) => item.includes(`_${mbti}`)) || keys[1];
-    // % 제거하고 숫자로 변환
-    result[entry.date] = Number(entry[key].replace('%', '')) * (-1);
+  // Find the matching column for this MBTI code
+  const firstEntry = mbtiAssets[0] || {};
+  const keys = Object.keys(firstEntry);
+  const mbtiKey = keys.find((item) => item.includes(`_${mbti}`)) || keys[1];
+
+  return mbtiAssets.map((entry: Record<string, string>) => {
+    const value = entry[mbtiKey];
+    if (typeof value === 'string' && value.includes('%')) {
+      return Number(value.replace('%', ''));
+    }
+    return Number(value);
   });
-  return result;
 };
