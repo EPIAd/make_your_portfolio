@@ -32,16 +32,19 @@ export const getReturnRate = (asset: 'TIGER 미국S&P500' | 'KODEX 미국나스�
 };
 
 export const getMbtiData = (mbti: string) => {
-  // Find the matching column for this MBTI code
-  const firstEntry = mbtiAssets[0] || {};
-  const keys = Object.keys(firstEntry);
-  const mbtiKey = keys.find((item) => item.includes(`_${mbti}`)) || keys[1];
-
   return mbtiAssets.map((entry: Record<string, string>) => {
-    const value = entry[mbtiKey];
-    if (typeof value === 'string' && value.includes('%')) {
-      return Number(value.replace('%', ''));
+    const keys = Object.keys(entry);
+    const matchingKeys = keys.filter(item => item.includes(`_${mbti}`));
+    
+    if (matchingKeys.length > 0) {
+      // Option 1: Use the first matching key (what you were doing before)
+      const key = matchingKeys[0];
+      return Number(entry[key].replace('%', ''));
+      
+      // Option 2: Average of all matching keys (if you want to combine multiple MBTI profiles)
+      // let sum = matchingKeys.reduce((acc, key) => acc + Number(entry[key].replace('%', '')), 0);
+      // return sum / matchingKeys.length;
     }
-    return Number(value);
+    return 0; // Default if no matching MBTI code found
   });
 };
