@@ -65,7 +65,7 @@ const calcAverageReturn = (values: number[]): number => {
   
   // Calculate geometric mean from daily data
   const geometricMean = Math.pow(
-    values.reduce((acc, curr) => acc * (1 + curr / 100), 1), 
+    values.reduce((acc, curr) => acc * (1 + curr), 1), 
     1 / values.length
   ) - 1;
 
