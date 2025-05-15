@@ -31,8 +31,8 @@ const YEAR_MAX = 50;
 const MAX_RETURN_RATE = 1;
 
 const SAVING = [
-  { label: '은행 정기예금: 금리 3%', value: 0.03 },
-  { label: '외화 정기예금: 금리 4%', value: 0.04 },
+  { label: '한국 예금: 금리 5%', value: 0.05 },
+  { label: '해외 예금: 금리 6%', value: 0.06 },
 ] as const;
 
 type Saving = (typeof SAVING)[number];
@@ -65,7 +65,7 @@ const calcAverageReturn = (values: number[]): number => {
   
   // Calculate geometric mean from daily data
   const geometricMean = Math.pow(
-    values.reduce((acc, curr) => acc * (1 + curr), 1), 
+    values.reduce((acc, curr) => acc * (1 + curr / 100), 1), 
     1 / values.length
   ) - 1;
 
@@ -83,11 +83,13 @@ const calcAccumulatedAmount = (
   annualReturnRate: number
 ): number[] => {
   let accumulatedAmount = 0;
+  let totalInvested = 0;
+  
   return Array(years)
     .fill(0)
     .map(() => {
-      accumulatedAmount += annualAmount;
-      accumulatedAmount *= 1 + annualReturnRate;
+      accumulatedAmount = (accumulatedAmount + annualAmount) * (1 + annualReturnRate);
+      totalInvested += annualAmount;
       return accumulatedAmount;
     });
 };
@@ -107,8 +109,7 @@ const calcAccumulatedAmountMonthly = (
   return Array(years * 12)
     .fill(0)
     .reduce((acc: number[], _, i) => {
-      accumulatedAmount += monthlyAmount;
-      accumulatedAmount *= 1 + monthlyReturn;
+      accumulatedAmount = (accumulatedAmount + monthlyAmount) * (1 + monthlyReturn);
 
       // Only record at year end
       if ((i + 1) % 12 === 0) {
@@ -116,6 +117,37 @@ const calcAccumulatedAmountMonthly = (
       }
       return acc;
     }, []);
+};
+
+/**
+ * Calculate lump sum investment results (investing entire amount at beginning)
+ */
+const calcLumpSumInvestment = (
+  initialAmount: number,
+  years: number,
+  annualReturnRate: number
+): number[] => {
+  let amount = initialAmount;
+  return Array(years)
+    .fill(0)
+    .map(() => {
+      amount *= (1 + annualReturnRate);
+      return amount;
+    });
+};
+
+/**
+ * Convert accumulated amounts to percentage returns
+ * relative to the total invested amount
+ */
+const convertToPercentageReturns = (
+  accumulatedAmounts: number[],
+  annualAmount: number
+): number[] => {
+  return accumulatedAmounts.map((amount, index) => {
+    const totalInvested = annualAmount * (index + 1);
+    return ((amount / totalInvested) - 1) * 100;
+  });
 };
 
 /**
@@ -157,7 +189,7 @@ export function EarnSurvey() {
   const assetAverageReturn = calcAverageReturn(assetReturnRates);
   
   // Get MBTI portfolio data and calculate average
-  const mbtiData = numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
+  const mbtiData: Record<string, number> = numberCode && !isNumberCodeWrong ? getMbtiData(numberCode) : {};
   const mbtiValues = dates.map((date: string) => mbtiData[date] || 0);
   const mbtiAverageReturn = calcAverageReturn(mbtiValues);
 
@@ -168,15 +200,23 @@ export function EarnSurvey() {
   const combinedReturnRate = saving ? calcSplitReturnRate(saving.value, assetAverageReturn) : 0;
   const asset50SavingDataset = calcAccumulatedAmountMonthly(amount, year, combinedReturnRate);
   
-  // Calculate MBTI portfolio investment
+  // Calculate MBTI portfolio investment - regular contributions
   const mbti100Dataset = calcAccumulatedAmount(amount, year, mbtiAverageReturn);
+  
+  // Calculate MBTI portfolio with lump sum investment (all invested at the start)
+  const mbtiLumpSumDataset = calcLumpSumInvestment(amount * year, year, mbtiAverageReturn);
+  
+  // For percentage comparisons
+  const asset100ReturnPercent = convertToPercentageReturns(asset100Dataset, amount);
+  const asset50SavingReturnPercent = convertToPercentageReturns(asset50SavingDataset, amount);
+  const mbti100ReturnPercent = convertToPercentageReturns(mbti100Dataset, amount);
 
   // Determine final amount for display
   const finalAmount = asset50SavingDataset.length > 0 
     ? Math.round(asset50SavingDataset[asset50SavingDataset.length - 1]) 
     : 0;
 
-  // Chart data for investment amount comparison
+  // Chart data for investment amount comparison (absolute values)
   const amountComparisonData = {
     labels: yearList,
     datasets: [
@@ -195,25 +235,26 @@ export function EarnSurvey() {
     ],
   };
   
-  // Chart data for strategy comparison
+  // Chart data for strategy comparison (percentage returns)
   const strategyComparisonData = {
     labels: yearList,
     datasets: [
       {
         label: `${saving?.label?.split(':')[0] || ''} 50% + ${selectedAsset} 50% 투자`,
-        data: asset50SavingDataset,
+        data: asset50SavingReturnPercent,
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
       },
       {
         label: 'MBTI 포트폴리오 100% 투자',
-        data: mbti100Dataset,
+        data: mbti100ReturnPercent,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
         label: 'MBTI 포트폴리오 (목돈 일시납)',
-        data: mbti100Dataset.map(val => val * 1.05), // Slight adjustment for visual difference
+        // For lump sum, percentage calculation needs to be different
+        data: mbtiLumpSumDataset.map((val, i) => ((val / (amount * year)) - 1) * 100),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
