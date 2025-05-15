@@ -14,7 +14,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import dayjs from 'dayjs';
 import { comparedDataOptions, payDataOptions, useDarkMode } from './chart';
-import { getMbtiReturnRate, getReturnRate, getReturnRateDate } from './csvReader';
+import { getMbtiReturnRate, getReturnRate } from './csvReader';
 
 ChartJS.register(
   CategoryScale,
