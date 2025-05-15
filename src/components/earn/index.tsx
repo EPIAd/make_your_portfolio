@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import dayjs from 'dayjs';
-import { comparedDataOptions, payDataOptions } from './chart';
+import { comparedDataOptions, payDataOptions, useDarkMode } from './chart';
 import { getMbtiData, getReturnRate, getReturnRateDate } from './csvReader';
 
 ChartJS.register(
