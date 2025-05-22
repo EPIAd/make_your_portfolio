@@ -505,3 +505,74 @@ h1 {
     }
   }
 }
+
+.gender-input {
+  & > input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    margin: 0 5px;
+    transition: all 0.2s ease;
+
+    &:checked {
+      border-color: #0087f5;
+      background-color: #0087f5;
+    }
+
+    &:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    &:hover {
+      border-color: #0087f5;
+    }
+
+    &:focus {
+      outline: 2px solid #0087f5;
+      outline-offset: 2px;
+    }
+  }
+
+  & > label {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Dark mode styles for radio buttons */
+@media (prefers-color-scheme: dark) {
+  .gender-input {
+    & > input[type="radio"] {
+      border-color: #555;
+      background-color: #3d3d3d;
+
+      &:checked {
+        border-color: #0087f5;
+        background-color: #0087f5;
+      }
+
+      &:hover {
+        border-color: #0087f5;
+      }
+
+      &:focus {
+        outline-color: #0087f5;
+      }
+    }
+  }
+}
