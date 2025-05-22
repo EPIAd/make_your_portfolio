@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #212121; /* Explicit text color for light mode */
 }
 
 .title,
@@ -22,10 +23,12 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  color: #212121; /* Explicit text color */
 }
 
 .sub {
   font-size: 2rem;
+  color: #212121; /* Explicit text color */
 }
 
 .w-line {
@@ -39,6 +42,7 @@ h1 {
   font-size: 24px;
   font-size: 1.5rem;
   font-weight: bolder;
+  color: #212121; /* Explicit text color */
 }
 
 .caution {
@@ -50,17 +54,39 @@ h1 {
   font-size: 15.2px;
   font-size: 0.95rem;
   font-weight: 400;
+  color: #212121; /* Explicit text color */
 }
 
 .result-button {
   color: #fff;
   background-color: #380ed1;
+  border: none;
   border-radius: 10rem;
   letter-spacing: -0.2rem;
   font-size: 2rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
 }
 
-/* media query */
+.result-button:hover {
+  background-color: #2a0a9f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(56, 14, 209, 0.3);
+}
+
+.result-button:active {
+  transform: translateY(0);
+}
+
+.result-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Media queries */
 @media all and (min-width: 486px) {
   .title {
     line-height: 64px;
@@ -68,12 +94,10 @@ h1 {
     font-size: 51.2px;
     font-size: 3.2rem;
   }
-
   .p-tit {
     font-size: 28.8px;
     font-size: 1.8rem;
   }
-
   .caution {
     padding: 5px 7.5%;
     line-height: 24px;
@@ -90,12 +114,10 @@ h1 {
     font-size: 59.2px;
     font-size: 3.7rem;
   }
-
   .p-tit {
     font-size: 28.8px;
     font-size: 1.8rem;
   }
-
   .caution {
     padding: 10px 7.5%;
     line-height: 27.2px;
@@ -112,12 +134,10 @@ h1 {
     font-size: 67.2px;
     font-size: 4.2rem;
   }
-
   .p-tit {
     font-size: 32px;
     font-size: 2rem;
   }
-
   .caution {
     padding: 15px 7.5%;
   }
@@ -130,5 +150,53 @@ h1 {
     line-height: 1.8rem;
     font-size: 19.2px;
     font-size: 1.2rem;
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .result {
+    background: #121212; /* Dark background */
+    box-shadow: #444 0px 0px 10px 5px; /* Darker shadow */
+    color: #f5f5f5; /* Light text */
+  }
+
+  .title,
+  h1 {
+    color: #f5f5f5;
+  }
+
+  .sub {
+    color: #f5f5f5;
+  }
+
+  .w-line {
+    border-color: #f5f5f5; /* Light dashed border */
+  }
+
+  .p-tit {
+    color: #f5f5f5;
+  }
+
+  .caution {
+    color: #f5f5f5;
+  }
+
+  .result-button {
+    background-color: #4c1bff; /* Slightly lighter purple for better contrast */
+    color: #fff;
+    border: 1px solid #4c1bff;
+  }
+
+  .result-button:hover {
+    background-color: #5c2bff;
+    border-color: #5c2bff;
+    box-shadow: 0 4px 8px rgba(76, 27, 255, 0.4);
+  }
+
+  .result-button:disabled {
+    background-color: #444;
+    color: #888;
+    border-color: #444;
   }
 }
