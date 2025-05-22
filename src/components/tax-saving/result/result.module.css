@@ -2,10 +2,11 @@
   min-height: 100vh;
   box-shadow: #ddd 0px 0px 10px 5px;
   background: rgb(252, 252, 252);
-
   display: flex;
   flex-direction: column;
+  color: #212121; /* Explicit text color for light mode */
 }
+
 section.container {
   padding-inline: 2rem;
   padding-top: 2.5rem;
@@ -15,6 +16,7 @@ section.container {
 h1.title {
   margin-block-end: 0.83em;
   white-space: pre;
+  color: #212121; /* Explicit color for light mode */
 }
 
 .wrapper {
@@ -48,35 +50,40 @@ table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-
+  color: #212121; /* Explicit text color */
+  
   thead {
     font-weight: 700;
     font-size: 1.5rem;
     color: #3a3737;
+    
     th > div {
       padding: 0.2rem 0.5rem;
       border-radius: 10rem;
       box-shadow: 0 0 0 1px #3a3737;
     }
   }
-
+  
   td {
     text-align: center;
     white-space: break-spaces;
+    color: #212121; /* Explicit text color */
   }
 }
 
 .result-table {
   display: none;
+  
   .section {
     height: 50vh;
     padding: 1rem;
   }
-
+  
   th,
   td {
     padding: 0.5rem;
   }
+  
   .header {
     td:not(.empty) {
       background: #3a3737;
@@ -84,23 +91,23 @@ table {
       font-weight: 700;
     }
   }
-
+  
   .title {
     text-align: left;
     width: 10%;
   }
-
+  
   .highlight {
     background-color: #ffd9d9;
   }
-
+  
   tr:nth-child(n + 2) {
     td:not(.empty),
     th {
       border: 1px solid #d3d3d3;
     }
   }
-
+  
   td.empty {
     border: none;
     width: 10%;
@@ -112,19 +119,19 @@ table {
     font-size: 1.1rem;
     border-bottom: 2px solid #3a3737;
   }
-
+  
   tr {
     border-bottom: 2px dotted #3a3737;
   }
-
+  
   tr:last-child {
     border-bottom: none;
   }
-
+  
   .blue {
     color: #5371f5;
   }
-
+  
   .result > td {
     padding: 0.5rem 0;
   }
@@ -133,6 +140,7 @@ table {
 .mobile-result {
   span {
     font-size: 1.2rem;
+    color: #212121; /* Explicit text color */
   }
 }
 
@@ -145,8 +153,88 @@ table {
     display: none;
   }
 }
+
 @media screen and (min-width: 1200px) {
   section.container {
     width: 80%;
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: #121212; /* Dark background */
+    box-shadow: #444 0px 0px 10px 5px; /* Darker shadow */
+    color: #f5f5f5; /* Light text */
+  }
+
+  h1.title {
+    color: #f5f5f5;
+  }
+
+  .result-title {
+    background-color: #3d3d3d;
+    color: #aaa;
+  }
+
+  .effect {
+    border: 2px dotted #666;
+    color: #aaa;
+  }
+
+  table {
+    color: #f5f5f5;
+    
+    thead {
+      color: #f5f5f5;
+      
+      th > div {
+        box-shadow: 0 0 0 1px #f5f5f5;
+      }
+    }
+    
+    td {
+      color: #f5f5f5;
+    }
+  }
+
+  .result-table {
+    .header {
+      td:not(.empty) {
+        background: #555;
+        color: #f5f5f5;
+      }
+    }
+    
+    .highlight {
+      background-color: #4a2c2c; /* Darker red highlight for dark mode */
+    }
+    
+    tr:nth-child(n + 2) {
+      td:not(.empty),
+      th {
+        border: 1px solid #555;
+      }
+    }
+  }
+
+  .mobile-result-table {
+    thead {
+      border-bottom: 2px solid #f5f5f5;
+    }
+    
+    tr {
+      border-bottom: 2px dotted #f5f5f5;
+    }
+    
+    .blue {
+      color: #7b9bff; /* Lighter blue for better contrast */
+    }
+  }
+
+  .mobile-result {
+    span {
+      color: #f5f5f5;
+    }
   }
 }
