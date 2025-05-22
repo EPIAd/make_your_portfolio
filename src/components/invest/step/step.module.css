@@ -7,11 +7,13 @@
   background: #fff;
   animation: fade-in 0.3s ease-in-out;
 }
+
 .status {
   height: 100%;
   border-radius: 20px;
   background-color: rgba(191, 168, 255, 0.7);
 }
+
 .box {
   margin: 0 auto;
   padding: 20px;
@@ -19,17 +21,21 @@
   box-shadow: #ddd 0px 0px 10px 5px;
   border-radius: 20px;
   background: rgb(255, 255, 255);
+  color: #212121; /* Explicit text color for light mode */
 }
+
 .q {
   box-sizing: border-box;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: bolder;
   overflow: hidden;
+  color: #212121; /* Explicit text color */
 }
+
 .image-box {
   margin-top: 1rem;
-
+  
   .buttons {
     display: flex;
     justify-content: center;
@@ -37,23 +43,37 @@
     gap: 3rem;
     margin-bottom: 0.5rem;
   }
+  
   button {
     padding: 0.2rem 2rem;
     color: white;
-    transition: background-color 0.3s;
-
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    
     &:first-child {
       background-color: #d60093;
     }
+    
     &:nth-child(2) {
       background-color: #099;
     }
-
+    
     &:hover {
       background-color: #222;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    &:active {
+      transform: translateY(0);
     }
   }
 }
+
 .answer {
   font-size: 1.2rem;
   width: 100%;
@@ -61,22 +81,37 @@
   flex-direction: column;
   gap: 0.8rem;
 }
+
 .a {
   padding: 15px;
   border: none;
+  border-radius: 0.5rem;
   text-align: left;
   cursor: pointer;
+  color: #212121; /* Explicit text color */
+  background-color: #f8f9fa; /* Light background for answers */
+  transition: all 0.3s ease;
+  font-size: inherit;
+  font-family: inherit;
 }
+
 .a:hover,
 .a:focus {
   background: #222;
   color: #eee;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.a:active {
+  transform: translateY(0);
 }
 
 .fade-out {
   animation: fade-out 0.5s ease-out 0s forwards,
     going-up 0.5s ease-out 0s forwards;
 }
+
 .fade-in {
   animation: fade-in 0.5s ease-out 0s forwards,
     going-down 0.5s ease-out 0s forwards;
@@ -175,6 +210,59 @@
   }
 }
 
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .status-bar {
+    border-color: #555;
+    background: #3d3d3d;
+  }
+
+  .status {
+    background-color: rgba(191, 168, 255, 0.8); /* Slightly more opaque for better visibility */
+  }
+
+  .box {
+    background: #2d2d2d;
+    box-shadow: #444 0px 0px 10px 5px;
+    color: #f5f5f5;
+  }
+
+  .q {
+    color: #f5f5f5;
+  }
+
+  .image-box {
+    button {
+      &:first-child {
+        background-color: #e91e63; /* Slightly lighter pink for better contrast */
+      }
+      
+      &:nth-child(2) {
+        background-color: #00bcd4; /* Slightly lighter teal for better contrast */
+      }
+      
+      &:hover {
+        background-color: #555; /* Lighter than pure black for dark mode */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+
+  .a {
+    color: #f5f5f5;
+    background-color: #3d3d3d; /* Dark background for answers */
+    border: 1px solid #555; /* Subtle border for definition */
+  }
+
+  .a:hover,
+  .a:focus {
+    background: #555; /* Lighter hover state for dark mode */
+    color: #fff;
+    border-color: #777;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -201,6 +289,7 @@
     transform: translateY(-10px);
   }
 }
+
 @keyframes going-down {
   0% {
     transform: translateY(0);
