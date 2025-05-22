@@ -153,12 +153,31 @@ h1 {
   }
 }
 
+.result-box {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
   .result {
     background: #121212; /* Dark background */
     box-shadow: #444 0px 0px 10px 5px; /* Darker shadow */
     color: #f5f5f5; /* Light text */
+  }
+
+  .result-box {
+    color: #f5f5f5;
   }
 
   .title,
@@ -179,6 +198,10 @@ h1 {
   }
 
   .caution {
+    color: #f5f5f5;
+  }
+
+  .footer {
     color: #f5f5f5;
   }
 
