@@ -13,6 +13,7 @@ type OnboardingProps = {
   handleAge: (age: AgeValues) => void;
   handleStep: () => void;
 };
+
 export const Onboarding = ({
   name,
   gender,
@@ -23,7 +24,7 @@ export const Onboarding = ({
   handleStep,
 }: OnboardingProps) => {
   const [error, setError] = useState(false);
-
+  
   const onClickStart = () => {
     if (!name) {
       setError(true);
@@ -31,6 +32,7 @@ export const Onboarding = ({
     }
     handleStep();
   };
+
   return (
     <section className={styles['welcome']}>
       <div className={styles['title-box']}>
@@ -51,7 +53,7 @@ export const Onboarding = ({
       </div>
       <hr className={styles['w-line']} />
       <div className={styles['desc']}>
-        <span id='p-tit'>이 테스트로 당신은...</span>
+        <span className={styles['p-tit']}>이 테스트로 당신은...</span>
         <br />
         당신의 투자성향에 맞는 포트폴리오를 만들 수 있습니다.
         <br />
@@ -67,8 +69,9 @@ export const Onboarding = ({
         <div className={styles['link']}>
           <span>{`->`}</span>
           <a
-            href='https://etfdiy.imweb.me/39'
+            href='https://epiadvisor.com/55'
             target='_blank'
+            rel='noopener noreferrer'
           >{`<투자 MBTI 알아보러 가기>`}</a>
           <span>{`<-`}</span>
         </div>
@@ -80,7 +83,10 @@ export const Onboarding = ({
           placeholder='이름'
           autoFocus
           value={name}
-          onChange={(e) => handleName(e.target.value)}
+          onChange={(e) => {
+            handleName(e.target.value);
+            if (error) setError(false); // Clear error when user starts typing
+          }}
         />
       </div>
       <div className={styles['gender-input']}>
@@ -105,9 +111,9 @@ export const Onboarding = ({
           value={age}
           onChange={(e) => handleAge(e.target.value as AgeValues)}
         >
-          {AGE.map((age) => (
-            <option key={age.value} value={age.value}>
-              {age.label}
+          {AGE.map((ageOption) => (
+            <option key={ageOption.value} value={ageOption.value}>
+              {ageOption.label}
             </option>
           ))}
         </select>
