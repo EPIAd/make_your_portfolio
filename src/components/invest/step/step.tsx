@@ -33,10 +33,16 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
       }
     }, 100); // Slightly faster initial delay
 
+    const resetButtonStyles = () => {
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach((btn) => btn.blur()); // focus된 스타일 제거
+    };
+
     // Handle step transition
     setTimeout(() => {
       handleScores(answer);
       handleStep();
+      resetButtonStyles();
       
       // Reset animations for next question
       setTimeout(() => {
