@@ -371,3 +371,39 @@
     outline-color: #7b9bff;
   }
 }
+.left-btn {
+  background-color: #d60093; /* 빨간색 */
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.right-btn {
+  background-color: #099; /* 파란색 */
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.left-btn:hover,
+.right-btn:hover {
+  background-color: #222;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-btn:active,
+.right-btn:active {
+  transform: translateY(0);
+}
+
