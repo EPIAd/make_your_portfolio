@@ -407,3 +407,12 @@
   transform: translateY(0);
 }
 
+@media (hover: none) {
+  .image-box button:hover,
+  .a:hover {
+    background-color: unset !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
