@@ -45,6 +45,10 @@
   }
   
   button {
+    background-color: unset;
+    color: unset; 
+
+    
     padding: 0.2rem 2rem;
     color: white;
     border: none;
