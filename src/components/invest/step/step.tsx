@@ -87,13 +87,14 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
         {type === 'image' && (
           <div className={styles['image-box']}>
             <div className={styles['buttons']}>
-              {answers.map((answer) => (
+              {answers.map((answer, i) => (
                 <button
                   type='button'
                   key={answer.label}
                   onClick={() => onClickAnswer(answer)}
                   disabled={disabled}
                   aria-label={`Select ${answer.label}`}
+                  className={i === 0 ? styles['left-btn'] : styles['right-btn']}
                 >
                   {answer.label}
                 </button>
