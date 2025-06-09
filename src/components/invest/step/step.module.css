@@ -1,3 +1,15 @@
+/* step.module.css 최상단에 추가 */
+@media (hover: none) {
+  .a:hover,
+  .a:focus,
+  .image-box button:hover {
+    background-color: initial !important;
+    color: inherit !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
 .status-bar {
   margin: 0 12.5% 20px;
   width: 75%;
