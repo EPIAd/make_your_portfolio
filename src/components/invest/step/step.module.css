@@ -8,11 +8,19 @@
    Disable hover effects on touch devices to prevent sticky hover states
    ============================================================================= */
 @media (hover: none) {
+  /* Disable ALL hover and focus effects on touch devices */
   .a:hover,
   .a:focus,
+  .a:focus-visible,
   .image-box button:hover,
+  .image-box button:focus,
+  .image-box button:focus-visible,
   .left-btn:hover,
+  .left-btn:focus,
+  .left-btn:focus-visible,
   .right-btn:hover,
+  .right-btn:focus,
+  .right-btn:focus-visible,
   .img:hover {
     background-color: initial !important;
     color: inherit !important;
@@ -20,6 +28,32 @@
     box-shadow: none !important;
     opacity: 1 !important;
     filter: none !important;
+    outline: none !important;
+  }
+  
+  /* Force original colors on touch devices */
+  .left-btn,
+  .left-btn:hover,
+  .left-btn:focus,
+  .left-btn:active {
+    background-color: #d60093 !important;
+    color: white !important;
+  }
+  
+  .right-btn,
+  .right-btn:hover,
+  .right-btn:focus,
+  .right-btn:active {
+    background-color: #099 !important;
+    color: white !important;
+  }
+  
+  .a,
+  .a:hover,
+  .a:focus,
+  .a:active {
+    background-color: #f8f9fa !important;
+    color: #212121 !important;
   }
 }
 
@@ -138,6 +172,7 @@
    ============================================================================= */
 .image-box {
   margin-top: 1rem;
+  text-align: center; /* Center-align all content including images */
 }
 
 .image-box .buttons {
@@ -203,10 +238,11 @@
 /* Question images */
 .img {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px; /* Increased from 400px for better desktop viewing */
   height: auto;
   border-radius: 10px;
-  margin-top: 1rem;
+  margin: 1rem auto 0; /* Center the image horizontally */
+  display: block; /* Ensure margin auto works for centering */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -313,6 +349,11 @@
     padding: 0.4rem 4.5rem;
     font-size: 2rem;
   }
+  
+  /* Larger images for desktop */
+  .img {
+    max-width: 600px;
+  }
 }
 
 /* Large desktop (1440px+) */
@@ -333,6 +374,11 @@
     margin: 0;
     width: 100%;
     font-size: 1.8rem;
+  }
+  
+  /* Even larger images for large desktop */
+  .img {
+    max-width: 700px;
   }
 }
 
@@ -410,12 +456,29 @@
 
   /* Touch device dark mode reset */
   @media (hover: none) {
-    .left-btn:hover {
+    /* Force original dark mode colors on touch devices */
+    .left-btn,
+    .left-btn:hover,
+    .left-btn:focus,
+    .left-btn:active {
       background-color: #e91e63 !important;
+      color: white !important;
     }
     
-    .right-btn:hover {
+    .right-btn,
+    .right-btn:hover,
+    .right-btn:focus,
+    .right-btn:active {
       background-color: #00bcd4 !important;
+      color: white !important;
+    }
+    
+    .a,
+    .a:hover,
+    .a:focus,
+    .a:active {
+      background-color: #3d3d3d !important;
+      color: #f5f5f5 !important;
     }
   }
 }
