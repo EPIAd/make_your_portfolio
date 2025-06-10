@@ -1,7 +1,7 @@
 import { INVEST_SURVEY, SURVEY_LENGTH } from '@/shared/constants/survey';
 import styles from './step.module.css';
 import { Answers, InvestScores } from '@/shared/types/survey';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 type StepProps = {
   currStep: number;
@@ -16,10 +16,47 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
   const answerRef = useRef<HTMLUListElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
 
+  // Mobile hover fix: Force blur on all buttons after any touch interaction
+  useEffect(() => {
+    const handleTouchStart = () => {
+      // Remove focus from any currently focused element
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    };
+
+    const handleTouchEnd = () => {
+      // Small delay to ensure the click event completes, then blur all buttons
+      setTimeout(() => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((btn) => {
+          btn.blur();
+          // Remove any lingering focus or hover classes
+          btn.classList.remove('focus', 'hover', 'active');
+        });
+      }, 50);
+    };
+
+    // Add touch event listeners to the document
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    // Cleanup on unmount
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
   const onClickAnswer = (answer: Answers) => {
     if (disabled) return;
     
     setDisabled(true);
+
+    // Immediately blur the clicked element to prevent focus persistence
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
 
     // Start fade-out animation
     setTimeout(() => {
@@ -35,7 +72,17 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
 
     const resetButtonStyles = () => {
       const buttons = document.querySelectorAll('button');
-      buttons.forEach((btn) => btn.blur()); // focus된 스타일 제거
+      buttons.forEach((btn) => {
+        btn.blur();
+        // Force remove any hover-related classes or states
+        btn.classList.remove('focus', 'hover', 'active');
+        // Reset any inline styles that might have been applied
+        btn.style.backgroundColor = '';
+        btn.style.color = '';
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
+        btn.style.opacity = '';
+      });
     };
 
     // Handle step transition
