@@ -79,13 +79,10 @@
     }
     
     &:hover {
-      background-color: #222;
+      /* Keep original background-color, just add effects */
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    &:active {
-      transform: translateY(0);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      opacity: 0.9; /* Slightly fade for hover feedback */
     }
   }
 }
@@ -407,11 +404,18 @@
   transition: all 0.3s ease;
 }
 
-.left-btn:hover,
-.right-btn:hover {
-  background-color: #222;
+.left-btn:hover {
+  /* Keep the original #d60093 background */
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
+
+.right-btn:hover {
+  /* Keep the original #099 background */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
 }
 
 .left-btn:active,
