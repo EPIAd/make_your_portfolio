@@ -110,10 +110,11 @@
 
 .a:hover,
 .a:focus {
-  background: #222;
-  color: #eee;
+  /* Keep original background-color (#f8f9fa in light mode, #3d3d3d in dark mode) */
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+  filter: brightness(0.95); /* Slightly darken the existing color */
 }
 
 .a:active {
@@ -247,16 +248,18 @@
   .image-box {
     button {
       &:first-child {
-        background-color: #e91e63; /* Slightly lighter pink for better contrast */
+        background-color: #e91e63;
       }
       
       &:nth-child(2) {
-        background-color: #00bcd4; /* Slightly lighter teal for better contrast */
+        background-color: #00bcd4;
       }
       
       &:hover {
-        background-color: #555; /* Lighter than pure black for dark mode */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        /* Keep original background colors, just add effects */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
       }
     }
   }
@@ -269,10 +272,12 @@
 
   .a:hover,
   .a:focus {
-    background: #555; /* Lighter hover state for dark mode */
-    color: #fff;
-    border-color: #777;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Keep original dark background (#3d3d3d), just add effects */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+    filter: brightness(1.1); /* Slightly brighten for dark mode */
+    /* Remove background: #555 and color: #fff overrides */
   }
 }
 
@@ -424,11 +429,18 @@
 }
 
 @media (hover: none) {
+  .a:hover,
+  .a:focus,
   .image-box button:hover,
-  .a:hover {
-    background-color: unset !important;
+  .left-btn:hover,
+  .right-btn:hover,
+  .img:hover {
+    background-color: initial !important;
+    color: inherit !important;
     transform: none !important;
     box-shadow: none !important;
+    opacity: 1 !important;
+    filter: none !important;
   }
 }
 
