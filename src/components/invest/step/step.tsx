@@ -18,34 +18,36 @@ export const Step = ({ currStep, handleStep, handleScores }: StepProps) => {
 
   // Mobile hover fix: Force blur on all buttons after any touch interaction
   useEffect(() => {
-    const handleTouchStart = () => {
-      // Remove focus from any currently focused element
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
-      }
-    };
-
-    const handleTouchEnd = () => {
-      // Small delay to ensure the click event completes, then blur all buttons
-      setTimeout(() => {
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach((btn) => {
-          btn.blur();
-          // Remove any lingering focus or hover classes
-          btn.classList.remove('focus', 'hover', 'active');
+    // Detect if it's a touch device
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isTouchDevice) {
+      // Add a class to body to identify touch devices
+      document.body.classList.add('is-touch-device');
+      
+      // Force immediate style reset on any touch
+      const handleTouch = () => {
+        // Get all interactive elements
+        const interactiveElements = document.querySelectorAll('button, [role="button"], .a');
+        
+        interactiveElements.forEach(element => {
+          if (element instanceof HTMLElement) {
+            element.blur();
+            // Remove focus outline
+            element.style.outline = 'none';
+          }
         });
-      }, 50);
-    };
-
-    // Add touch event listeners to the document
-    document.addEventListener('touchstart', handleTouchStart, { passive: true });
-    document.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-    // Cleanup on unmount
-    return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchend', handleTouchEnd);
-    };
+      };
+      
+      // Add touch listeners
+      document.addEventListener('touchstart', handleTouch, { passive: true });
+      document.addEventListener('touchend', handleTouch, { passive: true });
+      
+      return () => {
+        document.removeEventListener('touchstart', handleTouch);
+        document.removeEventListener('touchend', handleTouch);
+      };
+    }
   }, []);
 
   const onClickAnswer = (answer: Answers) => {

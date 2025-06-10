@@ -7,54 +7,39 @@
    1. TOUCH DEVICE ADJUSTMENTS
    Disable hover effects on touch devices to prevent sticky hover states
    ============================================================================= */
-@media (hover: none) {
-  /* Disable ALL hover and focus effects on touch devices */
-  .a:hover,
-  .a:focus,
-  .a:focus-visible,
-  .image-box button:hover,
-  .image-box button:focus,
-  .image-box button:focus-visible,
-  .left-btn:hover,
-  .left-btn:focus,
-  .left-btn:focus-visible,
-  .right-btn:hover,
-  .right-btn:focus,
-  .right-btn:focus-visible,
-  .img:hover {
-    background-color: initial !important;
-    color: inherit !important;
-    transform: none !important;
-    box-shadow: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-    outline: none !important;
-  }
-  
-  /* Force original colors on touch devices */
-  .left-btn,
-  .left-btn:hover,
-  .left-btn:focus,
-  .left-btn:active {
-    background-color: #d60093 !important;
-    color: white !important;
-  }
-  
-  .right-btn,
-  .right-btn:hover,
-  .right-btn:focus,
-  .right-btn:active {
-    background-color: #099 !important;
-    color: white !important;
-  }
-  
-  .a,
-  .a:hover,
-  .a:focus,
-  .a:active {
-    background-color: #f8f9fa !important;
-    color: #212121 !important;
-  }
+.is-touch-device button:hover,
+.is-touch-device [role="button"]:hover,
+.is-touch-device .a:hover {
+  background-color: inherit !important;
+  color: inherit !important;
+  transform: none !important;
+  box-shadow: inherit !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.is-touch-device .left-btn,
+.is-touch-device .left-btn:hover,
+.is-touch-device .left-btn:focus,
+.is-touch-device .left-btn:active {
+  background-color: #d60093 !important;
+  color: white !important;
+}
+
+.is-touch-device .right-btn,
+.is-touch-device .right-btn:hover,
+.is-touch-device .right-btn:focus,
+.is-touch-device .right-btn:active {
+  background-color: #099 !important;
+  color: white !important;
+}
+
+.is-touch-device .a,
+.is-touch-device .a:hover,
+.is-touch-device .a:focus,
+.is-touch-device .a:active {
+  background-color: #f8f9fa !important;
+  color: #212121 !important;
 }
 
 /* =============================================================================
