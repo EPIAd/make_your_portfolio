@@ -1,15 +1,32 @@
-/* step.module.css 최상단에 추가 */
+/* =============================================================================
+   STEP COMPONENT STYLES
+   Survey step component with progress bar, questions, answers, and animations
+   ============================================================================= */
+
+/* =============================================================================
+   1. TOUCH DEVICE ADJUSTMENTS
+   Disable hover effects on touch devices to prevent sticky hover states
+   ============================================================================= */
 @media (hover: none) {
   .a:hover,
   .a:focus,
-  .image-box button:hover {
+  .image-box button:hover,
+  .left-btn:hover,
+  .right-btn:hover,
+  .img:hover {
     background-color: initial !important;
     color: inherit !important;
     transform: none !important;
     box-shadow: none !important;
+    opacity: 1 !important;
+    filter: none !important;
   }
 }
 
+/* =============================================================================
+   2. PROGRESS BAR STYLES
+   Visual progress indicator showing survey completion status
+   ============================================================================= */
 .status-bar {
   margin: 0 12.5% 20px;
   width: 75%;
@@ -26,6 +43,10 @@
   background-color: rgba(191, 168, 255, 0.7);
 }
 
+/* =============================================================================
+   3. LAYOUT & CONTAINER STYLES
+   Base container styles with consistent spacing and shadows
+   ============================================================================= */
 .box {
   margin: 0 auto;
   padding: 20px;
@@ -33,60 +54,32 @@
   box-shadow: #ddd 0px 0px 10px 5px;
   border-radius: 20px;
   background: rgb(255, 255, 255);
-  color: #212121; /* Explicit text color for light mode */
+  color: #212121;
 }
 
+/* =============================================================================
+   4. QUESTION STYLES
+   Question container with typography and numbering
+   ============================================================================= */
 .q {
   box-sizing: border-box;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: bolder;
   overflow: hidden;
-  color: #212121; /* Explicit text color */
+  color: #212121;
 }
 
-.image-box {
-  margin-top: 1rem;
-  
-  .buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  button {
-    background-color: unset;
-    color: unset; 
-
-    
-    padding: 0.2rem 2rem;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    
-    &:first-child {
-      background-color: #d60093;
-    }
-    
-    &:nth-child(2) {
-      background-color: #099;
-    }
-    
-    &:hover {
-      /* Keep original background-color, just add effects */
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-      opacity: 0.9; /* Slightly fade for hover feedback */
-    }
-  }
+.question-number {
+  font-weight: 900;
+  color: #0087f5;
+  margin-right: 0.5rem;
 }
 
+/* =============================================================================
+   5. ANSWER STYLES
+   Text-based answer options with hover effects and accessibility
+   ============================================================================= */
 .answer {
   font-size: 1.2rem;
   width: 100%;
@@ -101,8 +94,8 @@
   border-radius: 0.5rem;
   text-align: left;
   cursor: pointer;
-  color: #212121; /* Explicit text color */
-  background-color: #f8f9fa; /* Light background for answers */
+  color: #212121;
+  background-color: #f8f9fa;
   transition: all 0.3s ease;
   font-size: inherit;
   font-family: inherit;
@@ -110,17 +103,123 @@
 
 .a:hover,
 .a:focus {
-  /* Keep original background-color (#f8f9fa in light mode, #3d3d3d in dark mode) */
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   opacity: 0.9;
-  filter: brightness(0.95); /* Slightly darken the existing color */
+  filter: brightness(0.95);
 }
 
 .a:active {
   transform: translateY(0);
 }
 
+.a:focus-visible {
+  outline: 2px solid #0087f5;
+  outline-offset: 2px;
+}
+
+.a[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.answer-number {
+  font-weight: 700;
+  color: #0087f5;
+  margin-right: 0.5rem;
+  display: inline-block;
+  min-width: 2rem;
+}
+
+/* =============================================================================
+   6. IMAGE & BUTTON STYLES
+   Image-based questions with choice buttons and visual elements
+   ============================================================================= */
+.image-box {
+  margin-top: 1rem;
+}
+
+.image-box .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Left choice button (typically "No" or negative option) */
+.left-btn {
+  background-color: #d60093 !important;
+  color: white !important;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Right choice button (typically "Yes" or positive option) */
+.right-btn {
+  background-color: #099 !important;
+  color: white !important;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover effects - keep original colors, add visual feedback */
+.left-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
+
+.right-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
+
+.left-btn:active,
+.right-btn:active {
+  transform: translateY(0);
+}
+
+/* Button disabled states */
+.left-btn:disabled,
+.right-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Question images */
+.img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* =============================================================================
+   7. ANIMATION CLASSES
+   Fade and movement animations for smooth transitions
+   ============================================================================= */
 .fade-out {
   animation: fade-out 0.5s ease-out 0s forwards,
     going-up 0.5s ease-out 0s forwards;
@@ -131,23 +230,31 @@
     going-down 0.5s ease-out 0s forwards;
 }
 
+/* =============================================================================
+   8. RESPONSIVE DESIGN
+   Adaptive layouts for different screen sizes
+   ============================================================================= */
+
+/* Small mobile devices (486px+) */
 @media screen and (min-width: 486px) {
-  .image-box {
-    .buttons {
-      justify-content: space-evenly;
-    }
-    button {
-      padding: 0.4rem 4.5rem;
-    }
+  .image-box .buttons {
+    justify-content: space-evenly;
+  }
+  
+  .left-btn,
+  .right-btn {
+    padding: 0.4rem 4.5rem;
   }
 }
 
+/* Tablets (768px+) */
 @media screen and (min-width: 768px) {
   .status-bar {
     margin: 0px 15% 30px;
     width: 70%;
     height: 20px;
   }
+  
   .box {
     margin: 0 auto;
     padding: 30px;
@@ -155,132 +262,168 @@
     box-shadow: #ddd 0px 0px 10px 5px;
     border-radius: 20px;
   }
+  
   .q {
     margin: 0 auto;
     margin-bottom: 2rem;
-    font-size: 32px;
     font-size: 2rem;
     overflow: hidden;
   }
+  
   .answer {
     margin: 0 10%;
     width: 80%;
     font-size: 1.5rem;
   }
+  
   .a {
     gap: 1.5rem;
     padding: 20px 30px;
     width: 100%;
   }
-  .image-box {
-    button {
-      padding: 0.2rem 3.5rem;
-    }
+  
+  .left-btn,
+  .right-btn {
+    padding: 0.2rem 3.5rem;
   }
 }
 
+/* Desktop (1024px+) */
 @media all and (min-width: 1024px) {
   .status-bar {
     margin: 0px 15% 40px 15%;
   }
+  
   .q {
     margin-bottom: 3rem;
-    font-size: 40px;
     font-size: 2.5rem;
   }
+  
   .answer {
-    font-size: 28.8px;
     font-size: 1.8rem;
   }
+  
   .a {
     padding: 25px 35px;
     width: 100%;
   }
-  .image-box {
-    button {
-      padding: 0.4rem 4.5rem;
-      font-size: 2rem;
-    }
+  
+  .left-btn,
+  .right-btn {
+    padding: 0.4rem 4.5rem;
+    font-size: 2rem;
   }
 }
 
+/* Large desktop (1440px+) */
 @media all and (min-width: 1440px) {
   .status-bar {
     margin: 0 5% 40px 5%;
     width: 90%;
   }
+  
   .q {
     margin-bottom: 3rem;
     width: 100%;
-    font-size: 40px;
     font-size: 2.5rem;
     overflow: hidden;
   }
+  
   .answer {
     margin: 0;
     width: 100%;
-    font-size: 28.8px;
     font-size: 1.8rem;
   }
 }
 
-/* Dark mode styles */
+/* =============================================================================
+   9. DARK MODE STYLES
+   Alternative color scheme for dark theme preference
+   ============================================================================= */
 @media (prefers-color-scheme: dark) {
+  /* Progress bar dark theme */
   .status-bar {
     border-color: #555;
     background: #3d3d3d;
   }
 
   .status {
-    background-color: rgba(191, 168, 255, 0.8); /* Slightly more opaque for better visibility */
+    background-color: rgba(191, 168, 255, 0.8);
   }
 
+  /* Container dark theme */
   .box {
     background: #2d2d2d;
     box-shadow: #444 0px 0px 10px 5px;
     color: #f5f5f5;
   }
 
+  /* Question dark theme */
   .q {
     color: #f5f5f5;
   }
 
-  .image-box {
-    button {
-      &:first-child {
-        background-color: #e91e63;
-      }
-      
-      &:nth-child(2) {
-        background-color: #00bcd4;
-      }
-      
-      &:hover {
-        /* Keep original background colors, just add effects */
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        opacity: 0.9;
-      }
-    }
+  .question-number {
+    color: #7b9bff;
   }
 
+  /* Answer dark theme */
   .a {
     color: #f5f5f5;
-    background-color: #3d3d3d; /* Dark background for answers */
-    border: 1px solid #555; /* Subtle border for definition */
+    background-color: #3d3d3d;
+    border: 1px solid #555;
   }
 
   .a:hover,
   .a:focus {
-    /* Keep original dark background (#3d3d3d), just add effects */
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     opacity: 0.9;
-    filter: brightness(1.1); /* Slightly brighten for dark mode */
-    /* Remove background: #555 and color: #fff overrides */
+    filter: brightness(1.1);
+  }
+
+  .a:focus-visible {
+    outline-color: #7b9bff;
+  }
+
+  .answer-number {
+    color: #7b9bff;
+  }
+
+  /* Button dark theme */
+  .left-btn {
+    background-color: #e91e63 !important;
+  }
+  
+  .right-btn {
+    background-color: #00bcd4 !important;
+  }
+
+  /* Image dark theme */
+  .img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .img:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Touch device dark mode reset */
+  @media (hover: none) {
+    .left-btn:hover {
+      background-color: #e91e63 !important;
+    }
+    
+    .right-btn:hover {
+      background-color: #00bcd4 !important;
+    }
   }
 }
 
+/* =============================================================================
+   10. KEYFRAME ANIMATIONS
+   Custom animations for smooth transitions and visual feedback
+   ============================================================================= */
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -316,131 +459,3 @@
     transform: translateY(10px);
   }
 }
-.img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  border-radius: 10px;
-  margin-top: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.question-number {
-  font-weight: 900;
-  color: #0087f5;
-  margin-right: 0.5rem;
-}
-
-.answer-number {
-  font-weight: 700;
-  color: #0087f5;
-  margin-right: 0.5rem;
-  display: inline-block;
-  min-width: 2rem;
-}
-
-/* Enhanced button states */
-.image-box button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-.a:focus-visible {
-  outline: 2px solid #0087f5;
-  outline-offset: 2px;
-}
-
-.a[aria-disabled="true"] {
-  opacity: 0.6;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* Dark mode styles for new elements */
-@media (prefers-color-scheme: dark) {
-  .img {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .img:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  .question-number {
-    color: #7b9bff; /* Lighter blue for dark mode */
-  }
-
-  .answer-number {
-    color: #7b9bff; /* Lighter blue for dark mode */
-  }
-
-  .a:focus-visible {
-    outline-color: #7b9bff;
-  }
-}
-.left-btn {
-  background-color: #d60093; /* 빨간색 */
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.2rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.right-btn {
-  background-color: #099; /* 파란색 */
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.2rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.left-btn:hover {
-  /* Keep the original #d60093 background */
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  opacity: 0.9;
-}
-
-.right-btn:hover {
-  /* Keep the original #099 background */
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  opacity: 0.9;
-}
-
-.left-btn:active,
-.right-btn:active {
-  transform: translateY(0);
-}
-
-@media (hover: none) {
-  .a:hover,
-  .a:focus,
-  .image-box button:hover,
-  .left-btn:hover,
-  .right-btn:hover,
-  .img:hover {
-    background-color: initial !important;
-    color: inherit !important;
-    transform: none !important;
-    box-shadow: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-  }
-}
-
