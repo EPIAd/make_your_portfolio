@@ -75,13 +75,22 @@ table {
   display: none;
   
   .section {
-    height: 50vh;
+    height: 40vh; /* Reduced from 50vh */
     padding: 1rem;
+    position: relative; /* Add positioning context */
+    overflow: hidden; /* Prevent content overflow */
+  }
+  
+  /* Ensure chart containers respect boundaries */
+  .section > div {
+    height: 100%;
+    width: 100%;
   }
   
   th,
   td {
     padding: 0.5rem;
+    vertical-align: top; /* Align content to top */
   }
   
   .header {
@@ -94,7 +103,7 @@ table {
   
   .title {
     text-align: left;
-    width: 10%;
+    width: 15%; /* Increased from 10% for better balance */
   }
   
   .highlight {
@@ -110,7 +119,34 @@ table {
   
   td.empty {
     border: none;
-    width: 10%;
+    width: 8%; /* Reduced from 10% to give more space to content */
+  }
+}
+
+/* Additional fix for table layout */
+table {
+  width: 100%;
+  border-collapse: separate; /* Changed from collapse to separate */
+  border-spacing: 0; /* Maintain clean borders */
+  table-layout: auto; /* Changed from fixed to auto for better responsive behavior */
+  color: #212121;
+  
+  thead {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #3a3737;
+    
+    th > div {
+      padding: 0.2rem 0.5rem;
+      border-radius: 10rem;
+      box-shadow: 0 0 0 1px #3a3737;
+    }
+  }
+  
+  td {
+    text-align: center;
+    white-space: break-spaces;
+    color: #212121;
   }
 }
 
