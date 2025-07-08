@@ -4,7 +4,7 @@
   background: rgb(252, 252, 252);
   display: flex;
   flex-direction: column;
-  color: #212121; /* Explicit text color for light mode */
+  color: #212121;
 }
 
 section.container {
@@ -16,7 +16,7 @@ section.container {
 h1.title {
   margin-block-end: 0.83em;
   white-space: pre;
-  color: #212121; /* Explicit color for light mode */
+  color: #212121;
 }
 
 .wrapper {
@@ -50,85 +50,6 @@ table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  color: #212121; /* Explicit text color */
-  
-  thead {
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: #3a3737;
-    
-    th > div {
-      padding: 0.2rem 0.5rem;
-      border-radius: 10rem;
-      box-shadow: 0 0 0 1px #3a3737;
-    }
-  }
-  
-  td {
-    text-align: center;
-    white-space: break-spaces;
-    color: #212121; /* Explicit text color */
-  }
-}
-
-.result-table {
-  display: none;
-  
-  .section {
-    height: 40vh; /* Reduced from 50vh */
-    padding: 1rem;
-    position: relative; /* Add positioning context */
-    overflow: hidden; /* Prevent content overflow */
-  }
-  
-  /* Ensure chart containers respect boundaries */
-  .section > div {
-    height: 100%;
-    width: 100%;
-  }
-  
-  th,
-  td {
-    padding: 0.5rem;
-    vertical-align: top; /* Align content to top */
-  }
-  
-  .header {
-    td:not(.empty) {
-      background: #3a3737;
-      color: white;
-      font-weight: 700;
-    }
-  }
-  
-  .title {
-    text-align: left;
-    width: 15%; /* Increased from 10% for better balance */
-  }
-  
-  .highlight {
-    background-color: #ffd9d9;
-  }
-  
-  tr:nth-child(n + 2) {
-    td:not(.empty),
-    th {
-      border: 1px solid #d3d3d3;
-    }
-  }
-  
-  td.empty {
-    border: none;
-    width: 8%; /* Reduced from 10% to give more space to content */
-  }
-}
-
-/* Additional fix for table layout */
-table {
-  width: 100%;
-  border-collapse: separate; /* Changed from collapse to separate */
-  border-spacing: 0; /* Maintain clean borders */
-  table-layout: auto; /* Changed from fixed to auto for better responsive behavior */
   color: #212121;
   
   thead {
@@ -147,6 +68,68 @@ table {
     text-align: center;
     white-space: break-spaces;
     color: #212121;
+    overflow: hidden; /* Prevent content overflow */
+  }
+}
+
+.result-table {
+  display: none;
+  
+  .section {
+    height: 400px; /* Fixed height instead of 50vh */
+    padding: 1rem;
+    position: relative; /* Add positioning context */
+    overflow: hidden; /* Prevent chart overflow */
+    vertical-align: top; /* Align content to top */
+  }
+  
+  /* Define explicit column widths for better layout control */
+  .title {
+    text-align: left;
+    width: 15%; /* Increased from 10% */
+    vertical-align: middle;
+  }
+  
+  th:nth-child(2), td:nth-child(2) { /* ISA column */
+    width: 25%;
+  }
+  
+  th:nth-child(3), td:nth-child(3) { /* 연금저축+IRP column */
+    width: 25%;
+  }
+  
+  th:nth-child(5), td:nth-child(5) { /* 일반예금 column */
+    width: 25%;
+  }
+  
+  th,
+  td {
+    padding: 0.5rem;
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+  .header {
+    td:not(.empty) {
+      background: #3a3737;
+      color: white;
+      font-weight: 700;
+    }
+  }
+  
+  .highlight {
+    background-color: #ffd9d9;
+  }
+  
+  tr:nth-child(n + 2) {
+    td:not(.empty),
+    th {
+      border: 1px solid #d3d3d3;
+    }
+  }
+  
+  td.empty {
+    border: none;
+    width: 10%;
   }
 }
 
@@ -176,13 +159,22 @@ table {
 .mobile-result {
   span {
     font-size: 1.2rem;
-    color: #212121; /* Explicit text color */
+    color: #212121;
   }
+}
+
+/* Chart container styling to ensure proper containment */
+.chart-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
   .result-table {
-    display: block;
+    display: table; /* Changed from 'block' to 'table' */
+    width: 100%;
   }
   .mobile-result-table,
   .mobile-result {
@@ -199,9 +191,9 @@ table {
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
   .container {
-    background: #121212; /* Dark background */
-    box-shadow: #444 0px 0px 10px 5px; /* Darker shadow */
-    color: #f5f5f5; /* Light text */
+    background: #121212;
+    box-shadow: #444 0px 0px 10px 5px;
+    color: #f5f5f5;
   }
 
   h1.title {
@@ -243,7 +235,7 @@ table {
     }
     
     .highlight {
-      background-color: #4a2c2c; /* Darker red highlight for dark mode */
+      background-color: #4a2c2c;
     }
     
     tr:nth-child(n + 2) {
@@ -264,7 +256,7 @@ table {
     }
     
     .blue {
-      color: #7b9bff; /* Lighter blue for better contrast */
+      color: #7b9bff;
     }
   }
 
