@@ -69,7 +69,7 @@ export const Onboarding = ({
         <div className={styles['link']}>
           <span>{`->`}</span>
           <a
-            href='https://epiadvisor.com/55'
+            href='https://epiadvisor.com/mbti_info'
             target='_blank'
             rel='noopener noreferrer'
           >{`<투자 MBTI 알아보러 가기>`}</a>
